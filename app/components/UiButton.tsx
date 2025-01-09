@@ -9,7 +9,6 @@ import { gsap } from "gsap";
 import { Canvas } from "@react-three/fiber";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useTransitionRouter } from "next-transition-router";
 
 const fragment = `
   uniform sampler2D uTexture;
