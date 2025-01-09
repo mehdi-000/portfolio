@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.page-transition {
+  opacity: 0;
+  background: #d689d4;
+  transform: translateY(40px);
+  filter: blur(12px);
+  overflow: hidden;
+}

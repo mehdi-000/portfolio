@@ -1,7 +1,7 @@
 "use client";
 import { Model } from "@/public/model/Cart";
 import { CameraControls, Environment, Loader } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { Suspense, useRef } from "react";
 import { button, buttonGroup, Leva, useControls } from "leva";
 import { DEG2RAD } from "three/src/math/MathUtils.js";
@@ -18,19 +18,6 @@ export const CartComponent = ({}) => {
   useGSAP(() => {
     gsap.timeline({ repeat: -1, onRepeat: rotateCamera });
   });
-
-  const logCameraState = () => {
-    if (cameraControlsRef.current) {
-      const position = new Vector3();
-      const target = new Vector3();
-
-      cameraControlsRef.current.getPosition(position);
-      cameraControlsRef.current.getTarget(target);
-
-      console.log("Camera Position:", position);
-      console.log("Camera Target:", target);
-    }
-  };
 
   const {} = useControls({
     label: "Camera Controls",
@@ -132,8 +119,11 @@ export const CartComponent = ({}) => {
     ),
   });
   return (
-    <div className=" flex md:h-128">
-      <Canvas camera={{ position: [4, 3, 8] }}>
+    <div className="flex md:flex-row flex-col md:h-128">
+      <Canvas
+        fallback={<div>Sorry no WebGL supported!</div>}
+        camera={{ position: [4, 3, 8] }}
+      >
         <CameraControls
           ref={cameraControlsRef}
           mouseButtons={{ left: 0, middle: 0, right: 0, wheel: 0 }}
@@ -144,10 +134,17 @@ export const CartComponent = ({}) => {
           <Model />
         </Suspense>
         <gridHelper position={-0.5} args={[50, 50, 0xc977c7, "teal"]} />
+        <ViewportInfo />
       </Canvas>
-      <div className="max-w-45">
+      <div className="md:max-w-45 md:pt-0 md:pl-2 pt-2">
         <Leva titleBar={{ drag: false }} fill />
       </div>
     </div>
   );
+};
+const ViewportInfo = () => {
+  const { viewport } = useThree();
+  const isMobile = viewport.width < 10;
+
+  return null;
 };

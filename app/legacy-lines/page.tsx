@@ -234,6 +234,7 @@ export default function LegacyLine() {
     <>
       <div className=" flex md:h-128">
         <Canvas
+          fallback={<div>Sorry no WebGL supported!</div>}
           camera={{
             position: [
               -0.04244707683370108, 2.42108826638258, -5.075935083882978,
@@ -255,7 +256,10 @@ export default function LegacyLine() {
         </div>
       </div>
       <div className=" flex md:h-128">
-        <Canvas camera={{ position: [4, 3, 8] }}>
+        <Canvas
+          fallback={<div>Sorry no WebGL supported!</div>}
+          camera={{ position: [4, 3, 8] }}
+        >
           <OrbitControls />
           <Suspense fallback={null}>
             <Model />
@@ -267,6 +271,7 @@ export default function LegacyLine() {
       </div>
       <div className=" flex md:h-128">
         <Canvas
+          fallback={<div>Sorry no WebGL supported!</div>}
           camera={{
             position: [
               -0.04244707683370108, 2.42108826638258, -7.075935083882978,

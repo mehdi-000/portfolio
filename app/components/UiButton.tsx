@@ -196,6 +196,7 @@ export const UiButton = ({
     <div className="relative self-start w-[9.5rem] h-16 rounded-2xl overflow-hidden">
       <div className="absolute inset-0 z-10">
         <Canvas
+          fallback={<div>Sorry no WebGL supported!</div>}
           onPointerEnter={() => handlePointerEnter()}
           onPointerLeave={() => handlePointerLeave()}
           onClick={() => router.push(to)}

@@ -129,6 +129,7 @@ export const WorkCard2 = ({
                 <div className="h-64">
                   <div className="pt-4 h-full">
                     <Canvas
+                      fallback={<div>Sorry no WebGL supported!</div>}
                       camera={{
                         position: [
                           -0.04244707683370108, 2.42108826638258,

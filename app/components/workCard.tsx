@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState, useRef, Ref, use } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { Environment, OrbitControls, useGLTF } from "@react-three/drei";
 import { Suspense } from "react";
 import "./workCard.css";
@@ -29,6 +29,8 @@ export const WorkCard = ({
   const glowCaptureRef = useRef<HTMLDivElement | null>(null);
   const modelRef = useRef<any>(null);
   const tl = useRef<gsap.core.Timeline | null>(null);
+  /*  const { viewport } = useThree(); */
+  /* const isMobile = viewport.width < 10; */
 
   useGSAP((context, contextSafe) => {
     if (contextSafe) {
@@ -102,10 +104,10 @@ export const WorkCard = ({
     });
   }, []);
   return (
-    <div className={"flex flex-grow m-8"}>
+    <div className="flex flex-grow my-4 md:m-8">
       <div
         ref={glowCaptureRef}
-        className="relative h-full glow-capture text-white"
+        className="relative h-full w-full glow-capture text-white"
       >
         <div className="bg-zinc-900/50 border-4 border-pink/5 rounded-2xl py-6 px-10 shadow-black/80 flex flex-col items-center justify-center gap-6 glow glow:bg-glow/[.15]">
           <p className="opacity-50 self-start text-sm tracking-wide">
@@ -117,9 +119,10 @@ export const WorkCard = ({
                 {title}
               </h2>
               <div className="prose prose-zinc prose-invert prose-lg md:prose-base text-opacity-90 glow:text-glow/[.80]">
-                <div className="h-64">
+                <div className="md:h-64 md:max-w-64 max-w-24">
                   <div className="pt-4 h-full">
                     <Canvas
+                      fallback={<div>Sorry no WebGL supported!</div>}
                       camera={{
                         position: [
                           -0.04244707683370108, 2.42108826638258,
@@ -138,7 +141,11 @@ export const WorkCard = ({
                         }
                       />
                       <Suspense fallback={null}>
-                        <Model ref={modelRef} scale={[0, 0, 0]} />
+                        <Model
+                          ref={modelRef}
+                          scale={[0, 0, 0]}
+                          disableMobileScaling
+                        />
                       </Suspense>
                       <directionalLight />
                       <ambientLight intensity={0.5} />

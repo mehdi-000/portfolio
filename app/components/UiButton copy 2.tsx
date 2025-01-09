@@ -77,12 +77,10 @@ const Particles = ({
   const rows = isMobile ? 8 * 24 : 16 * 24;
   const columns = isMobile ? 13 * 24 : 9 * 24;
 
-  // Leva control for progress
   const { progress } = useControls("Particle Controls", {
     progress: { value: 0, min: 0, max: 1, step: 0.01 },
   });
 
-  // Update shader uniform with Leva value
   if (shader.current) {
     shader.current.uniforms.uProgress.value = progress;
   }
@@ -177,7 +175,7 @@ export const UiButton = ({
 
   return (
     <div className="relative w-full">
-      <Canvas>
+      <Canvas fallback={<div>Sorry no WebGL supported!</div>}>
         <OrbitControls />
         <Environment preset="apartment" backgroundBlurriness={0.5} />
         <Particles

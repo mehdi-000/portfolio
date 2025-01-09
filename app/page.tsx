@@ -1,20 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
-import { useState, useRef } from "react";
-import { Canvas } from "@react-three/fiber";
-import { Bounds, CameraControls, OrbitControls } from "@react-three/drei";
-import { Suspense } from "react";
-import { Model } from "../public/model/Cart";
-import { useMouse } from "@uidotdev/usehooks";
+
 import { Logoanimated } from "../app/components/3D/logoanimated";
-import { cn } from "../app/utils/tailwind";
-import { div } from "three/examples/jsm/nodes/Nodes.js";
-import { is } from "@react-three/fiber/dist/declarations/src/core/utils";
+
 import { Work } from "./components/work";
 import { SkillsGame } from "@/app/components/3D/skillsGame";
-
-import dynamic from "next/dynamic";
+import { PixelBackground } from "@/app/components/pixel-background/pixelBackground";
+import { TransitionLink } from "./utils/TransitionLink";
 
 export default function Home() {
   return (
@@ -25,7 +17,7 @@ export default function Home() {
             <p>work</p>
           </Link>
 
-          <Link href={"#experince"} className="work m-2">
+          <Link href={"#experience"} className="work m-2">
             <p>experience</p>
           </Link>
 
@@ -51,9 +43,12 @@ export default function Home() {
               <code className="font-mono font-bold">Front-End-Developer</code>
             </p>
           </div>
+          <TransitionLink href="/cyberpunk-cart">
+            <p>contact</p>
+          </TransitionLink>
         </div>
         <Work />
-        <div className="bg-zinc-900/50 w-full border-4 border-pink/5 rounded-2xl py-6 px-10 shadow-black/80 flex flex-col items-center justify-center gap-6">
+        <div className="bg-zinc-900/50 w-full border-4 border-pink/5 rounded-2xl py-6 px-10 shadow-black/80 flex flex-col items-center justify-center gap-6 cursor-none">
           <p className="opacity-50 self-start text-sm tracking-wide">Skills</p>
           <div className=" w-full group bg-zinc-950/70 border-4 border-pink/5 rounded-2xl p-6 shadow-lg shadow-black/80 flex flex-col md:flex-row items-center md:items-start justify-center gap-8 backdrop-blur-md glow glow:ring-1 glow:border-glow glow:ring-glow">
             <div className="flex-1 order-2 md:order-1">

@@ -41,11 +41,11 @@ export default function Wotw() {
                 <p className="opacity-50">
                   The Game was created as an University project together with
                   Sophie Kretschmann which got expanded on over time. <br />
-                  Goal was to create a fully functionable scaleable Visual Novel
+                  Goal was to create a fully functional scalable Visual Novel
                   prototype, with emphasis on an interactive story <br />{" "}
                   multiple story paths based on the inventory system, players
                   choices and a mini game to break up the story in inside <br />
-                  the game engine Unity. Initally for mobile but support for
+                  the game engine Unity. Initially for mobile but support for
                   other devices is planned.
                 </p>
               </div>

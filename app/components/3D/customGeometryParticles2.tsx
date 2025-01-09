@@ -190,6 +190,7 @@ export const CustomGeometryParticles2 = ({
     <div className="relative self-start w-[9.5rem] h-[4.2rem]">
       <div className="absolute inset-0 z-10">
         <Canvas
+          fallback={<div>Sorry no WebGL supported!</div>}
           onPointerEnter={() => handlePointerEnter()}
           onPointerLeave={() => handlePointerLeave()}
           onClick={() => router.push(to)}

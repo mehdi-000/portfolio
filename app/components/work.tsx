@@ -30,7 +30,7 @@ export const Work = () => {
           description="Explore an epic 2D game experience."
           buttonLink="/cyberpunk-cart"
         />
-        <div className="text-center ml-auto overflow-clip">
+        <div className="text-center md:ml-auto overflow-hidden">
           <h3>WADADADWADSDwJsbjabddnawdjadjabwdjbadjabwdjabs dnaw</h3>
         </div>
       </div>
@@ -50,7 +50,7 @@ export const Work = () => {
         heading="Website"
         model={LegacyLines}
         title="LegacyLines"
-        description="Explore your ancestorial history with LegacyLines."
+        description="Explore your ancestral history with LegacyLines."
         buttonLink="/legacy-lines"
       />
     </>

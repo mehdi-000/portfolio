@@ -25,6 +25,7 @@ export const Logoanimated = ({}) => {
     <>
       <div className="h-[95%] hidden md:block">
         <Canvas
+          fallback={<div>Sorry no WebGL supported!</div>}
           shadows
           camera={{
             fov: 90,
@@ -45,6 +46,7 @@ export const Logoanimated = ({}) => {
       </div>
       <div className="h-5/6  block md:hidden">
         <Canvas
+          fallback={<div>Sorry no WebGL supported!</div>}
           shadows
           camera={{
             fov: 90,

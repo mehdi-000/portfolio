@@ -8,15 +8,30 @@ Files: cart.gltf [35.53MB] > C:\Users\mehdi\Documents\Uni\Bachelor\my-portfolio-
 import { forwardRef } from "react";
 import * as THREE from "three";
 import { useGLTF } from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
 
 type GroupProps = JSX.IntrinsicElements["group"];
-interface ModelProps extends GroupProps {}
+interface ModelProps extends GroupProps {
+  disableMobileScaling?: boolean;
+}
 
 // Forward ref for the Model component
 export const Model = forwardRef<THREE.Group, ModelProps>((props, ref) => {
+  const { viewport } = useThree();
+  const isMobile = viewport.width < 10;
+  const { disableMobileScaling } = props;
+
   const { nodes, materials } = useGLTF("/cart-transformed.glb") as any;
+
   return (
-    <group ref={ref} {...props} dispose={null}>
+    <group
+      ref={ref}
+      {...props}
+      dispose={null}
+      {...(disableMobileScaling
+        ? {}
+        : { scale: isMobile ? [0.5, 0.5, 0.5] : [1, 1, 1] })}
+    >
       <mesh
         geometry={nodes.Sweep.geometry}
         material={materials.PaletteMaterial001}
