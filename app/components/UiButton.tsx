@@ -147,7 +147,6 @@ export const UiButton = ({
   const vertices: number[] = [];
   const initPosition: number[] = [];
   const tl = gsap.timeline({ paused: true });
-  const router = useTransitionRouter();
   const [container, setContainer] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -198,7 +197,6 @@ export const UiButton = ({
           fallback={<div>Sorry no WebGL supported!</div>}
           onPointerEnter={() => handlePointerEnter()}
           onPointerLeave={() => handlePointerLeave()}
-          onClick={() => router.push(to)}
         >
           <Particles
             picture={picture}
