@@ -55,7 +55,7 @@ export const Logoanimated = ({}) => {
           <Suspense fallback={null}>
             <CustomGeometryParticles
               shape="square"
-              picture="/pictures/7cropped.png"
+              picture="/pictures/7.png"
               isMobile
               fitToBox
             />
