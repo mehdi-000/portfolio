@@ -1,7 +1,7 @@
 "use client";
 import { Model } from "../../public/model/Cart";
 import { WotwTitle } from "../../public/WotW";
-import { PlayerModel } from "../../public/model/PlayerModel";
+import { PlayerModel } from "@/public/PlayerModel";
 import { LegacyLines } from "../../public/model/LegacyLines4";
 import { WorkCard } from "../components/workCard";
 import { WorkCard2 } from "../components/workCard copy";

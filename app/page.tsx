@@ -6,11 +6,12 @@ import { Logoanimated } from "../app/components/3D/logoanimated";
 import { Work } from "./components/work";
 import { SkillsGame } from "@/app/components/3D/skillsGame";
 import { PixelBackground } from "@/app/components/pixel-background/pixelBackground";
-import { TransitionLink } from "./utils/TransitionLink";
+import { TransitionLink } from "@/app/utils/HandleTransition";
 
 export default function Home() {
   return (
     <>
+      <TransitionLink />
       <main className="flex flex-col items-center justify-between overflow-hidden p-10 bg-black text-pink font-mono">
         <div className="z-10 flex justify-evenly">
           <Link href={"#work"} className="work m-2">
@@ -43,9 +44,9 @@ export default function Home() {
               <code className="font-mono font-bold">Front-End-Developer</code>
             </p>
           </div>
-          <TransitionLink href="/cyberpunk-cart">
+          {/*           <TransitionLink href="/cyberpunk-cart">
             <p>contact</p>
-          </TransitionLink>
+          </TransitionLink> */}
         </div>
         <Work />
         <div className="bg-zinc-900/50 w-full border-4 border-pink/5 rounded-2xl py-6 px-10 shadow-black/80 flex flex-col items-center justify-center gap-6 cursor-none">

@@ -24,6 +24,7 @@ import { Model } from "@/public/3D models/Butterfly";
 import { WotwTitle } from "../../public/model/WotW_title_3D1";
 import { UiButton } from "../components/UiButton copy 2";
 import { LegacyLines } from "../../public/model/LegacyLines4";
+import { PlayerModel } from "@/public/PlayerModel";
 
 function Foo() {
   const { camera } = useThree();
@@ -43,9 +44,6 @@ function CameraLogger({
 
       cameraControlsRef.current.getPosition(position);
       cameraControlsRef.current.getTarget(target);
-
-      console.log("Camera Position:", position);
-      console.log("Camera Target:", target);
     }
   });
   return null;
@@ -287,6 +285,15 @@ export default function LegacyLine() {
       </div>
       <div className=" flex md:h-128">
         <UiButton picture="/pictures/buttonBackground.png" />
+      </div>
+      <div className="flex md:h-128">
+        <Canvas>
+          <OrbitControls />
+          <Suspense fallback={null}>
+            <PlayerModel />
+          </Suspense>
+          <Environment preset="night" background backgroundBlurriness={0.5} />
+        </Canvas>
       </div>
     </>
   );

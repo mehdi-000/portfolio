@@ -6,8 +6,8 @@ import { Suspense } from "react";
 import "./workCard.css";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { Euler, Vector3 } from "three";
-import { UiButton } from "./UiButton";
+import { Vector3 } from "three";
+import { UiButton } from "@/app/components/UiButton";
 
 type WorkCardProps = {
   model: any;
@@ -113,13 +113,13 @@ export const WorkCard = ({
           <p className="opacity-50 self-start text-sm tracking-wide">
             {heading}
           </p>
-          <div className="group bg-zinc-950/70 border-4 border-pink/5 rounded-2xl p-6 shadow-lg shadow-black/80 flex flex-col md:flex-row items-center md:items-start justify-center gap-8 backdrop-blur-md glow glow:ring-1 glow:border-glow glow:ring-glow">
+          <div className="group w-full bg-zinc-950/70 border-4 border-pink/5 rounded-2xl p-6 shadow-lg shadow-black/80 flex flex-col md:flex-row items-center md:items-start justify-center gap-8 backdrop-blur-md glow glow:ring-1 glow:border-glow glow:ring-glow">
             <div className="flex-1 order-2 md:order-1">
               <h2 className="font-bold text-3xl md:text-4xl tracking-tight mb-4 glow:text-glow/[.80]">
                 {title}
               </h2>
-              <div className="prose prose-zinc prose-invert prose-lg md:prose-base text-opacity-90 glow:text-glow/[.80]">
-                <div className="md:h-64 md:max-w-64 max-w-24">
+              <div className="flex justify-center prose prose-zinc prose-invert prose-lg md:prose-base text-opacity-90 glow:text-glow/[.80]">
+                <div className="md:h-64 md:max-w-64 max-w-40">
                   <div className="pt-4 h-full">
                     <Canvas
                       fallback={<div>Sorry no WebGL supported!</div>}
@@ -147,13 +147,13 @@ export const WorkCard = ({
                           disableMobileScaling
                         />
                       </Suspense>
-                      <directionalLight />
+                      {/*          <directionalLight /> */}
                       <ambientLight intensity={0.5} />
-                      <pointLight position={[-30, 0, -30]} power={10.0} />
-                      <Environment
+                      {/*      <pointLight position={[-30, 0, -30]} power={10.0} /> */}
+                      {/*                       <Environment
                         preset="apartment"
                         backgroundBlurriness={0.5}
-                      />
+                      /> */}
                     </Canvas>
                   </div>
                 </div>

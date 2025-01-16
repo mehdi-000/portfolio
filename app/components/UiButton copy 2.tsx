@@ -69,7 +69,6 @@ const Particles = ({
   initPosition,
   tl,
 }: any) => {
-  const cameraControlsRef = useRef<CameraControls>(null!);
   const points = useRef<THREE.Points>(null!);
   const shader = useRef<THREE.ShaderMaterial>(null!);
 

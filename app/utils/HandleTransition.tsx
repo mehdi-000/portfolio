@@ -61,7 +61,10 @@ export const TransitionLink = ({}) => {
 
 export const useHandleTransition = () => {
   const router = useRouter();
-  const handleTransition = async (e: ThreeEvent<MouseEvent>, href: string) => {
+  const handleTransition = async (
+    e: ThreeEvent<MouseEvent> | React.MouseEvent<HTMLDivElement>,
+    href: string
+  ) => {
     e.stopPropagation();
     const body = document.body;
 

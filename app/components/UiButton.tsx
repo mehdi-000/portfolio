@@ -9,6 +9,7 @@ import { gsap } from "gsap";
 import { Canvas } from "@react-three/fiber";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useHandleTransition } from "@/app/utils/HandleTransition";
 
 const fragment = `
   uniform sampler2D uTexture;
@@ -148,7 +149,7 @@ export const UiButton = ({
   const initPosition: number[] = [];
   const tl = gsap.timeline({ paused: true });
   const [container, setContainer] = useState<HTMLElement | null>(null);
-
+  const handleTransition = useHandleTransition();
   useEffect(() => {
     setContainer(document.body);
   }, []);
@@ -197,6 +198,7 @@ export const UiButton = ({
           fallback={<div>Sorry no WebGL supported!</div>}
           onPointerEnter={() => handlePointerEnter()}
           onPointerLeave={() => handlePointerLeave()}
+          onClick={(e) => handleTransition(e, to)}
         >
           <Particles
             picture={picture}

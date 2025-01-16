@@ -13,7 +13,7 @@ interface ModelProps extends GroupProps {}
 
 // eslint-disable-next-line react/display-name
 export const PlayerModel = forwardRef<THREE.Group, ModelProps>((props, ref) => {
-  const { nodes, materials } = useGLTF("/PlayerModel-transformed.glb") as any;
+  const { nodes, materials } = useGLTF("/PlayerModel.glb") as any;
   return (
     <group ref={ref} {...props} dispose={null}>
       <mesh
@@ -41,4 +41,4 @@ export const PlayerModel = forwardRef<THREE.Group, ModelProps>((props, ref) => {
   );
 });
 
-useGLTF.preload("/PlayerModel-transformed.glb");
+useGLTF.preload("PlayerModel.glb");
