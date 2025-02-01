@@ -1,20 +1,7 @@
 "use client";
-import {
-  CameraControls,
-  Environment,
-  Loader,
-  OrbitControls,
-  useProgress,
-} from "@react-three/drei";
+import { CameraControls, Environment, OrbitControls } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import {
-  Suspense,
-  use,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import { Suspense, useLayoutEffect, useRef, useState } from "react";
 import { button, buttonGroup, Leva, useControls } from "leva";
 import { DEG2RAD } from "three/src/math/MathUtils.js";
 import { Vector3, Group, Euler } from "three";
@@ -22,7 +9,6 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Model } from "@/public/3D models/Butterfly";
 import { WotwTitle } from "../../public/model/WotW_title_3D1";
-import { UiButton } from "../components/UiButton copy 2";
 import { LegacyLines } from "../../public/model/LegacyLines4";
 import { PlayerModel } from "@/public/PlayerModel";
 
@@ -282,9 +268,6 @@ export default function LegacyLine() {
             <WotwTitle ref={titleRef} />
           </Suspense>
         </Canvas>
-      </div>
-      <div className=" flex md:h-128">
-        <UiButton picture="/pictures/buttonBackground.png" />
       </div>
       <div className="flex md:h-128">
         <Canvas>
