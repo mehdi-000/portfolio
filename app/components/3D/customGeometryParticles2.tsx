@@ -6,7 +6,7 @@ import { randFloat } from "three/src/math/MathUtils.js";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { Canvas } from "@react-three/fiber";
-import { useRouter } from "next/navigation";
+import { useTransitionRouter } from "next-transition-router";
 import Link from "next/link";
 
 const fragment = `
@@ -146,7 +146,7 @@ export const CustomGeometryParticles2 = ({
   const vertices: number[] = [];
   const initPosition: number[] = [];
   const tl = gsap.timeline({ paused: true });
-  const router = useRouter();
+  const router = useTransitionRouter();
   const container = document.body;
 
   const generateParticlePositions = () => {

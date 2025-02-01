@@ -4,7 +4,6 @@ import { WotwTitle } from "../../public/WotW";
 import { PlayerModel } from "@/public/PlayerModel";
 import { LegacyLines } from "../../public/model/LegacyLines4";
 import { WorkCard } from "../components/workCard";
-import { WorkCard2 } from "../components/workCard copy";
 
 export const Work = () => {
   return (
@@ -46,7 +45,7 @@ export const Work = () => {
           buttonLink="/wotw"
         />
       </div>
-      <WorkCard2
+      <WorkCard
         heading="Website"
         model={LegacyLines}
         title="LegacyLines"

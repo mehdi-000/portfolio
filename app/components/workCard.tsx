@@ -150,10 +150,10 @@ export const WorkCard = ({
                       {/*          <directionalLight /> */}
                       <ambientLight intensity={0.5} />
                       {/*      <pointLight position={[-30, 0, -30]} power={10.0} /> */}
-                      {/*                       <Environment
+                      <Environment
                         preset="apartment"
                         backgroundBlurriness={0.5}
-                      /> */}
+                      />
                     </Canvas>
                   </div>
                 </div>

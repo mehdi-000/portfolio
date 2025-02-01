@@ -1,24 +1,18 @@
-import Image from "next/image";
-import Link from "next/link";
-
 import { Logoanimated } from "../app/components/3D/logoanimated";
-
 import { Work } from "./components/work";
 import { SkillsGame } from "@/app/components/3D/skillsGame";
-import { PixelBackground } from "@/app/components/pixel-background/pixelBackground";
-import { TransitionLink } from "@/app/utils/HandleTransition";
+import { Link } from "next-transition-router";
 
 export default function Home() {
   return (
     <>
-      <TransitionLink />
       <main className="flex flex-col items-center justify-between overflow-hidden p-10 bg-black text-pink font-mono">
         <div className="z-10 flex justify-evenly">
-          <Link href={"#work"} className="work m-2">
+          <Link href={"/cyberpunk-cart"} className="work m-2">
             <p>work</p>
           </Link>
 
-          <Link href={"#experience"} className="work m-2">
+          <Link href={"/wotw"} className="work m-2">
             <p>experience</p>
           </Link>
 
@@ -28,12 +22,6 @@ export default function Home() {
         </div>
 
         <div className="w-full h-144 md:h-screen">
-          {/*           <button
-            onClick={playanimation}
-            style={{ position: "absolute", top: "10px", left: "10px" }}
-          >
-            Click me to animate!
-          </button> */}
           <Logoanimated />
           <h1 className="md:text-6xl text-5xl absolute top-28 right-10 md:top-[39%] md:left-[38%] z-20">
             Hello World
@@ -44,9 +32,6 @@ export default function Home() {
               <code className="font-mono font-bold">Front-End-Developer</code>
             </p>
           </div>
-          {/*           <TransitionLink href="/cyberpunk-cart">
-            <p>contact</p>
-          </TransitionLink> */}
         </div>
         <Work />
         <div className="bg-zinc-900/50 w-full border-4 border-pink/5 rounded-2xl py-6 px-10 shadow-black/80 flex flex-col items-center justify-center gap-6 cursor-none">

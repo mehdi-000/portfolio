@@ -18,6 +18,7 @@
     "gsap": "^3.12.5",
     "leva": "^0.9.35",
     "next": "14.2.3",
+    "next-transition-router": "^0.2.7",
     "react": "^18",
     "react-dom": "^18",
     "tailwind-merge": "^2.3.0",

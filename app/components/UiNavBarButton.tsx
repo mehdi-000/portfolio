@@ -1,5 +1,4 @@
 "use client";
-import { TransitionLink } from "@/app/utils/TransitionLink";
 import gsap from "gsap";
 import Link, { LinkProps } from "next/link";
 import { ReactNode, useRef } from "react";

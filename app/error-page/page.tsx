@@ -13,10 +13,7 @@ import { MeshTransmissionMaterial } from "@react-three/drei";
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { gsap } from "gsap";
-import {
-  TransitionLink,
-  useHandleTransition,
-} from "@/app/utils/HandleTransition";
+import { useTransitionRouter } from "next-transition-router";
 
 export default function ErrorPage() {
   const [cursorStyle, setCursorStyle] = useState<React.CSSProperties>({
@@ -25,7 +22,6 @@ export default function ErrorPage() {
 
   return (
     <>
-      <TransitionLink />
       <div className="w-screen h-screen">
         <Canvas
           style={cursorStyle}
@@ -50,7 +46,7 @@ function Model({
   const ref = useRef<THREE.Mesh>(null);
   const isMobile = viewport.width < 10;
   const mesh = useRef<THREE.Mesh | null>(null);
-  const handleTransition = useHandleTransition();
+  const router = useTransitionRouter();
 
   useEffect(() => {
     if (!ref.current) {
@@ -119,7 +115,7 @@ function Model({
           fontSize={0.38}
           onPointerEnter={() => setCursorStyle({ cursor: "pointer" })}
           onPointerLeave={() => setCursorStyle({ cursor: "default" })}
-          onClick={(e) => handleTransition(e, "/")}
+          onClick={() => router.push("/")}
           color="#d487d2"
           position={isMobile ? [-2, 14, 1] : [-2, 6, 1]}
         >
@@ -130,7 +126,7 @@ function Model({
           fontSize={0.38}
           onPointerEnter={() => setCursorStyle({ cursor: "pointer" })}
           onPointerLeave={() => setCursorStyle({ cursor: "default" })}
-          onClick={(e) => handleTransition(e, "/")}
+          onClick={() => router.push("/")}
           color="#d487d2"
           position={isMobile ? [-0.2, 14, 1] : [-0.2, 6, 1]}
         >
@@ -141,7 +137,7 @@ function Model({
           fontSize={0.38}
           onPointerEnter={() => setCursorStyle({ cursor: "pointer" })}
           onPointerLeave={() => setCursorStyle({ cursor: "default" })}
-          onClick={(e) => handleTransition(e, "/")}
+          onClick={() => router.push("/")}
           color="#d487d2"
           position={isMobile ? [2, 14, 1] : [2, 6, 1]}
         >
