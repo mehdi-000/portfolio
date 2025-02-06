@@ -12,7 +12,7 @@ import * as THREE from "three";
 type GroupProps = JSX.IntrinsicElements["group"];
 interface ModelProps extends GroupProps {}
 
-export const WotwTitle = forwardRef<THREE.Group, ModelProps>((props, ref) => {
+export const Model = forwardRef<THREE.Group, ModelProps>((props, ref) => {
   const { nodes, materials } = useGLTF("/WotW_title_3D-transformed.glb") as any;
   return (
     <group ref={ref} {...props} dispose={null}>
@@ -26,5 +26,5 @@ export const WotwTitle = forwardRef<THREE.Group, ModelProps>((props, ref) => {
     </group>
   );
 });
-
 useGLTF.preload("/WotW_title_3D-transformed.glb");
+export default Model;

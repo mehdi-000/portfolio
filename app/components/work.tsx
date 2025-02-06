@@ -1,9 +1,10 @@
 "use client";
-import { Model } from "../../public/model/Cart";
-import { WotwTitle } from "../../public/WotW";
+/* import { Cart } from "@/public/model/Cart";
+import { WotwTitle } from "@/public/WotW";
 import { PlayerModel } from "@/public/PlayerModel";
-import { LegacyLines } from "../../public/model/LegacyLines4";
-import { WorkCard } from "../components/workCard";
+import { LegacyLines } from "@/public/model/LegacyLines"; */
+import { WorkCard } from "@/app/components/workCard";
+import { Suspense } from "react";
 
 export const Work = () => {
   return (
@@ -13,18 +14,17 @@ export const Work = () => {
           Work
         </h2>
       </div>
-
       <div className="z-10 w-full items-center md:flex">
         <WorkCard
           heading="2D Game"
-          model={PlayerModel}
+          model="PlayerModel"
           title="Way of the Warrior"
           description="Explore an epic 2D game experience."
           buttonLink="/wotw"
         />
         <WorkCard
           heading="3D Model"
-          model={Model}
+          model="Cart"
           title="Cyberpunk Cart"
           description="Explore an epic 2D game experience."
           buttonLink="/cyberpunk-cart"
@@ -39,7 +39,7 @@ export const Work = () => {
         </div>
         <WorkCard
           heading="2D Game"
-          model={WotwTitle}
+          model="WotwTitle"
           title="Way of the Warrior"
           description="Explore an epic 2D game experience."
           buttonLink="/wotw"
@@ -47,7 +47,7 @@ export const Work = () => {
       </div>
       <WorkCard
         heading="Website"
-        model={LegacyLines}
+        model="LegacyLines"
         title="LegacyLines"
         description="Explore your ancestral history with LegacyLines."
         buttonLink="/legacy-lines"

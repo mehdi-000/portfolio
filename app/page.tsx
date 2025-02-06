@@ -1,29 +1,45 @@
-import { Logoanimated } from "../app/components/3D/logoanimated";
-import { Work } from "./components/work";
+"use client";
+import { Logoanimated } from "@/app/components/3D/logoanimated";
+import { Navbar } from "@/app/components/navbar";
+import { Work } from "@/app/components/work";
 import { SkillsGame } from "@/app/components/3D/skillsGame";
-import { Link } from "next-transition-router";
+import { Suspense, useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 
 export default function Home() {
+  const DynamicSkillGame = dynamic(
+    () => import("@/app/components/3D/skillsGame")
+  );
+  const ref = useRef<HTMLDivElement>(null);
+  const [load, setLoad] = useState(false);
+
+  useEffect(() => {
+    const currentRef = ref.current;
+
+    const observer = new IntersectionObserver(function (entries, observer) {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          currentRef ? observer.unobserve(currentRef) : null;
+          setLoad(true);
+        }
+      });
+    });
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
+
+    return () => {
+      if (currentRef) observer.unobserve(currentRef);
+    };
+  }, [ref]);
+
   return (
     <>
-      <main className="flex flex-col items-center justify-between overflow-hidden p-10 bg-black text-pink font-mono">
-        <div className="z-10 flex justify-evenly">
-          <Link href={"/cyberpunk-cart"} className="work m-2">
-            <p>work</p>
-          </Link>
-
-          <Link href={"/wotw"} className="work m-2">
-            <p>experience</p>
-          </Link>
-
-          <Link href={"#contact"} className="contact m-2">
-            <p>contact</p>
-          </Link>
-        </div>
-
+      <main className="flex flex-col items-center justify-between overflow-hidden p-10 bg-black text-white font-mono">
+        <Navbar />
         <div className="w-full h-144 md:h-screen">
           <Logoanimated />
-          <h1 className="md:text-6xl text-5xl absolute top-28 right-10 md:top-[39%] md:left-[38%] z-20">
+          <h1 className="md:text-6xl text-5xl absolute top-28 right-10 md:top-[39%] md:left-[38%] z-20 ">
             Hello World
           </h1>
           <div className="absolute bottom-44 right-3 md:bottom-0 md:right-0 p-5">
@@ -34,16 +50,16 @@ export default function Home() {
           </div>
         </div>
         <Work />
-        <div className="bg-zinc-900/50 w-full border-4 border-pink/5 rounded-2xl py-6 px-10 shadow-black/80 flex flex-col items-center justify-center gap-6 cursor-none">
+        <div className="bg-zinc-900/50 w-full border-4 border-blue/5 rounded-2xl py-6 px-10 shadow-black/80 flex flex-col items-center justify-center gap-6 cursor-none">
           <p className="opacity-50 self-start text-sm tracking-wide">Skills</p>
-          <div className=" w-full group bg-zinc-950/70 border-4 border-pink/5 rounded-2xl p-6 shadow-lg shadow-black/80 flex flex-col md:flex-row items-center md:items-start justify-center gap-8 backdrop-blur-md glow glow:ring-1 glow:border-glow glow:ring-glow">
+          <div className=" w-full group bg-zinc-950/70 border-4 border-blue/5 rounded-2xl p-6 shadow-lg shadow-black/80 flex flex-col md:flex-row items-center md:items-start justify-center gap-8 backdrop-blur-md glow glow:ring-1 glow:border-glow glow:ring-glow">
             <div className="flex-1 order-2 md:order-1">
               <h2 className="font-bold text-3xl md:text-4xl tracking-tight mb-4 glow:text-glow/[.80]">
                 Experience
               </h2>
               <div className="prose prose-zinc prose-invert prose-lg md:prose-base text-opacity-90 glow:text-glow/[.80]">
-                <div className="pt-4 h-full w-full">
-                  <SkillsGame />
+                <div className="pt-4 h-full w-full" ref={ref}>
+                  {load ? <DynamicSkillGame /> : null}
                 </div>
               </div>
             </div>

@@ -75,3 +75,5 @@ export const Model = forwardRef<THREE.Group, ModelProps>((props, ref) => {
     </group>
   );
 });
+
+export default Model;

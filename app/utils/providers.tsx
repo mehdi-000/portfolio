@@ -114,8 +114,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <TransitionRouter
       auto={true}
       leave={(next, from, to) => {
-        console.log({ from, to });
-
         const tl2 = gsap.timeline({}).fromTo(
           firstLayer.current,
           { display: "none" },
@@ -155,7 +153,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       >
         <Canvas fallback={<div>Sorry no WebGL supported!</div>}>
           <Particles
-            picture={"/pictures/buttonBackground.png"}
+            picture={"/pictures/turqouis8Backround.png"}
             isMobile={isMobile}
             camDistance={0.9}
             vertices={vertices}

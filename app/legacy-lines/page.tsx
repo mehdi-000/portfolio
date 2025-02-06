@@ -8,8 +8,8 @@ import { Vector3, Group, Euler } from "three";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Model } from "@/public/3D models/Butterfly";
-import { WotwTitle } from "../../public/model/WotW_title_3D1";
-import { LegacyLines } from "../../public/model/LegacyLines4";
+import { WotwTitle } from "@/public/model/WotwTitle";
+import { LegacyLines } from "@/public/model/LegacyLines";
 import { PlayerModel } from "@/public/PlayerModel";
 
 function Foo() {

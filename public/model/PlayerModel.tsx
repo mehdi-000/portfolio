@@ -12,7 +12,7 @@ type GroupProps = JSX.IntrinsicElements["group"];
 interface ModelProps extends GroupProps {}
 
 // eslint-disable-next-line react/display-name
-export const PlayerModel = forwardRef<THREE.Group, ModelProps>((props, ref) => {
+export const Model = forwardRef<THREE.Group, ModelProps>((props, ref) => {
   const { nodes, materials } = useGLTF("/PlayerModel.glb") as any;
   return (
     <group ref={ref} {...props} dispose={null}>
@@ -40,5 +40,5 @@ export const PlayerModel = forwardRef<THREE.Group, ModelProps>((props, ref) => {
     </group>
   );
 });
-
 useGLTF.preload("PlayerModel.glb");
+export default Model;

@@ -1,21 +1,14 @@
 "use client";
-import { useEffect, useState, useRef, Ref, use, forwardRef } from "react";
-import { Canvas, useThree } from "@react-three/fiber";
-import { Environment, OrbitControls, useGLTF } from "@react-three/drei";
-import { Suspense } from "react";
-import "./workCard.css";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
+import { Cart } from "@/public/model/Cart";
+import { WotwTitle } from "@/public/WotW";
+import { PlayerModel } from "@/public/PlayerModel";
+import { LegacyLines } from "@/public/model/LegacyLines";
+import { Suspense, useEffect, useRef } from "react";
+import { Environment, OrbitControls } from "@react-three/drei";
 import { Vector3 } from "three";
-import { UiButton } from "@/app/components/UiButton";
-import { Html, useProgress } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { useGSAP } from "@gsap/react";
 import dynamic from "next/dynamic";
-import * as THREE from "three";
-
-function Loader() {
-  const { progress } = useProgress();
-  return <Html center>{progress} % loaded</Html>;
-}
 
 type WorkCardProps = {
   model: any;
@@ -26,8 +19,8 @@ type WorkCardProps = {
   autorotate?: boolean;
 };
 
-export const WorkCard = ({
-  model: Model,
+const WorkCard = ({
+  model: modelPath,
   heading,
   title,
   description,
@@ -37,24 +30,13 @@ export const WorkCard = ({
   const glowCaptureRef = useRef<HTMLDivElement | null>(null);
   const modelRef = useRef<any>(null);
   const tl = useRef<gsap.core.Timeline | null>(null);
-  const [load, setLoad] = useState(false);
   /*  const { viewport } = useThree(); */
   /* const isMobile = viewport.width < 10; */
 
-  const DynamicModel = dynamic(() =>
-    import(`@/public/model/${Model}`).then((mod) => {
-      const ForwardedModel = forwardRef<
-        THREE.Group,
-        { disableMobileScaling?: boolean; scale?: number[] }
-      >((props, ref) => <mod.default ref={ref} {...props} />);
-
-      ForwardedModel.displayName = "DynamicModel";
-      return ForwardedModel;
-    })
-  );
+  const DynamicModel = dynamic(() => import(`@/public/model/${modelPath}`));
 
   useGSAP((context, contextSafe) => {
-    if (contextSafe && load) {
+    if (contextSafe) {
       const onHover = contextSafe(
         (action: "play" | "reverse" | "pause" | "restart" | "rotation") => {
           if (!tl.current) {
@@ -117,7 +99,6 @@ export const WorkCard = ({
       overlayElement.style.setProperty("--glow-x", `${x}px`);
       overlayElement.style.setProperty("--glow-y", `${y}px`);
       overlayElement.style.setProperty("--glow-opacity", "1");
-      setLoad(true);
     });
 
     refElement?.addEventListener("mouseleave", () => {
@@ -181,20 +162,12 @@ export const WorkCard = ({
                             )
                           }
                         />
-
-                        {/*     <Model
-                            ref={modelRef}
-                            scale={[0, 0, 0]}
-                            disableMobileScaling
-                          /> */}
-                        {load ? (
+                        <Suspense fallback={null}>
                           <DynamicModel
-                            ref={modelRef}
-                            disableMobileScaling
-                            scale={[0, 0, 0]}
+                          /*      ref={modelRef} */
+                          /*  scale={[0, 0, 0]} */
                           />
-                        ) : null}
-
+                        </Suspense>
                         {/*          <directionalLight /> */}
                         <ambientLight intensity={0.5} />
                         {/*      <pointLight position={[-30, 0, -30]} power={10.0} /> */}
@@ -218,15 +191,65 @@ export const WorkCard = ({
             >
               {description}
             </p>
-            <UiButton
+            {/*         <UiButton
               picture="/pictures/turqouis8Backround.png"
               animDuration={0.6}
               camDistance={0.87}
               to={buttonLink}
-            />
+            /> */}
           </div>
         </div>
       </div>
     </div>
+  );
+};
+
+export const Work = () => {
+  return (
+    <>
+      <div className="flex w-full md:h-20 justify-evenly">
+        <h2 id="work" className="text-4xl">
+          Work
+        </h2>
+      </div>
+      <div className="z-10 w-full items-center md:flex">
+        <WorkCard
+          heading="2D Game"
+          model="PlayerModel"
+          title="Way of the Warrior"
+          description="Explore an epic 2D game experience."
+          buttonLink="/wotw"
+        />
+        <WorkCard
+          heading="3D Model"
+          model="Cart"
+          title="Cyberpunk Cart"
+          description="Explore an epic 2D game experience."
+          buttonLink="/cyberpunk-cart"
+        />
+        <div className="text-center md:ml-auto overflow-hidden">
+          <h3>WADADADWADSDwJsbjabddnawdjadjabwdjbadjabwdjabs dnaw</h3>
+        </div>
+      </div>
+      <div className="z-10 w-full items-center md:flex overflow-clip">
+        <div className="text-center m-4">
+          <h3>WADADADWADSDwJsbjabddnawdjadjabwdjbad</h3>
+        </div>
+        <WorkCard
+          heading="2D Game"
+          model="WotwTitle"
+          title="Way of the Warrior"
+          description="Explore an epic 2D game experience."
+          buttonLink="/wotw"
+        />
+      </div>
+      <WorkCard
+        heading="Website"
+        model="LegacyLines"
+        title="LegacyLines"
+        description="Explore your ancestral history with LegacyLines."
+        buttonLink="/legacy-lines"
+      />
+    </>
   );
 };

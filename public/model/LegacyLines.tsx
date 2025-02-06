@@ -12,7 +12,7 @@ type GroupProps = JSX.IntrinsicElements["group"];
 interface ModelProps extends GroupProps {}
 
 // eslint-disable-next-line react/display-name
-export const LegacyLines = forwardRef<THREE.Group, ModelProps>((props, ref) => {
+export const Model = forwardRef<THREE.Group, ModelProps>((props, ref) => {
   const { nodes, materials } = useGLTF(
     "/LegacyLines1-transformed.glb"
   ) as unknown as {
@@ -38,5 +38,5 @@ export const LegacyLines = forwardRef<THREE.Group, ModelProps>((props, ref) => {
     </group>
   );
 });
-
 useGLTF.preload("/LegacyLines1-transformed.glb");
+export default Model;

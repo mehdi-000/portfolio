@@ -8,6 +8,3 @@ declare module "react" {
 declare module "troika-three-text" {
   export const Text: any;
 }
-
-
-console.log("Troika module types loaded");

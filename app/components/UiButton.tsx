@@ -1,6 +1,6 @@
 "use client";
 import * as THREE from "three";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { CameraControls } from "@react-three/drei";
 import { useTexture } from "@react-three/drei";
 import { randFloat } from "three/src/math/MathUtils.js";
