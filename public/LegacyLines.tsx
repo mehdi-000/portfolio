@@ -4,7 +4,7 @@ Command: npx gltfjsx@6.5.3 LegacyLines.glb --transform
 Files: LegacyLines.glb [461.63KB] > D:\Dokumente\Mehdi Studium Informatik und Design\7. Semester\Bachelor\my-portfolio-proj\public\LegacyLines-transformed.glb [48.14KB] (90%)
 */
 
-import React, { forwardRef } from "react";
+import React from "react";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
@@ -13,7 +13,14 @@ interface ModelProps extends GroupProps {}
 
 // Forward ref for the Model component
 // eslint-disable-next-line react/display-name
-export const LegacyLines = forwardRef<THREE.Group, ModelProps>((props, ref) => {
+export const LegacyLines = (
+  {
+    ref,
+    ...props
+  }: ModelProps & {
+    ref: React.RefObject<THREE.Group>;
+  }
+) => {
   const { nodes, materials } = useGLTF("/LegacyLines1-transformed.glb") as any;
   return (
     <group ref={ref} {...props} dispose={null}>
@@ -33,4 +40,4 @@ export const LegacyLines = forwardRef<THREE.Group, ModelProps>((props, ref) => {
       />
     </group>
   );
-});
+};

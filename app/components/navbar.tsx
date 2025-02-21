@@ -33,7 +33,7 @@ export const Navbar = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-between overflow-hidden p-10 bg-black text-white  font-mono">
+    <div className="flex flex-col items-center justify-between overflow-hidden p-10 bg-black text-white font-pPMonumentExtended">
       <div className="z-10 flex justify-evenly">
         <Link
           href={"/#work"}

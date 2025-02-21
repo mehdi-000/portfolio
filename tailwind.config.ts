@@ -41,6 +41,12 @@ const config: Config = {
         blue: "#6278dd",
         glow: "color-mix(in srgb, var(--glow-color) calc(<alpha-value> * 100%), transparent)",
       },
+      fontFamily: {
+        heebo: ["var(--font-heebo)"],
+        iBMPlexSans: ["var(--font-iBMPlexSans)"],
+        ubuntu: ["var(--font-ubuntu)"],
+        pPMonumentExtended: ["var(--font-pPMonumentExtended-Black)"],
+      },
     },
   },
   plugins: [

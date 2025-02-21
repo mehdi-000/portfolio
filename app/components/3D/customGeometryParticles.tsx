@@ -18,7 +18,6 @@ export const CustomGeometryParticles = (props: any) => {
   const shader = useRef<THREE.ShaderMaterial>(null!);
   const vertices: number[] = [];
   const initPosition: number[] = [];
-  const tl = gsap.timeline({ paused: true });
 
   useLayoutEffect(() => {
     cameraControlsRef?.current?.setPosition(
@@ -55,13 +54,11 @@ export const CustomGeometryParticles = (props: any) => {
   const { positions, initPositions } = generateParticlePositions();
 
   useGSAP(() => {
-    tl.fromTo(
+    gsap.fromTo(
       shader?.current.uniforms.uProgress,
       { value: 0 },
       { value: 1, duration: animDuration, ease: "Power4.easeOut" }
     );
-
-    tl.play();
   });
 
   return (

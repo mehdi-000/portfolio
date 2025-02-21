@@ -5,12 +5,13 @@ import { Canvas, useThree } from "@react-three/fiber";
 import { Suspense, useRef } from "react";
 import { button, buttonGroup, Leva, useControls } from "leva";
 import { DEG2RAD } from "three/src/math/MathUtils.js";
-import { Vector3 } from "three";
+import { Group, Object3DEventMap, Vector3 } from "three";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
 export const CartComponent = ({}) => {
   const cameraControlsRef = useRef<CameraControls>(null!);
+  const carRef = useRef<Group<Object3DEventMap>>(null!);
 
   const rotateCamera = () => {
     cameraControlsRef.current?.rotate(DEG2RAD * 0.1, 0, true);
@@ -119,7 +120,7 @@ export const CartComponent = ({}) => {
     ),
   });
   return (
-    <div className="flex md:flex-row flex-col md:h-128">
+    <div className="flex md:flex-row flex-col md:h-128 rounded-xl overflow-hidden h-full w-full">
       <Canvas
         fallback={<div>Sorry no WebGL supported!</div>}
         camera={{ position: [4, 3, 8] }}
@@ -131,7 +132,7 @@ export const CartComponent = ({}) => {
         <Environment preset="night" background backgroundBlurriness={0.5} />
         <ambientLight intensity={0.5} />
         <Suspense fallback={null}>
-          <Model />
+          <Model ref={carRef} />
         </Suspense>
         <gridHelper position={-0.5} args={[50, 50, 0xc977c7, "teal"]} />
         <ViewportInfo />
