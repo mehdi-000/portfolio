@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { useGLTF } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 
-type GroupProps = JSX.IntrinsicElements["group"];
+type GroupProps = React.ComponentProps<"group">;
 interface ModelProps extends GroupProps {
   disableMobileScaling?: boolean;
 }

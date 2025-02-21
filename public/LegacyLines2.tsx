@@ -7,21 +7,18 @@ Command: npx gltfjsx@6.5.3 LegacyLines1.glb --transformed
 import React from "react";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
-
-type GroupProps = JSX.IntrinsicElements["group"];
+type GroupProps = React.ComponentProps<"group">;
 interface ModelProps extends GroupProps {}
 
 // Forward ref for the Model component
 // eslint-disable-next-line react/display-name
 
-export const LegacyLines = (
-  {
-    ref,
-    ...props
-  }: ModelProps & {
-    ref: React.RefObject<THREE.Group>;
-  }
-) => {
+export const LegacyLines = ({
+  ref,
+  ...props
+}: ModelProps & {
+  ref: React.RefObject<THREE.Group>;
+}) => {
   const { nodes, materials } = useGLTF("/LegacyLines1.glb") as unknown as {
     nodes: { [key: string]: THREE.Mesh };
     materials: { [key: string]: THREE.Material };

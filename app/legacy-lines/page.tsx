@@ -1,14 +1,4 @@
 "use client";
-import { CameraControls, Environment, OrbitControls } from "@react-three/drei";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Suspense, useLayoutEffect, useRef, useState } from "react";
-import { button, buttonGroup, Leva, useControls } from "leva";
-import { DEG2RAD } from "three/src/math/MathUtils.js";
-import { Vector3, Group, Euler } from "three";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { Model } from "@/public/3D models/Butterfly";
-import { PlayerModel } from "@/public/PlayerModel";
 import { Navbar } from "@/app/components/navbar";
 
 export default function LegacyLines() {
@@ -68,7 +58,7 @@ export default function LegacyLines() {
                           <iframe
                             src="https://luminous-enthusiasm-production.up.railway.app/"
                             style={{
-                              width: "1800px",
+                              width: "1600px",
                               height: "800px",
                               borderRadius: "12px",
                               overflow: "hidden",
@@ -86,7 +76,7 @@ export default function LegacyLines() {
                       style={{ "--glow-color": "#389fd6" }}
                     >
                       A modern fullstack application written in vue js and
-                      express js, mysql with prisma for the backend. It's
+                      express js, mysql with prisma for the backend. It&apos;s
                       supposed to be a interactive 3D Familietree database. You
                       can create profiles and add or adjust Familietress, give
                       or remove access for accounts.

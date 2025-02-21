@@ -1,8 +1,4 @@
 "use client";
-import { Cart } from "@/public/model/Cart";
-import { WotwTitle } from "@/public/WotW";
-import { PlayerModel } from "@/public/PlayerModel";
-import { LegacyLines } from "@/public/model/LegacyLines";
 import { Suspense, useEffect, useRef } from "react";
 import { Environment, OrbitControls } from "@react-three/drei";
 import { Vector3 } from "three";

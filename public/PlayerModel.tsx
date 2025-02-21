@@ -3,17 +3,15 @@ import React from "react";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
-type GroupProps = JSX.IntrinsicElements["group"];
+type GroupProps = React.ComponentProps<"group">;
 interface ModelProps extends GroupProps {}
 
-export const PlayerModel = (
-  {
-    ref,
-    ...props
-  }: ModelProps & {
-    ref: React.RefObject<THREE.Group>;
-  }
-) => {
+export const PlayerModel = ({
+  ref,
+  ...props
+}: ModelProps & {
+  ref: React.RefObject<THREE.Group>;
+}) => {
   const { nodes, materials } = useGLTF("/PlayerModel.glb") as any;
   return (
     <group ref={ref} {...props} dispose={null}>

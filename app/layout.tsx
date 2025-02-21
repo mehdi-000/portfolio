@@ -15,7 +15,11 @@ const iBMPlexSans = IBM_Plex_Sans({
   subsets: ["latin"],
   variable: "--font-iBMPlexSans",
 });
-const ubuntu = Ubuntu({ weight: "500", variable: "--font-ubuntu" });
+const ubuntu = Ubuntu({
+  subsets: ["latin"],
+  weight: "500",
+  variable: "--font-ubuntu",
+});
 
 const pPMonumentExtendedBlack = localFont({
   src: "./fonts/PPMonumentExtendedBlack.woff",
