@@ -12,7 +12,6 @@ import { Float } from "@react-three/drei";
 import { MeshTransmissionMaterial } from "@react-three/drei";
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
-import { gsap } from "gsap";
 import { useTransitionRouter } from "next-transition-router";
 
 export default function ErrorPage() {

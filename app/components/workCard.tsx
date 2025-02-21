@@ -2,12 +2,13 @@
 import { useEffect, useState, useRef, Ref, use } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import { Environment, OrbitControls, useGLTF } from "@react-three/drei";
-import { Suspense } from "react";
 import "./workCard.css";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Vector3 } from "three";
 import { UiButton } from "@/app/components/UiButton";
+import dynamic from "next/dynamic";
+import * as THREE from "three";
 
 type WorkCardProps = {
   model: any;
@@ -15,6 +16,8 @@ type WorkCardProps = {
   title: string;
   description: string;
   buttonLink: string;
+  time: string;
+  type: string;
   autorotate?: boolean;
 };
 
@@ -24,61 +27,51 @@ export const WorkCard = ({
   title,
   description,
   buttonLink,
-  autorotate = true,
+  autorotate,
+  time,
+  type,
 }: WorkCardProps) => {
   const glowCaptureRef = useRef<HTMLDivElement | null>(null);
   const modelRef = useRef<any>(null);
-  const tl = useRef<gsap.core.Timeline | null>(null);
-  /*  const { viewport } = useThree(); */
-  /* const isMobile = viewport.width < 10; */
+  const tl = useRef<gsap.core.Timeline>(null);
+  const [modelLoaded, setModelLoaded] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const [load, setLoad] = useState(false);
+  const [load2, setLoad2] = useState(false);
 
-  useGSAP((context, contextSafe) => {
-    if (contextSafe) {
-      const onHover = contextSafe(
-        (action: "play" | "reverse" | "pause" | "restart" | "rotation") => {
-          if (!tl.current) {
-            tl.current = gsap.timeline({ paused: true });
-            tl.current
-              .addLabel("start")
-              .fromTo(
-                modelRef.current?.scale,
-                { x: 0, y: 0, z: 0 },
-                { x: 1, y: 1, z: 1 }
-              )
-              .to(modelRef.current?.rotation, { y: 2 * Math.PI }, "<");
+  useEffect(() => {
+    if (!ref.current) return;
 
-            tl.current.addLabel("rotation");
-            tl.current.to(modelRef.current?.rotation, {
-              y: 4 * Math.PI,
-              repeat: -1,
-              duration: 6,
-              ease: "none",
-            });
-          }
-          if (action === "play") {
-            tl.current.play();
-          } else if (action === "reverse") {
-            tl.current.reverse("rotation");
-          } else if (action === "pause") {
-            tl.current.pause();
-          } else if (action === "restart") {
-            tl.current.restart();
-          } else if (action === "rotation") {
-            tl.current.play("rotation");
-          }
-        }
-      );
-
-      if (glowCaptureRef.current) {
-        glowCaptureRef.current.addEventListener("mouseenter", () => {
-          onHover("play");
-        });
-        glowCaptureRef.current.addEventListener("mouseleave", () => {
-          onHover("reverse");
-        });
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        setLoad2(true);
+        observer.disconnect();
       }
-    }
+    });
+
+    observer.observe(ref.current);
+
+    return () => observer.disconnect();
   }, []);
+
+  const DynamicModel2 = dynamic(() => import(`@/public/model/${Model}`));
+
+  const { contextSafe } = useGSAP();
+
+  const hover = contextSafe(() => {
+    tl.current = gsap
+      .timeline()
+      .fromTo(
+        modelRef.current?.scale,
+        { x: 0, y: 0, z: 0 },
+        { x: 1, y: 1, z: 1 }
+      );
+    /*       .to(modelRef.current?.rotation, { y: 2 * Math.PI }, "<"); */
+  });
+
+  const unhover = contextSafe(() => {
+    tl.current?.reverse();
+  });
 
   useEffect(() => {
     if (!glowCaptureRef.current) return;
@@ -104,75 +97,134 @@ export const WorkCard = ({
     });
   }, []);
   return (
-    <div className="flex flex-grow my-4 md:m-8">
+    <div className={`flex flex-grow my-4 md:m-8 `}>
       <div
         ref={glowCaptureRef}
         className="relative h-full w-full glow-capture text-white"
+        onMouseEnter={hover}
+        onMouseLeave={unhover}
       >
-        <div className="bg-zinc-900/50 border-4 border-pink/5 rounded-2xl py-6 px-10 shadow-black/80 flex flex-col items-center justify-center gap-6 glow glow:bg-glow/[.15]">
-          <p className="opacity-50 self-start text-sm tracking-wide">
-            {heading}
-          </p>
-          <div className="group w-full bg-zinc-950/70 border-4 border-pink/5 rounded-2xl p-6 shadow-lg shadow-black/80 flex flex-col md:flex-row items-center md:items-start justify-center gap-8 backdrop-blur-md glow glow:ring-1 glow:border-glow glow:ring-glow">
-            <div className="flex-1 order-2 md:order-1">
-              <h2 className="font-bold text-3xl md:text-4xl tracking-tight mb-4 glow:text-glow/[.80]">
+        <div
+          className="glow:bg-glow/[.20]"
+          style={{ "--glow-color": "#2f4ad4" }}
+        >
+          <div
+            className="bg-zinc-900/50 border-4 border-pink/5 rounded-2xl md:py-5 md:px-8 py-6 px-10 shadow-black/80 flex md:flex-row flex-col items-center justify-center md:gap-2 gap-6 glow glow:ring-1 glow:border-glow glow:ring-glow"
+            style={{ "--glow-color": "#389fd6" }}
+          >
+            <div className="flex flex-col w-full">
+              {/* Top Section: "2D" and "Uni project" */}
+              <div className="flex justify-between items-start">
+                <p
+                  className="opacity-50 glow:text-glow/[.80] font-heebo text-sm tracking-wide"
+                  style={{ "--glow-color": "#2f4ad4" }}
+                >
+                  <strong>{heading}</strong>
+                </p>
+                <p
+                  className="opacity-50 text-sm glow:text-glow/[.80]  font-heebo tracking-wide"
+                  style={{ "--glow-color": "#2f4ad4" }}
+                >
+                  <strong>Agency:</strong> {type}
+                </p>
+              </div>
+
+              {/* Middle Section: Content */}
+              <h2
+                className="font-bold font-pPMonumentExtended text-center text-3xl md:text-4xl tracking-tight m-2 glow:text-glow/[.80]"
+                style={{ "--glow-color": "#2f4ad4" }}
+              >
                 {title}
               </h2>
-              <div className="flex justify-center prose prose-zinc prose-invert prose-lg md:prose-base text-opacity-90 glow:text-glow/[.80]">
-                <div className="md:h-64 md:max-w-64 max-w-40">
-                  <div className="pt-4 h-full">
-                    <Canvas
-                      fallback={<div>Sorry no WebGL supported!</div>}
-                      camera={{
-                        position: [
-                          -0.04244707683370108, 2.42108826638258,
-                          -10.075935083882978,
-                        ],
-                      }}
-                    >
-                      <OrbitControls
-                        autoRotate={autorotate}
-                        target={
-                          new Vector3(
-                            0.20275228442863932,
-                            1.7126070749008806,
-                            0.4683586034171129
-                          )
-                        }
-                      />
-                      <Suspense fallback={null}>
-                        <Model
-                          ref={modelRef}
-                          scale={[0, 0, 0]}
-                          disableMobileScaling
-                        />
-                      </Suspense>
-                      {/*          <directionalLight /> */}
-                      <ambientLight intensity={0.5} />
-                      {/*      <pointLight position={[-30, 0, -30]} power={10.0} /> */}
-                      <Environment
-                        preset="apartment"
-                        backgroundBlurriness={0.5}
-                      />
-                    </Canvas>
+              <div className="flex flex-col md:flex-row w-full gap-8 mt-4">
+                {/* Left Column: Title and Canvas */}
+                <div
+                  className="group w-full md:w-1/2 bg-zinc-950/70 border-4 border-pink/5 rounded-2xl p-6 shadow-lg shadow-black/80 flex flex-col items-center justify-center backdrop-blur-md glow glow:ring-1 glow:border-glow glow:ring-glow"
+                  style={{ "--glow-color": "#3d2fd4" }}
+                >
+                  <div
+                    className="flex justify-center prose prose-zinc prose-invert prose-lg md:prose-base text-opacity-90 glow:text-glow/[.80]"
+                    style={{ "--glow-color": "#389fd6" }}
+                    ref={ref}
+                  >
+                    <div className="md:h-64 md:max-w-64 max-w-40">
+                      <div className="pt-4 h-full">
+                        <Canvas
+                          fallback={<div>Sorry no WebGL supported!</div>}
+                          camera={{
+                            position: [
+                              -0.04244707683370108, 2.42108826638258,
+                              -10.075935083882978,
+                            ],
+                          }}
+                        >
+                          <OrbitControls
+                            target={
+                              new Vector3(
+                                0.20275228442863932,
+                                1.7126070749008806,
+                                0.4683586034171129
+                              )
+                            }
+                          />
+                          {load2 ? (
+                            <DynamicModel2
+                              // @ts-ignore
+                              ref={modelRef}
+                              disableMobileScaling
+                              scale={[0, 0, 0]}
+                            />
+                          ) : null}
+                          <ambientLight intensity={0.5} />
+                          <Environment
+                            preset="apartment"
+                            backgroundBlurriness={0.5}
+                          />
+                        </Canvas>
+                      </div>
+                    </div>
                   </div>
                 </div>
+
+                {/* Right Column: Description */}
+                <div className="w-full md:w-1/2 flex flex-col justify-center items-center">
+                  <p
+                    className="text-sm leading-relaxed md:text-base glow:text-glow/[.80] font-heebo text-center"
+                    style={{ "--glow-color": "#389fd6" }}
+                  >
+                    {description}
+                  </p>
+                </div>
               </div>
+
+              {/* Bottom Section: "Time: 8 Weeks" and Button */}
+              <div className="flex justify-between items-end  mt-4">
+                <p
+                  className="opacity-50 text-sm glow:text-glow/[.80] font-heebo tracking-wide"
+                  style={{ "--glow-color": "#2f4ad4" }}
+                >
+                  <strong>Time:</strong> {time}
+                </p>
+                <div
+                  className="flex justify-end"
+                  style={{ "--glow-color": "#3d2fd4" }}
+                >
+                  <UiButton
+                    picture="/pictures/turqouis8Backround.png"
+                    animDuration={0.6}
+                    camDistance={0.87}
+                    to={buttonLink}
+                  />
+                </div>
+              </div>
+
+              {/* Glow Overlay */}
+              <div
+                className="glow-overlay"
+                style={{ "--glow-color": "#2f4ad4" }}
+              ></div>
             </div>
           </div>
-          <div
-            className="glow-overlay"
-            style={{ "--glow-color": "#c977c7" }}
-          ></div>
-          <p className="self-start text-sm leading-relaxed md:text-base">
-            {description}
-          </p>
-          <UiButton
-            picture="/pictures/buttonBackground.png"
-            animDuration={0.6}
-            camDistance={0.87}
-            to={buttonLink}
-          />
         </div>
       </div>
     </div>

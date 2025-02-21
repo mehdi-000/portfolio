@@ -4,15 +4,20 @@ Command: npx gltfjsx@6.5.3 LegacyLines.glb --transform
 Files: LegacyLines.glb [891.5KB] > D:\Dokumente\Mehdi Studium Informatik und Design\7. Semester\Bachelor\my-portfolio-proj\public\LegacyLines-transformed.glb [80.04KB] (91%)
 */
 
-import React, { forwardRef } from "react";
+import React from "react";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
-type GroupProps = JSX.IntrinsicElements["group"];
+type GroupProps = React.ComponentProps<"group">;
 interface ModelProps extends GroupProps {}
 
 // eslint-disable-next-line react/display-name
-export const LegacyLines = forwardRef<THREE.Group, ModelProps>((props, ref) => {
+export const Model = ({
+  ref,
+  ...props
+}: ModelProps & {
+  ref: React.RefObject<THREE.Group>;
+}) => {
   const { nodes, materials } = useGLTF(
     "/LegacyLines1-transformed.glb"
   ) as unknown as {
@@ -37,6 +42,6 @@ export const LegacyLines = forwardRef<THREE.Group, ModelProps>((props, ref) => {
       </group>
     </group>
   );
-});
-
+};
 useGLTF.preload("/LegacyLines1-transformed.glb");
+export default Model;

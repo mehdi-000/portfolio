@@ -5,14 +5,19 @@ Command: npx gltfjsx@6.5.3 WotW_title_3D.glb --transform
 Files: WotW_title_3D.glb [1.35MB] > D:\Dokumente\Mehdi Studium Informatik und Design\7. Semester\Bachelor\my-portfolio-proj\public\WotW_title_3D-transformed.glb [89.04KB] (93%)
 */
 
-import React, { forwardRef } from "react";
+import React from "react";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
-type GroupProps = JSX.IntrinsicElements["group"];
+type GroupProps = React.ComponentProps<"group">;
 interface ModelProps extends GroupProps {}
 
-export const WotwTitle = forwardRef<THREE.Group, ModelProps>((props, ref) => {
+export const Model = ({
+  ref,
+  ...props
+}: ModelProps & {
+  ref: React.RefObject<THREE.Group>;
+}) => {
   const { nodes, materials } = useGLTF("/WotW_title_3D-transformed.glb") as any;
   return (
     <group ref={ref} {...props} dispose={null}>
@@ -25,6 +30,6 @@ export const WotwTitle = forwardRef<THREE.Group, ModelProps>((props, ref) => {
       />
     </group>
   );
-});
-
+};
 useGLTF.preload("/WotW_title_3D-transformed.glb");
+export default Model;

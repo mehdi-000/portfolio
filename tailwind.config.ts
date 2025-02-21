@@ -35,8 +35,17 @@ const config: Config = {
         114: "34rem",
       },
       colors: {
-        pink: "#e3bce2",
+        pink: "#5ac4db",
+        violet: "#623bbb",
+        turquoise: "#3d9dac",
+        blue: "#6278dd",
         glow: "color-mix(in srgb, var(--glow-color) calc(<alpha-value> * 100%), transparent)",
+      },
+      fontFamily: {
+        heebo: ["var(--font-heebo)"],
+        iBMPlexSans: ["var(--font-iBMPlexSans)"],
+        ubuntu: ["var(--font-ubuntu)"],
+        pPMonumentExtended: ["var(--font-pPMonumentExtended-Black)"],
       },
     },
   },

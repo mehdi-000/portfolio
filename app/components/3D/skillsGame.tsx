@@ -52,6 +52,8 @@ export const SkillsGame = () => {
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     container?.appendChild(renderer.domElement);
 
+    const loadingManager = new THREE.LoadingManager();
+
     /*     // Adding Lights
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // Soft white light
     scene.add(ambientLight); */
@@ -173,15 +175,16 @@ export const SkillsGame = () => {
             new THREE.Mesh(
               (butterfly.nodes.Curve033_2 as THREE.Mesh).geometry,
               new THREE.MeshBasicMaterial({
-                color: 0xc977c7,
+                color: 0x389fd6, //389fd6 3d2fd4 2f4ad4
                 transparent: false,
                 opacity: 0.5,
               })
             ),
+
             new THREE.Mesh(
               (butterfly.nodes.Curve033_3 as THREE.Mesh).geometry,
               new THREE.MeshBasicMaterial({
-                color: 0xc977c7,
+                color: 0x2f4ad4,
                 transparent: false,
                 opacity: 0.0,
               })
@@ -197,7 +200,7 @@ export const SkillsGame = () => {
       // Create hitbox
       const hitboxGeo = new THREE.BoxGeometry(0.25, 0.2, 0.25);
       const hitBoxMat = new THREE.MeshBasicMaterial({
-        color: 0xc977c7,
+        color: 0x3d2fd4,
         transparent: true,
         opacity: 0.0,
       });
@@ -219,7 +222,7 @@ export const SkillsGame = () => {
       myText.text = skills[randInt(0, 5)]; // You can customize the text here
       myText.fontSize = 0.1;
       myText.position.set(pos.x - 0.1, pos.y, pos.z); // Position the text above the hitbox
-      myText.color = 0x9966ff; // Set the text color
+      myText.color = 0x3d2fd4; // Set the text color
       // Optionally, scale the text if necessary
       myText.scale.set(0.5, 0.5, 0.5); // Scale the text to fit the scene
       hitBox.userData.myText = myText;
@@ -230,7 +233,7 @@ export const SkillsGame = () => {
     crosshairs.position.z = -1;
     camera.add(crosshairs);
     const crossMat = new THREE.LineBasicMaterial({
-      color: 0xffffff,
+      color: 0x3d2fd4,
     });
     const lineGeo = new THREE.BufferGeometry();
     const lineVerts = [0, 0.05, 0, 0, 0.02, 0];
@@ -257,7 +260,7 @@ export const SkillsGame = () => {
 
     function getLaserBolt() {
       const laserMat = new THREE.MeshBasicMaterial({
-        color: 0xc977c7,
+        color: 0x3d2fd4,
         transparent: true,
         fog: false,
       });
@@ -292,15 +295,11 @@ export const SkillsGame = () => {
               .material as THREE.MeshBasicMaterial
           ).color
         );
-        console.log(intersects[0].object);
         if (intersects[0].object.name === "box") {
-          console.log("hit box");
           impactBox = intersects[0].object.userData.box;
           boxGroup.remove(intersects[0].object);
         }
         if (intersects[0].object.name === "butterflybox") {
-          console.log("Hit butterflybox");
-
           impactBox = intersects[0].object.userData.butterfly;
           scene.add(intersects[0].object.userData.myText);
           intersects[0].object.userData.myText.lookAt(camera.position);
@@ -309,15 +308,6 @@ export const SkillsGame = () => {
         }
         if (intersects[0].object.parent?.name === "butterflybox") {
           impactBox = intersects[0].object.parent.userData.butterfly;
-
-          console.log(
-            "hit group",
-            impactBox,
-            "intersects.object",
-            intersects[0].object,
-            "intersects.object.parent",
-            intersects[0].object.parent?.userData.myText
-          );
           scene.add(intersects[0].object.parent?.userData.myText);
           intersects[0].object.parent?.userData.myText.lookAt(camera.position);
           intersects[0].object.parent?.userData.myText.sync();
@@ -435,3 +425,5 @@ export const SkillsGame = () => {
     />
   );
 };
+
+export default SkillsGame;

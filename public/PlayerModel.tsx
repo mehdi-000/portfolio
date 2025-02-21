@@ -1,12 +1,17 @@
 /* eslint-disable react/display-name */
-import React, { forwardRef } from "react";
+import React from "react";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
-type GroupProps = JSX.IntrinsicElements["group"];
+type GroupProps = React.ComponentProps<"group">;
 interface ModelProps extends GroupProps {}
 
-export const PlayerModel = forwardRef<THREE.Group, ModelProps>((props, ref) => {
+export const PlayerModel = ({
+  ref,
+  ...props
+}: ModelProps & {
+  ref: React.RefObject<THREE.Group>;
+}) => {
   const { nodes, materials } = useGLTF("/PlayerModel.glb") as any;
   return (
     <group ref={ref} {...props} dispose={null}>
@@ -60,6 +65,6 @@ export const PlayerModel = forwardRef<THREE.Group, ModelProps>((props, ref) => {
       </group>
     </group>
   );
-});
+};
 
 useGLTF.preload("/PlayerModel.glb");

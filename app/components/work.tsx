@@ -1,57 +1,55 @@
 "use client";
-import { Model } from "../../public/model/Cart";
-import { WotwTitle } from "../../public/WotW";
-import { PlayerModel } from "@/public/PlayerModel";
-import { LegacyLines } from "../../public/model/LegacyLines4";
-import { WorkCard } from "../components/workCard";
+import { WorkCard } from "@/app/components/workCard";
 
 export const Work = () => {
   return (
     <>
       <div className="flex w-full md:h-20 justify-evenly">
-        <h2 id="work" className="text-4xl">
+        <h2 id="work" className=" font-pPMonumentExtended text-4xl">
           Work
         </h2>
       </div>
-
       <div className="z-10 w-full items-center md:flex">
         <WorkCard
           heading="2D Game"
-          model={PlayerModel}
-          title="Way of the Warrior"
-          description="Explore an epic 2D game experience."
+          model="PlayerModel"
+          title="Time Travel Sync"
+          description="A short procedural generated endless runner with focus on movement and replayable gameplay"
+          time="2 Months"
+          type="Uni Project"
           buttonLink="/wotw"
         />
         <WorkCard
           heading="3D Model"
-          model={Model}
+          model="Cart"
           title="Cyberpunk Cart"
-          description="Explore an epic 2D game experience."
+          description="Low poli Cyberpunk cart modeled in Cinema4D. The
+                concept is that the cart is hold together by magnetic fields."
+          time="2 Weeks"
+          type="Uni Project"
           buttonLink="/cyberpunk-cart"
         />
-        <div className="text-center md:ml-auto overflow-hidden">
-          <h3>WADADADWADSDwJsbjabddnawdjadjabwdjbadjabwdjabs dnaw</h3>
-        </div>
       </div>
-      <div className="z-10 w-full items-center md:flex overflow-clip">
-        <div className="text-center m-4">
-          <h3>WADADADWADSDwJsbjabddnawdjadjabwdjbad</h3>
-        </div>
+      <div className="z-10 w-full items-center md:flex">
         <WorkCard
           heading="2D Game"
-          model={WotwTitle}
+          model="WotwTitle"
           title="Way of the Warrior"
-          description="Explore an epic 2D game experience."
+          description="Fully functional scalable Visual Novel prototype, with emphasis on an interactive story"
+          time="4 Months"
+          type="Uni Project"
           buttonLink="/wotw"
         />
+        <WorkCard
+          heading="Website"
+          model="LegacyLines"
+          title="LegacyLines"
+          description="Website as interactive visual database <br /> in which Familietrees can be added & edited"
+          time="2 Weeks"
+          type="Uni Project"
+          buttonLink="/legacy-lines"
+        />
       </div>
-      <WorkCard
-        heading="Website"
-        model={LegacyLines}
-        title="LegacyLines"
-        description="Explore your ancestral history with LegacyLines."
-        buttonLink="/legacy-lines"
-      />
     </>
   );
 };

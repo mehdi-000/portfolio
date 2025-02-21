@@ -4,15 +4,20 @@ Command: npx gltfjsx@6.5.3 PlayerModel.glb --transform
 Files: PlayerModel.glb [133.32KB] > D:\Dokumente\Mehdi Studium Informatik und Design\7. Semester\Bachelor\my-portfolio-proj\public\PlayerModel-transformed.glb [25.83KB] (81%)
 */
 
-import React, { forwardRef } from "react";
+import React from "react";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
-type GroupProps = JSX.IntrinsicElements["group"];
+type GroupProps = React.ComponentProps<"group">;
 interface ModelProps extends GroupProps {}
 
 // eslint-disable-next-line react/display-name
-export const PlayerModel = forwardRef<THREE.Group, ModelProps>((props, ref) => {
+export const Model = ({
+  ref,
+  ...props
+}: ModelProps & {
+  ref: React.RefObject<THREE.Group>;
+}) => {
   const { nodes, materials } = useGLTF("/PlayerModel.glb") as any;
   return (
     <group ref={ref} {...props} dispose={null}>
@@ -39,6 +44,6 @@ export const PlayerModel = forwardRef<THREE.Group, ModelProps>((props, ref) => {
       />
     </group>
   );
-});
-
+};
 useGLTF.preload("PlayerModel.glb");
+export default Model;

@@ -1,24 +1,7 @@
 "use client";
-import * as THREE from "three";
-import { Canvas, ThreeElements, useFrame } from "@react-three/fiber";
-import { use, useEffect, useRef, useState } from "react";
-import { CustomGeometryParticles } from "./customGeometryParticles";
-import { Orbit } from "next/font/google";
-import {
-  CameraControls,
-  OrbitControls,
-  PerspectiveCamera,
-  useHelper,
-} from "@react-three/drei";
-
-import { Sphere } from "@react-three/drei";
-
+import { Canvas } from "@react-three/fiber";
+import { CustomGeometryParticles } from "@/app/components/3D/customGeometryParticles";
 import { Suspense } from "react";
-
-import { useTexture } from "@react-three/drei";
-import { randFloat } from "three/src/math/MathUtils.js";
-import { useGSAP } from "@gsap/react";
-import { gsap } from "gsap";
 
 export const Logoanimated = ({}) => {
   return (

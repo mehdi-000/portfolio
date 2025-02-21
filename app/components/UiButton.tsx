@@ -1,6 +1,6 @@
 "use client";
 import * as THREE from "three";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { CameraControls } from "@react-three/drei";
 import { useTexture } from "@react-three/drei";
 import { randFloat } from "three/src/math/MathUtils.js";
@@ -9,6 +9,7 @@ import { gsap } from "gsap";
 import { Canvas } from "@react-three/fiber";
 import { useTransitionRouter } from "next-transition-router";
 import Link from "next/link";
+import { cn } from "@/app/utils/tailwind";
 
 const fragment = `
   uniform sampler2D uTexture;
@@ -78,11 +79,13 @@ const Particles = ({
   const columns = isMobile ? 13 * 24 : 9 * 24;
 
   useGSAP(() => {
-    tl.fromTo(
-      shader?.current.uniforms.uProgress,
-      { value: 0 },
-      { value: 1, duration: animDuration, ease: "Power4.easeOut" }
-    );
+    tl.current = gsap
+      .timeline({ paused: true })
+      .fromTo(
+        shader?.current.uniforms.uProgress,
+        { value: 0 },
+        { value: 1, duration: animDuration, ease: "Power4.easeOut" }
+      );
   });
 
   return (
@@ -143,10 +146,11 @@ export const UiButton = ({
   animDuration,
   camDistance,
   to,
+  className,
 }: any) => {
   const vertices: number[] = [];
   const initPosition: number[] = [];
-  const tl = gsap.timeline({ paused: true });
+  const tl = useRef<gsap.core.Timeline>(null);
   const [container, setContainer] = useState<HTMLElement | null>(null);
   const router = useTransitionRouter();
   useEffect(() => {
@@ -181,17 +185,22 @@ export const UiButton = ({
   generateParticlePositions();
 
   const handlePointerEnter = () => {
-    tl.play();
+    if (tl.current) tl.current.play();
     if (container) container.style.cursor = "pointer";
   };
 
   const handlePointerLeave = () => {
-    tl.reverse(0.3);
+    if (tl.current) tl.current.reverse(0.3);
     if (container) container.style.cursor = "auto";
   };
 
   return (
-    <div className="relative self-start w-[9.5rem] h-16 rounded-2xl overflow-hidden">
+    <div
+      className={cn(
+        "relative self-end w-[9.5rem] h-16 rounded-2xl overflow-hidden",
+        className
+      )}
+    >
       <div className="absolute inset-0 z-10">
         <Canvas
           fallback={<div>Sorry no WebGL supported!</div>}
