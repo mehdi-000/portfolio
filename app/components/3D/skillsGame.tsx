@@ -175,7 +175,7 @@ export const SkillsGame = () => {
             new THREE.Mesh(
               (butterfly.nodes.Curve033_2 as THREE.Mesh).geometry,
               new THREE.MeshBasicMaterial({
-                color: 0x389fd6, //389fd6 3d2fd4 2f4ad4
+                color: 0x2f4ad4, //389fd6 3d2fd4 2f4ad4
                 transparent: false,
                 opacity: 0.5,
               })
@@ -184,14 +184,14 @@ export const SkillsGame = () => {
             new THREE.Mesh(
               (butterfly.nodes.Curve033_3 as THREE.Mesh).geometry,
               new THREE.MeshBasicMaterial({
-                color: 0x2f4ad4,
+                color: 0x3d2fd4,
                 transparent: false,
                 opacity: 0.0,
               })
             ),
           ]
         : [];
-
+      //0x389fd6 0x2f4ad4
       // Add each butterfly mesh to the group
       butterflyMeshes.forEach((mesh) => butterflyMeshGroup.add(mesh));
       butterflyMeshGroup.position.copy(pos);
@@ -222,7 +222,7 @@ export const SkillsGame = () => {
       myText.text = skills[randInt(0, 5)]; // You can customize the text here
       myText.fontSize = 0.1;
       myText.position.set(pos.x - 0.1, pos.y, pos.z); // Position the text above the hitbox
-      myText.color = 0x3d2fd4; // Set the text color
+      myText.color = 0x389fd6; // Set the text color
       // Optionally, scale the text if necessary
       myText.scale.set(0.5, 0.5, 0.5); // Scale the text to fit the scene
       hitBox.userData.myText = myText;
@@ -233,7 +233,7 @@ export const SkillsGame = () => {
     crosshairs.position.z = -1;
     camera.add(crosshairs);
     const crossMat = new THREE.LineBasicMaterial({
-      color: 0x3d2fd4,
+      color: 0x389fd6,
     });
     const lineGeo = new THREE.BufferGeometry();
     const lineVerts = [0, 0.05, 0, 0, 0.02, 0];
@@ -421,7 +421,7 @@ export const SkillsGame = () => {
     <div
       className="cursor-none"
       ref={containerRef}
-      style={{ width: "100%", height: "100vh" }}
+      style={{ width: "100%", height: "65vh" }}
     />
   );
 };

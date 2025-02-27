@@ -1,6 +1,6 @@
 "use client";
 import * as THREE from "three";
-import { useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import { CameraControls } from "@react-three/drei";
 import { useTexture } from "@react-three/drei";
 import { randFloat } from "three/src/math/MathUtils.js";
@@ -19,14 +19,18 @@ export const CustomGeometryParticles = (props: any) => {
   const vertices: number[] = [];
   const initPosition: number[] = [];
 
-  useLayoutEffect(() => {
+  /*   useLayoutEffect(() => {
     cameraControlsRef?.current?.setPosition(
       191.5,
       107.50000000000001,
       159.75497819767443
     );
     cameraControlsRef?.current?.setTarget(191.5, 107.50000000000001, 0);
-  }, []);
+  }, []); */
+
+  useLayoutEffect(() => {
+    cameraControlsRef?.current?.fitToBox(points.current, true);
+  });
 
   const texture = useTexture(picture ?? "/pictures/2.png");
   const rows = isMobile ? 8 * 24 : 16 * 24;

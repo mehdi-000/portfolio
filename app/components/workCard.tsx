@@ -190,7 +190,7 @@ export const WorkCard = ({
                 <div className="w-full md:w-1/2 flex flex-col justify-center items-center">
                   <p
                     className="text-sm leading-relaxed md:text-base glow:text-glow/[.80] font-heebo text-center"
-                    style={{ "--glow-color": "#389fd6" }}
+                    style={{ "--glow-color": "#2f4ad4" }}
                   >
                     {description}
                   </p>
