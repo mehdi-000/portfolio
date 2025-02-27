@@ -93,13 +93,13 @@ export default function Wotw() {
                       style={{ "--glow-color": "#389fd6" }}
                     >
                       The Game was created as an University project together
-                      with Sophie Kretschmann which got expanded on over time.{" "}
-                      <br />
-                      Goal was to create a fully functional scalable Visual
+                      with Sophie Kretschmann <br /> which got expanded on over
+                      time. Goal was to create a fully functional scalable
+                      Visual <br />
                       Novel prototype, with emphasis on an interactive story{" "}
-                      <br /> multiple story paths based on the inventory system,
-                      players choices and a mini game to break up the story in
-                      inside <br />
+                      multiple story paths <br />
+                      based on the inventory system, players choices and a mini
+                      game to break up the story in inside <br />
                       the game engine Unity. Initially for mobile but support
                       for other devices is planned.
                     </p>
