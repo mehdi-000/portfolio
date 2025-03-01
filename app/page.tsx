@@ -3,6 +3,7 @@ import { Logoanimated } from "@/app/components/3D/logoanimated";
 import { Navbar } from "@/app/components/navbar";
 import { Work } from "@/app/components/work";
 import { useEffect, useRef, useState } from "react";
+import { Contact } from "@/app/components/contact";
 import dynamic from "next/dynamic";
 
 const DynamicSkillGame = dynamic(
@@ -41,7 +42,10 @@ export default function Home() {
       <Work />
       <div className="spacer w-full p-16"></div>
       <div className="flex w-full md:h-20 justify-evenly mb-6">
-        <h1 className="font-pPMonumentExtended text-center text-4xl">
+        <h1
+          id="experience"
+          className="font-pPMonumentExtended text-center text-4xl"
+        >
           Experience
         </h1>
       </div>
@@ -57,6 +61,16 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <div className="spacer w-full p-16"></div>
+      <div className="flex w-full md:h-20 justify-evenly mb-6">
+        <h1
+          id="contact"
+          className="font-pPMonumentExtended text-center text-4xl"
+        >
+          Contact
+        </h1>
+      </div>
+      <Contact />
     </main>
   );
 }

@@ -28,6 +28,8 @@ export const SkillsGame = () => {
     "TypeScript",
     "Next.js",
     "TailwindCSS",
+    "Git",
+    "Cinema 4D",
   ];
 
   useEffect(() => {

@@ -21,6 +21,7 @@
     "next-transition-router": "^0.2.7",
     "react": "19.0.0",
     "react-dom": "19.0.0",
+    "react-infinite-logo-slider": "^1.1.4",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.164.1",

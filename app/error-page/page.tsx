@@ -7,12 +7,14 @@ import {
   RoundedBox,
   Outlines,
   Edges,
+  CameraControls,
 } from "@react-three/drei";
 import { Float } from "@react-three/drei";
 import { MeshTransmissionMaterial } from "@react-three/drei";
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { useTransitionRouter } from "next-transition-router";
+import { useRouter } from "next/navigation";
 
 export default function ErrorPage() {
   const [cursorStyle, setCursorStyle] = useState<React.CSSProperties>({
@@ -20,18 +22,15 @@ export default function ErrorPage() {
   });
 
   return (
-    <>
-      <div className="w-screen h-screen">
-        <Canvas
-          style={cursorStyle}
-          fallback={<div>Sorry no WebGL supported!</div>}
-        >
-          <color attach="background" args={["#000000"]} />
-          <ambientLight />
-          <Model setCursorStyle={setCursorStyle} />
-        </Canvas>
-      </div>
-    </>
+    <div className="w-screen h-screen">
+      <Canvas
+        style={cursorStyle}
+        fallback={<div>Sorry no WebGL supported!</div>}
+      >
+        <color attach="background" args={["#000000"]} />
+        <Model setCursorStyle={setCursorStyle} />
+      </Canvas>
+    </div>
   );
 }
 
@@ -45,8 +44,7 @@ function Model({
   const ref = useRef<THREE.Mesh>(null);
   const isMobile = viewport.width < 10;
   const mesh = useRef<THREE.Mesh | null>(null);
-  const router = useTransitionRouter();
-
+  const router = useRouter();
   useEffect(() => {
     if (!ref.current) {
       return;
@@ -88,60 +86,133 @@ function Model({
         radius={0.4}
         position={[0, -1, -15]}
         scale={viewport.width * (isMobile ? 0.2 : 0.12)}
+        onPointerEnter={() => setCursorStyle({ cursor: "pointer" })}
+        onPointerLeave={() => setCursorStyle({ cursor: "default" })}
+        onClick={(e: { stopPropagation: () => any }) => {
+          e.stopPropagation(), console.log("triggered push"), router.push("/");
+        }}
       >
         <meshBasicMaterial color="#18181b" />
         <Edges linewidth={2} threshold={15} color={"white"} />
-        <Outlines thickness={0.1} color={"#242129"} />
+        <Outlines thickness={0.07} color={"#1a1e21"} />
         <Text
-          font="/Inter-Regular.woff"
-          fontSize={0.4}
-          fontWeight={400}
-          position={isMobile ? [-4, 10, 1] : [-10, 4, 1]}
+          font="/Heebo-Bold.woff"
+          fontSize={0.3}
+          position={isMobile ? [-4, 10, 1] : [-10, 4.5, 1]}
           color={"gray"}
         >
-          Lost
+          404 Page
         </Text>
         <Text
-          font="/Inter_24pt-Bold.woff"
+          font="/Heebo-Bold.woff"
+          fontSize={0.3}
+          position={isMobile ? [-4, 10, 1] : [9.8, 4.5, 1]}
+          color={"white"}
+        >
+          Agency:
+        </Text>
+        <Text
+          font="/Heebo-Regular.woff"
+          fontSize={0.3}
+          position={isMobile ? [-4, 10, 1] : [10.7, 4.5, 1]}
+          color={"white"}
+        >
+          ???
+        </Text>
+        <Text
+          font="/Heebo-Bold.woff"
+          fontSize={0.3}
+          position={isMobile ? [-4, 10, 1] : [-10.4, -4.5, 1]}
+          color={"white"}
+        >
+          Time:
+        </Text>
+        <Text
+          font="/Heebo-Regular.woff"
+          fontSize={0.3}
+          position={isMobile ? [-4, 10, 1] : [-9.7, -4.5, 1]}
+          color={"white"}
+        >
+          ???
+        </Text>
+        <Text
+          font="/PPMonumentExtendedBlack.woff"
           fontSize={0.8}
-          position={isMobile ? [-1.6, 9.3, 1] : [-7.6, 3.4, 1]}
+          position={isMobile ? [-1.6, 9.3, 1] : [0, 4, 1]}
           color={"white"}
         >
           Page not found
         </Text>
         <Text
-          font="/CodeSaver-Regular.woff"
-          fontSize={0.38}
-          onPointerEnter={() => setCursorStyle({ cursor: "pointer" })}
+          font="/Heebo-Regular.woff"
+          fontSize={0.3}
+          position={isMobile ? [-4, 10, 1] : [5, 1, 1]}
+          color={"white"}
+        >
+          Congratulations! You&apos;ve reached the end of the line.
+        </Text>
+        <Text
+          font="/Heebo-Regular.woff"
+          fontSize={0.3}
+          position={isMobile ? [-4, 10, 1] : [5, 0.5, 1]}
+          color={"white"}
+        >
+          This Page has been build in side the HTML Canvas
+        </Text>
+        <Text
+          font="/Heebo-Regular.woff"
+          fontSize={0.3}
+          position={isMobile ? [-4, 10, 1] : [5, 0, 1]}
+          color={"white"}
+        >
+          with Three.js and took me wayy too long to build
+        </Text>
+        <Text
+          font="/PPMonumentExtendedBlack.woff"
+          fontSize={0.26}
+          onPointerEnter={(e: { stopPropagation: () => any }) => {
+            e.stopPropagation(), setCursorStyle({ cursor: "pointer" });
+          }}
           onPointerLeave={() => setCursorStyle({ cursor: "default" })}
-          onClick={() => router.push("/")}
-          color="#d487d2"
-          position={isMobile ? [-2, 14, 1] : [-2, 6, 1]}
+          onClick={() => router.push("/#work")}
+          color={"white"}
+          position={isMobile ? [-2, 14, 1] : [-2.2, 7.8, 1]}
         >
           work
         </Text>
         <Text
-          font="/CodeSaver-Regular.woff"
-          fontSize={0.38}
+          font="/PPMonumentExtendedBlack.woff"
+          fontSize={0.26}
           onPointerEnter={() => setCursorStyle({ cursor: "pointer" })}
           onPointerLeave={() => setCursorStyle({ cursor: "default" })}
-          onClick={() => router.push("/")}
-          color="#d487d2"
-          position={isMobile ? [-0.2, 14, 1] : [-0.2, 6, 1]}
+          onClick={() => router.push("/#experience")}
+          color={"white"}
+          position={isMobile ? [-0.2, 14, 1] : [-0.2, 7.8, 1]}
         >
           experience
         </Text>
         <Text
-          font="/CodeSaver-Regular.woff"
-          fontSize={0.38}
+          font="/PPMonumentExtendedBlack.woff"
+          fontSize={0.26}
           onPointerEnter={() => setCursorStyle({ cursor: "pointer" })}
           onPointerLeave={() => setCursorStyle({ cursor: "default" })}
-          onClick={() => router.push("/")}
-          color="#d487d2"
-          position={isMobile ? [2, 14, 1] : [2, 6, 1]}
+          onClick={() => router.push("/#contact")}
+          color={"white"}
+          position={isMobile ? [2, 14, 1] : [2, 7.8, 1]}
         >
           contact
         </Text>
+        <RoundedBox
+          ref={mesh}
+          args={isMobile ? [11, 24, 1] : [4, 4, 1]}
+          radius={0.4}
+          position={[-7.2, 0, 0.3]}
+          scale={viewport.width * (isMobile ? 0.2 : 0.12)}
+        >
+          <meshBasicMaterial color="#18181b" />
+          <Edges linewidth={1} threshold={15} color={"white"} />
+          <Outlines thickness={0.03} color={"#1a1e21"} />
+        </RoundedBox>
       </RoundedBox>
       <group
         scale={viewport.width * (isMobile ? 7.5 : 10)}
@@ -162,7 +233,7 @@ function Model({
               scale={isMobile ? [1, 1, 5] : [1, 1, 1]}
             >
               <MeshTransmissionMaterial
-                background={new THREE.Color("#e3bce2")}
+                background={new THREE.Color()}
                 samples={10}
                 resolution={2048}
                 thickness={3}
@@ -173,7 +244,7 @@ function Model({
                 temporalDistortion={0.5}
                 clearcoat={0.8}
                 attenuationColor={3}
-                color={"#e3bce2"}
+                color={"#389fd6"}
               />
             </mesh>
           </Float>
@@ -182,7 +253,7 @@ function Model({
       <Text3D
         scale={viewport.width * 0.2}
         ref={ref}
-        position={isMobile ? [0, 0, -6] : [0, -1, -6]}
+        position={isMobile ? [0, 0, -6] : [-9, -0.5, -9]}
         letterSpacing={-0.06}
         size={1}
         font="/Inter_Regular.json"
