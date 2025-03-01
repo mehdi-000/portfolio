@@ -7,16 +7,14 @@ import {
   RoundedBox,
   Outlines,
   Edges,
-  CameraControls,
 } from "@react-three/drei";
 import { Float } from "@react-three/drei";
 import { MeshTransmissionMaterial } from "@react-three/drei";
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
-import { useTransitionRouter } from "next-transition-router";
 import { useRouter } from "next/navigation";
 
-export default function ErrorPage() {
+export default function NotFound() {
   const [cursorStyle, setCursorStyle] = useState<React.CSSProperties>({
     cursor: "default",
   });
@@ -86,15 +84,63 @@ function Model({
         radius={0.4}
         position={[0, -1, -15]}
         scale={viewport.width * (isMobile ? 0.2 : 0.12)}
-        onPointerEnter={() => setCursorStyle({ cursor: "pointer" })}
-        onPointerLeave={() => setCursorStyle({ cursor: "default" })}
-        onClick={(e: { stopPropagation: () => any }) => {
-          e.stopPropagation(), console.log("triggered push"), router.push("/");
-        }}
       >
         <meshBasicMaterial color="#18181b" />
         <Edges linewidth={2} threshold={15} color={"white"} />
         <Outlines thickness={0.07} color={"#1a1e21"} />
+
+        {/*     React Three alpha introduced a bug where pointer events don't fire on <Text/> */}
+        <RoundedBox
+          args={[1, 0.5, 0.1]}
+          position={[-2.2, 7.8, 1.1]}
+          onPointerEnter={() => setCursorStyle({ cursor: "pointer" })}
+          onPointerLeave={() => setCursorStyle({ cursor: "default" })}
+          onClick={() => router.push("/#work")}
+        >
+          <meshBasicMaterial opacity={0.0} transparent />
+        </RoundedBox>
+        <Text
+          font="/PPMonumentExtendedBlack.woff"
+          fontSize={0.26}
+          color={"white"}
+          position={isMobile ? [-2, 14, 1] : [-2.2, 7.8, 1]}
+        >
+          work
+        </Text>
+        <RoundedBox
+          args={[2.1, 0.5, 0.1]}
+          position={[-0.2, 7.8, 1.1]}
+          onPointerEnter={() => setCursorStyle({ cursor: "pointer" })}
+          onPointerLeave={() => setCursorStyle({ cursor: "default" })}
+          onClick={() => router.push("/#experience")}
+        >
+          <meshBasicMaterial opacity={0.0} transparent />
+        </RoundedBox>
+        <Text
+          font="/PPMonumentExtendedBlack.woff"
+          fontSize={0.26}
+          color={"white"}
+          position={isMobile ? [-0.2, 14, 1] : [-0.2, 7.8, 1]}
+        >
+          experience
+        </Text>
+        <RoundedBox
+          args={[1.5, 0.5, 0.1]}
+          position={[2, 7.8, 1.1]}
+          onPointerEnter={() => setCursorStyle({ cursor: "pointer" })}
+          onPointerLeave={() => setCursorStyle({ cursor: "default" })}
+          onClick={() => router.push("/#contact")}
+        >
+          <meshBasicMaterial opacity={0.0} transparent />
+        </RoundedBox>
+        <Text
+          font="/PPMonumentExtendedBlack.woff"
+          fontSize={0.26}
+          color={"white"}
+          position={isMobile ? [2, 14, 1] : [2, 7.8, 1]}
+        >
+          contact
+        </Text>
         <Text
           font="/Heebo-Bold.woff"
           fontSize={0.3}
@@ -165,43 +211,9 @@ function Model({
           position={isMobile ? [-4, 10, 1] : [5, 0, 1]}
           color={"white"}
         >
-          with Three.js and took me wayy too long to build
+          with Three.js and took me wayy too long...
         </Text>
-        <Text
-          font="/PPMonumentExtendedBlack.woff"
-          fontSize={0.26}
-          onPointerEnter={(e: { stopPropagation: () => any }) => {
-            e.stopPropagation(), setCursorStyle({ cursor: "pointer" });
-          }}
-          onPointerLeave={() => setCursorStyle({ cursor: "default" })}
-          onClick={() => router.push("/#work")}
-          color={"white"}
-          position={isMobile ? [-2, 14, 1] : [-2.2, 7.8, 1]}
-        >
-          work
-        </Text>
-        <Text
-          font="/PPMonumentExtendedBlack.woff"
-          fontSize={0.26}
-          onPointerEnter={() => setCursorStyle({ cursor: "pointer" })}
-          onPointerLeave={() => setCursorStyle({ cursor: "default" })}
-          onClick={() => router.push("/#experience")}
-          color={"white"}
-          position={isMobile ? [-0.2, 14, 1] : [-0.2, 7.8, 1]}
-        >
-          experience
-        </Text>
-        <Text
-          font="/PPMonumentExtendedBlack.woff"
-          fontSize={0.26}
-          onPointerEnter={() => setCursorStyle({ cursor: "pointer" })}
-          onPointerLeave={() => setCursorStyle({ cursor: "default" })}
-          onClick={() => router.push("/#contact")}
-          color={"white"}
-          position={isMobile ? [2, 14, 1] : [2, 7.8, 1]}
-        >
-          contact
-        </Text>
+
         <RoundedBox
           ref={mesh}
           args={isMobile ? [11, 24, 1] : [4, 4, 1]}
@@ -256,7 +268,7 @@ function Model({
         position={isMobile ? [0, 0, -6] : [-9, -0.5, -9]}
         letterSpacing={-0.06}
         size={1}
-        font="/Inter_Regular.json"
+        font="/Heebo_SemiBold.json"
       >
         404
       </Text3D>
