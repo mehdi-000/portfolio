@@ -16,7 +16,7 @@ export const Navbar = () => {
         scale: 1.01,
         duration: 0.3,
         ease: "power1.out",
-        color: "#389fd6", // #3d2fd4 #2f4ad4 #389fd6
+        color: "#389fd6",
       });
     }
   };
@@ -56,13 +56,13 @@ export const Navbar = () => {
         </Link>
 
         <Link
-          href={"#contact"}
+          href={"#skills"}
           className="contact m-2"
           ref={contactRef}
           onMouseEnter={() => handleHover(contactRef.current)}
           onMouseLeave={() => handleHoverOut(contactRef.current)}
         >
-          <p>contact</p>
+          <p>skills</p>
         </Link>
       </div>
     </div>

@@ -1,16 +1,17 @@
 "use client";
 import * as THREE from "three";
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { CameraControls } from "@react-three/drei";
-import { useTexture } from "@react-three/drei";
+import { useTexture, DeviceOrientationControls } from "@react-three/drei";
 import { randFloat } from "three/src/math/MathUtils.js";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { fragment } from "@/app/utils/fragment";
 import { vertex } from "@/app/utils/vertex";
+import { useDeviceOrientation } from "../useDeviceOrientation";
 
 export const CustomGeometryParticles = (props: any) => {
-  const { shape, picture, isMobile, fitToBox, animDuration, camDistance } =
+  const { shape, picture, isMobile, animDuration, camDistance, orientation } =
     props;
 
   const cameraControlsRef = useRef<CameraControls>(null!);
@@ -18,19 +19,42 @@ export const CustomGeometryParticles = (props: any) => {
   const shader = useRef<THREE.ShaderMaterial>(null!);
   const vertices: number[] = [];
   const initPosition: number[] = [];
-
-  /*   useLayoutEffect(() => {
-    cameraControlsRef?.current?.setPosition(
-      191.5,
-      107.50000000000001,
-      159.75497819767443
-    );
-    cameraControlsRef?.current?.setTarget(191.5, 107.50000000000001, 0);
-  }, []); */
+  const [cameraPosition, setCameraPosition] = useState<THREE.Vector3>(
+    new THREE.Vector3()
+  );
 
   useLayoutEffect(() => {
     cameraControlsRef?.current?.fitToBox(points.current, true);
   });
+  useEffect(() => {
+    if (cameraControlsRef.current) {
+      const position = new THREE.Vector3();
+      cameraControlsRef.current.getPosition(position);
+      setCameraPosition(position);
+    }
+  }, []);
+  useEffect(() => {
+    if (isMobile && orientation && cameraControlsRef.current) {
+      const { alpha, beta, gamma } = orientation;
+
+      const xOffset = (gamma || 0) * 0.1;
+      const yOffset = (beta || 0) * 0.1;
+      const zOffset = (alpha || 0) * 0.1;
+
+      const newPosition = new THREE.Vector3(
+        cameraPosition.x + xOffset,
+        cameraPosition.y + yOffset,
+        cameraPosition.z + zOffset
+      );
+
+      cameraControlsRef.current.setPosition(
+        newPosition.x,
+        newPosition.y,
+        newPosition.z,
+        true
+      );
+    }
+  }, [orientation, isMobile, cameraPosition]);
 
   const texture = useTexture(picture ?? "/pictures/2.png");
   const rows = isMobile ? 8 * 24 : 16 * 24;

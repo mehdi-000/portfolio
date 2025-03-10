@@ -7,6 +7,7 @@ import { IBM_Plex_Sans } from "next/font/google";
 import { Ubuntu } from "next/font/google";
 import localFont from "next/font/local";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Footer } from "@/app/components/footer";
 
 const heebo = Heebo({ subsets: ["latin"], variable: "--font-heebo" });
 const iBMPlexSans = IBM_Plex_Sans({
@@ -38,10 +39,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${pPMonumentExtendedBlack.variable} ${ubuntu.variable} ${heebo.variable} ${iBMPlexSans.variable} antialiased`}
+        className={`${pPMonumentExtendedBlack.variable} ${ubuntu.variable} ${heebo.variable} ${iBMPlexSans.variable} antialiased bg-black`}
       >
         <Providers>{children}</Providers>
         <SpeedInsights />
+        <Footer />
       </body>
     </html>
   );

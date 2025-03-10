@@ -9,7 +9,7 @@ export const Work = () => {
           Work
         </h2>
       </div>
-      <div className="z-10 w-full items-center md:flex">
+      <div className="z-10 w-full items-center lg:flex">
         <WorkCard
           heading="2D Game"
           model="PlayerModel"
@@ -20,17 +20,6 @@ export const Work = () => {
           buttonLink="/wotw"
         />
         <WorkCard
-          heading="3D Model"
-          model="Cart"
-          title="Cyberpunk Cart"
-          description="Low-poly Cyberpunk cart modeled & rigged in Cinema4D designed to be held together by magnetic fields for a futuristic aesthetic"
-          time="2 Weeks"
-          type="Uni Project"
-          buttonLink="/cyberpunk-cart"
-        />
-      </div>
-      <div className="z-10 w-full items-center md:flex">
-        <WorkCard
           heading="2D Game"
           model="WotwTitle"
           title="Way of the Warrior"
@@ -39,12 +28,23 @@ export const Work = () => {
           type="Uni Project"
           buttonLink="/wotw"
         />
+      </div>
+      <div className="z-10 w-full items-center lg:flex">
+        <WorkCard
+          heading="3D Model"
+          model="Cart"
+          title="Cyberpunk Cart"
+          description="Low-poly Cyberpunk cart modeled & rigged in Cinema4D designed to be held together by magnetic fields for a futuristic aesthetic"
+          time="3 Weeks"
+          type="Uni Project"
+          buttonLink="/cyberpunk-cart"
+        />
         <WorkCard
           heading="Website"
           model="LegacyLines"
           title="Legacy Lines"
           description="Fullstack Website build in Vue is working as an interactive visual database in which family trees can be added, edited, and explored"
-          time="2 Weeks"
+          time="2 Months"
           type="Uni Project"
           buttonLink="/legacy-lines"
         />

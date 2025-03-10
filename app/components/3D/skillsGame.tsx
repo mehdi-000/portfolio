@@ -30,6 +30,9 @@ export const SkillsGame = () => {
     "TailwindCSS",
     "Git",
     "Cinema 4D",
+    "Blender",
+    "Illustrator",
+    "Java",
   ];
 
   useEffect(() => {
@@ -171,7 +174,7 @@ export const SkillsGame = () => {
       pos.z += (Math.random() - 0.5) * 2;
 
       const butterflyMeshGroup = new THREE.Group();
-      // Create individual meshes from the loaded GLTF
+
       const butterflyMeshes = butterfly.nodes
         ? [
             new THREE.Mesh(
@@ -193,13 +196,11 @@ export const SkillsGame = () => {
             ),
           ]
         : [];
-      //0x389fd6 0x2f4ad4
-      // Add each butterfly mesh to the group
+
       butterflyMeshes.forEach((mesh) => butterflyMeshGroup.add(mesh));
       butterflyMeshGroup.position.copy(pos);
       butterflyMeshGroup.name = "box";
 
-      // Create hitbox
       const hitboxGeo = new THREE.BoxGeometry(0.25, 0.2, 0.25);
       const hitBoxMat = new THREE.MeshBasicMaterial({
         color: 0x3d2fd4,
@@ -216,17 +217,16 @@ export const SkillsGame = () => {
 
       butterflyMeshGroup.userData.hitbox = hitBox;
 
-      // Add hitbox and   butterfly group to the scene
       boxGroup.add(hitBox);
       boxGroup.add(butterflyMeshGroup);
-      // Create a text for this hitbox
+
       const myText = new Text();
-      myText.text = skills[randInt(0, 5)]; // You can customize the text here
+      myText.text = skills[randInt(0, 5)];
       myText.fontSize = 0.1;
-      myText.position.set(pos.x - 0.1, pos.y, pos.z); // Position the text above the hitbox
-      myText.color = 0x389fd6; // Set the text color
-      // Optionally, scale the text if necessary
-      myText.scale.set(0.5, 0.5, 0.5); // Scale the text to fit the scene
+      myText.position.set(pos.x - 0.1, pos.y, pos.z);
+      myText.color = 0x389fd6;
+
+      myText.scale.set(0.5, 0.5, 0.5);
       hitBox.userData.myText = myText;
     }
 
@@ -421,9 +421,8 @@ export const SkillsGame = () => {
 
   return (
     <div
-      className="cursor-none"
+      className="cursor-none w-64 md:w-full h-72 md:h-[65vh]"
       ref={containerRef}
-      style={{ width: "100%", height: "65vh" }}
     />
   );
 };

@@ -109,29 +109,27 @@ export const WorkCard = ({
           style={{ "--glow-color": "#2f4ad4" }}
         >
           <div
-            className="bg-zinc-900/50 border-4 border-pink/5 rounded-2xl md:py-5 md:px-8 py-6 px-10 shadow-black/80 flex md:flex-row flex-col items-center justify-center md:gap-2 gap-6 glow glow:ring-1 glow:border-glow glow:ring-glow"
+            className="bg-zinc-900/50 border-4 border-pink/5 rounded-2xl md:py-5 md:px-8 py-6 px-6 shadow-black/80 flex md:flex-row flex-col items-center justify-center md:gap-2 gap-6 glow glow:ring-1 glow:border-glow glow:ring-glow"
             style={{ "--glow-color": "#389fd6" }}
           >
             <div className="flex flex-col w-full">
               {/* Top Section: "2D" and "Uni project" */}
               <div className="flex justify-between items-start">
                 <p
-                  className="opacity-50 glow:text-glow/[.80] font-heebo text-sm tracking-wide"
+                  className="opacity-50 glow:text-glow/[.80] font-heebo md:text-sm text-xs tracking-wide"
                   style={{ "--glow-color": "#2f4ad4" }}
                 >
                   <strong>{heading}</strong>
                 </p>
                 <p
-                  className="opacity-50 text-sm glow:text-glow/[.80]  font-heebo tracking-wide"
+                  className="opacity-50 md:text-sm text-xs glow:text-glow/[.80]  font-heebo tracking-wide"
                   style={{ "--glow-color": "#2f4ad4" }}
                 >
                   <strong>Agency:</strong> {type}
                 </p>
               </div>
-
-              {/* Middle Section: Content */}
               <h2
-                className="font-bold font-pPMonumentExtended text-center text-3xl md:text-4xl tracking-tight m-2 glow:text-glow/[.80]"
+                className="md:font-bold  font-pPMonumentExtended overflow-clip whitespace-normal text-center text-xl md:text-4xl tracking-tight mt-2 md:m-2 glow:text-glow/[.80]"
                 style={{ "--glow-color": "#2f4ad4" }}
               >
                 {title}
@@ -189,7 +187,7 @@ export const WorkCard = ({
                 {/* Right Column: Description */}
                 <div className="w-full md:w-1/2 flex flex-col justify-center items-center">
                   <p
-                    className="text-sm leading-relaxed md:text-base glow:text-glow/[.80] font-heebo text-center"
+                    className="text-xs leading-relaxed md:text-base glow:text-glow/[.80] font-heebo text-center"
                     style={{ "--glow-color": "#2f4ad4" }}
                   >
                     {description}
@@ -198,12 +196,13 @@ export const WorkCard = ({
               </div>
 
               {/* Bottom Section: "Time: 8 Weeks" and Button */}
-              <div className="flex justify-between items-end  mt-4">
+              <div className="flex justify-between items-end mt-4">
                 <p
-                  className="opacity-50 text-sm glow:text-glow/[.80] font-heebo tracking-wide"
+                  className="opacity-50 md:text-sm text-xs glow:text-glow/[.80] font-heebo tracking-wide md:mb-0 mb-4"
                   style={{ "--glow-color": "#2f4ad4" }}
                 >
-                  <strong>Time:</strong> {time}
+                  <strong>Time:</strong>{" "}
+                  <span className="block md:inline">{time}</span>
                 </p>
                 <div
                   className="flex justify-end"

@@ -1,60 +1,118 @@
-import { useTransitionRouter } from "next-transition-router";
-import { useEffect, useState } from "react";
-import Slider from "react-infinite-logo-slider";
+"use client";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 export const Contact = () => {
-  const router = useTransitionRouter();
-  const [hovered, setHovered] = useState(false);
-  const over = (e: { stopPropagation: () => any }) => (
-    e.stopPropagation(), setHovered(true)
-  );
-  const out = () => setHovered(false);
+  const boxRef = useRef(null);
+  const outerBoxRef = useRef(null);
+  const tl = useRef<gsap.core.Timeline>(null);
+  const { contextSafe } = useGSAP({ scope: outerBoxRef });
 
-  useEffect(() => {
-    if (hovered) document.body.style.cursor = "pointer";
-    return () => {
-      document.body.style.cursor = "auto";
-    };
-  }, [hovered]);
+  useGSAP(() => {
+    gsap.fromTo(
+      boxRef.current,
+      { scale: 0, opacity: 0 },
+      {
+        scale: 1,
+        opacity: 1,
+        duration: 0.6,
+        ease: "back.out(1.7)",
+      }
+    );
+  });
+
+  const hover = contextSafe(() => {
+    tl.current = gsap
+      .timeline()
+      .fromTo(".contact", { scale: 1, opacity: 1 }, { scale: 0, opacity: 0 })
+      .fromTo(
+        boxRef.current,
+        { width: 80, height: 80 },
+        {
+          width: 80,
+          height: 400,
+          duration: 0.5,
+          ease: "power2.inOut",
+        }
+      )
+      .fromTo(
+        ".icon",
+        {
+          scale: 0,
+          opacity: 0,
+        },
+        {
+          scale: 1,
+          opacity: 1,
+          stagger: 0.1,
+          duration: 0.2,
+          ease: "back.out(1.7)",
+        }
+      );
+  });
+
+  const unhover = contextSafe(() => {
+    tl.current?.reverse();
+  });
 
   return (
-    <Slider
-      width="250px"
-      duration={40}
-      pauseOnHover={true}
-      blurBorders={false}
-      blurBorderColor={"#fff"}
+    <div
+      ref={outerBoxRef}
+      onMouseEnter={hover}
+      onMouseLeave={unhover}
+      className="fixed right-4 bottom-4 z-20"
     >
-      <Slider.Slide>
-        <div
-          onClick={() => console.log("lets go")}
-          onPointerOver={over}
-          onPointerOut={out}
-        >
-          <img src="/pictures/2.png" alt="any" className="w-36" />
+      <div
+        ref={boxRef}
+        className="w-20 h-20 border-2 bg-gradient-to-b backdrop-blur-2xl border-pink/5 bg-zinc-800/30 dark:from-inherit rounded-xl flex flex-col items-center justify-center relative overflow-hidden"
+      >
+        <Image
+          src="/pictures/contact_icon.png"
+          className="contact"
+          alt="contact"
+          width={80}
+          height={80}
+        />
+        <div className="absolute flex flex-col gap-4">
+          {[
+            {
+              src: "/pictures/email_icon.png",
+              alt: "Email",
+              link: "mailto:mehdipopal@outlook.de",
+            },
+            {
+              src: "/pictures/github_icon.png",
+              alt: "Github",
+              link: "https://github.com/mehdi-000",
+            },
+            {
+              src: "/pictures/linkedin_icon.png",
+              alt: "Linkedin",
+              link: "https://www.linkedin.com/in/mehdi-popal-65a2a525a",
+            },
+            { src: "/pictures/steam_icon.png", alt: "Steam", link: "#" },
+          ].map((icon, index) => (
+            <a
+              key={index}
+              href={icon.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="icon"
+              style={{ opacity: 0 }}
+            >
+              <Image
+                src={icon.src}
+                alt={icon.alt}
+                width={80}
+                height={80}
+                unoptimized={true}
+              />
+            </a>
+          ))}
         </div>
-      </Slider.Slide>
-      <Slider.Slide>
-        <div
-          onClick={() => console.log("lets go")}
-          onPointerOver={over}
-          onPointerOut={out}
-        >
-          <img src="/pictures/4.png" alt="any2" className="w-36" />
-        </div>
-      </Slider.Slide>
-      <Slider.Slide>
-        <div
-          onClick={() => console.log("lets go")}
-          onPointerOver={over}
-          onPointerOut={out}
-        >
-          <img src="/pictures/7.png" alt="any3" className="w-36" />
-        </div>
-      </Slider.Slide>
-      <Slider.Slide>
-        <div>Other component...</div>
-      </Slider.Slide>
-    </Slider>
+      </div>
+    </div>
   );
 };
