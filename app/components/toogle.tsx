@@ -1,70 +1,59 @@
 "use client";
 
-import { CSSProperties, useState } from "react";
+import { useState, useEffect } from "react";
 
 type ToggleProps = {
   isOn?: boolean;
-  labelOn?: string;
-  labelOff?: string;
   onChange?: (isOn: boolean) => void;
 };
 
-export const Toggle = (props: ToggleProps): React.ReactElement => {
-  const { isOn: isOnDefault = false, onChange } = props;
-
+export const Toggle = ({
+  isOn: isOnDefault = false,
+  onChange,
+}: ToggleProps) => {
   const [isOn, setIsOn] = useState(isOnDefault);
+  const [isVisible, setIsVisible] = useState(true);
 
-  const onToggle = (): void => {
-    const newState = !isOn;
-    setIsOn(newState);
-    if (onChange) {
-      onChange(newState);
+  const onToggle = () => {
+    setIsOn((prev) => !prev);
+    onChange?.(!isOn);
+  };
+
+  useEffect(() => {
+    if (isOn) {
+      setTimeout(() => setIsVisible(false), 400);
     }
-  };
+  }, [isOn]);
 
-  const toggleRandomId = `toggle-${Math.random().toString(36).substring(2)}`;
+  if (!isVisible) return null;
 
-  const toggleDotStyles: CSSProperties = {
-    transform: isOn ? "translateX(100%)" : "translateX(0)",
-    transition: "transform 0.3s ease-in-out",
-  };
-
-  const toggleLineStyles: CSSProperties = {
-    backgroundColor: isOn ? "#046c6e" : "#3d2fd4",
-    transition: "background-color 0.3s ease-in-out",
-  };
-
-  if (!isOn)
-    return (
-      <div className="md:hidden font-heebo absolute inset-0 flex items-center justify-center w-full h-full z-50 backdrop-blur-2xl bg-zinc-800/30">
-        <div className="text-center">
-          <p className="text-lg font-medium text-white mb-4">
-            Please activate the gyro sensors <br></br> to continue
-          </p>
-          <label
-            htmlFor={toggleRandomId}
-            className="flex items-center justify-center cursor-pointer"
-          >
-            <div className="relative">
-              <input
-                id={toggleRandomId}
-                type="checkbox"
-                className="hidden"
-                onChange={onToggle}
-                checked={isOn}
-              />
-              <div
-                style={toggleLineStyles}
-                className="toggle__line w-14 h-8 rounded-full shadow-inner"
-              />
-              <div
-                style={toggleDotStyles}
-                className="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow top-1 left-1"
-              />
-            </div>
-          </label>
-        </div>
+  return (
+    <div className="md:hidden font-heebo fixed inset-0 flex items-center justify-center z-50 backdrop-blur-2xl bg-zinc-800/30 transition-opacity duration-300">
+      <div className="text-center">
+        <p className="text-lg font-medium text-white mb-4">
+          Please activate the gyro sensors <br /> to continue
+        </p>
+        <label className="flex items-center justify-center cursor-pointer">
+          <div className="relative">
+            <input
+              type="checkbox"
+              className="hidden"
+              onChange={onToggle}
+              checked={isOn}
+            />
+            <div
+              className={`w-14 h-8 rounded-full shadow-inner transition-colors duration-300 ${
+                isOn ? "bg-[#389fd6]" : "bg-[#3d2fd4]"
+              }`}
+            />
+            <div
+              className={`absolute w-6 h-6 bg-white rounded-full shadow top-1 left-1 transition-transform duration-300 ${
+                isOn ? "translate-x-full" : ""
+              }`}
+            />
+          </div>
+        </label>
       </div>
-    );
-  else return <></>;
+    </div>
+  );
 };

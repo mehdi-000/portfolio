@@ -8,7 +8,6 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { fragment } from "@/app/utils/fragment";
 import { vertex } from "@/app/utils/vertex";
-import { useDeviceOrientation } from "../useDeviceOrientation";
 
 export const CustomGeometryParticles = (props: any) => {
   const { shape, picture, isMobile, animDuration, camDistance, orientation } =
@@ -19,7 +18,7 @@ export const CustomGeometryParticles = (props: any) => {
   const shader = useRef<THREE.ShaderMaterial>(null!);
   const vertices: number[] = [];
   const initPosition: number[] = [];
-  const [cameraPosition, setCameraPosition] = useState<THREE.Vector3>(
+  const [cameraTarget, setCameraTarget] = useState<THREE.Vector3>(
     new THREE.Vector3()
   );
 
@@ -29,8 +28,8 @@ export const CustomGeometryParticles = (props: any) => {
   useEffect(() => {
     if (cameraControlsRef.current) {
       const position = new THREE.Vector3();
-      cameraControlsRef.current.getPosition(position);
-      setCameraPosition(position);
+      cameraControlsRef.current.getTarget(position);
+      setCameraTarget(position);
     }
   }, []);
   useEffect(() => {
@@ -42,19 +41,19 @@ export const CustomGeometryParticles = (props: any) => {
       const zOffset = (alpha || 0) * 0.1;
 
       const newPosition = new THREE.Vector3(
-        cameraPosition.x + xOffset,
-        cameraPosition.y + yOffset,
-        cameraPosition.z + zOffset
+        cameraTarget.x + xOffset,
+        cameraTarget.y + yOffset,
+        cameraTarget.z + zOffset
       );
 
-      cameraControlsRef.current.setPosition(
+      cameraControlsRef.current.setTarget(
         newPosition.x,
         newPosition.y,
         newPosition.z,
         true
       );
     }
-  }, [orientation, isMobile, cameraPosition]);
+  }, [orientation, isMobile, cameraTarget]);
 
   const texture = useTexture(picture ?? "/pictures/2.png");
   const rows = isMobile ? 8 * 24 : 16 * 24;
@@ -94,12 +93,16 @@ export const CustomGeometryParticles = (props: any) => {
       <CameraControls
         distance={camDistance ?? null}
         ref={cameraControlsRef}
-        mouseButtons={{
-          left: 4,
-          middle: 0,
-          right: 0,
-          wheel: 0,
-        }}
+        mouseButtons={
+          isMobile
+            ? { left: 0, middle: 0, right: 0, wheel: 0 }
+            : {
+                left: 4,
+                middle: 0,
+                right: 0,
+                wheel: 0,
+              }
+        }
       />
       <bufferGeometry>
         <bufferAttribute

@@ -204,8 +204,8 @@ export const UiButton = ({
       <div className="absolute inset-0 z-10">
         <Canvas
           fallback={<div>Sorry no WebGL supported!</div>}
-          onPointerEnter={() => handlePointerEnter()}
-          onPointerLeave={() => handlePointerLeave()}
+          onMouseEnter={() => handlePointerEnter()}
+          onMouseLeave={() => handlePointerLeave()}
           onClick={() => router.push(to)}
         >
           <Particles

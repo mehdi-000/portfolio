@@ -19,7 +19,6 @@ export default function LegacyLines() {
               style={{ "--glow-color": "#389fd6" }}
             >
               <div className="flex flex-col w-full">
-                {/* Top Section: "2D" and "Uni project" */}
                 <div className="flex justify-between items-start">
                   <p
                     className="opacity-50 glow:text-glow/[.80] font-heebo text-sm tracking-wide"
@@ -34,16 +33,7 @@ export default function LegacyLines() {
                     <strong>Agency:</strong> Uni Project
                   </p>
                 </div>
-
-                {/* Middle Section: Content */}
-                {/*           <h2
-                    className="font-bold font-pPMonumentExtended text-center text-3xl md:text-4xl tracking-tight m-2 glow:text-glow/[.80]"
-                    style={{ "--glow-color": "#2f4ad4" }}
-                  >
-                    Cyberpunk Cart
-                  </h2> */}
                 <div className="flex flex-col w-full gap-8 mt-4">
-                  {/* Left Column: Title and Canvas */}
                   <div
                     className="group w-full  bg-zinc-950/70 border-4 border-pink/5 rounded-2xl shadow-lg shadow-black/80 flex flex-col items-center justify-center backdrop-blur-md glow glow:ring-1 glow:border-glow glow:ring-glow"
                     style={{ "--glow-color": "#3d2fd4" }}
@@ -56,20 +46,13 @@ export default function LegacyLines() {
                       <div className="w-full h-full">
                         <div className="h-full w-full">
                           <iframe
-                            src="https://luminous-enthusiasm-production.up.railway.app/"
-                            style={{
-                              width: "1600px",
-                              height: "800px",
-                              borderRadius: "12px",
-                              overflow: "hidden",
-                            }}
+                            src="https://legacylines.up.railway.app/"
+                            className="w-full h-[400px] md:h-[600px] lg:h-[800px] rounded-xl overflow-hidden border-none"
                           ></iframe>
                         </div>
                       </div>
                     </div>
                   </div>
-
-                  {/* Right Column: Description */}
                   <div className="w-full  flex flex-col justify-center items-center">
                     <p
                       className="text-sm leading-relaxed md:text-base glow:text-glow/[.80] font-heebo w-4/5 text-center"
@@ -83,8 +66,6 @@ export default function LegacyLines() {
                     </p>
                   </div>
                 </div>
-
-                {/* Bottom Section: "Time: 8 Weeks" and Button */}
                 <div className="flex justify-between items-end  mt-4">
                   <p
                     className="opacity-50 text-sm glow:text-glow/[.80] font-heebo tracking-wide"
@@ -93,8 +74,6 @@ export default function LegacyLines() {
                     <strong>Time:</strong> 2 Months
                   </p>
                 </div>
-
-                {/* Glow Overlay */}
                 <div
                   className="glow-overlay"
                   style={{ "--glow-color": "#2f4ad4" }}

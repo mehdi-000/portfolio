@@ -13,7 +13,7 @@ type UseDeviceOrientationData = {
   orientation: DeviceOrientation | null;
   error: Error | null;
   requestAccess: () => Promise<boolean>;
-  revokeAccess: () => Promise<void>;
+  revokeAccess: () => void;
 };
 
 declare global {
@@ -37,12 +37,13 @@ export const useDeviceOrientation = (): UseDeviceOrientationData => {
     });
   };
 
-  const revokeAccessAsync = async (): Promise<void> => {
+  const revokeAccess = useCallback((): void => {
     window.removeEventListener("deviceorientation", onDeviceOrientation);
     setOrientation(null);
-  };
+    localStorage.removeItem("gyroPermission");
+  }, []);
 
-  const requestAccessAsync = async (): Promise<boolean> => {
+  const requestAccess = useCallback(async (): Promise<boolean> => {
     if (typeof DeviceOrientationEvent === "undefined") {
       setError(
         new Error("Device orientation event is not supported by your browser")
@@ -50,35 +51,34 @@ export const useDeviceOrientation = (): UseDeviceOrientationData => {
       return false;
     }
 
-    // Check for requestPermission method
+    // Handle permission request if required
     if (
-      typeof (DeviceOrientationEvent as any).requestPermission === "function"
+      typeof DeviceOrientationEvent.prototype.requestPermission === "function"
     ) {
-      let permission: "granted" | "denied";
       try {
-        permission = await (DeviceOrientationEvent as any).requestPermission();
+        const permission =
+          await DeviceOrientationEvent.prototype.requestPermission();
+        if (permission !== "granted") {
+          throw new Error("Request to access device orientation was denied");
+        }
+        localStorage.setItem("gyroPermission", "granted");
       } catch (err) {
         setError(err as Error);
-        return false;
-      }
-      if (permission !== "granted") {
-        setError(
-          new Error("Request to access the device orientation was rejected")
-        );
         return false;
       }
     }
 
     window.addEventListener("deviceorientation", onDeviceOrientation);
-
     return true;
-  };
-
-  const requestAccess = useCallback(requestAccessAsync, []);
-  const revokeAccess = useCallback(revokeAccessAsync, []);
+  }, []);
 
   useEffect(() => {
-    return (): void => {
+    // Automatically enable orientation if permission is stored
+    if (localStorage.getItem("gyroPermission") === "granted") {
+      window.addEventListener("deviceorientation", onDeviceOrientation);
+    }
+
+    return () => {
       revokeAccess();
     };
   }, [revokeAccess]);

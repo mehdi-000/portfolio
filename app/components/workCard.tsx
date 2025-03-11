@@ -34,17 +34,29 @@ export const WorkCard = ({
   const glowCaptureRef = useRef<HTMLDivElement | null>(null);
   const modelRef = useRef<any>(null);
   const tl = useRef<gsap.core.Timeline>(null);
-  const [modelLoaded, setModelLoaded] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-  const [load, setLoad] = useState(false);
-  const [load2, setLoad2] = useState(false);
+  const [loadModel, setLoadModel] = useState(false);
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+
+  useEffect(() => {
+    if (isMobile) {
+      setLoadModel(true);
+    }
+  }, [isMobile]);
 
   useEffect(() => {
     if (!ref.current) return;
 
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        setLoad2(true);
+        setLoadModel(true);
+        if (isMobile && modelRef.current) {
+          gsap.fromTo(
+            modelRef.current?.scale,
+            { x: 0, y: 0, z: 0 },
+            { x: 1, y: 1, z: 1 }
+          );
+        }
         observer.disconnect();
       }
     });
@@ -52,13 +64,14 @@ export const WorkCard = ({
     observer.observe(ref.current);
 
     return () => observer.disconnect();
-  }, []);
+  });
 
-  const DynamicModel2 = dynamic(() => import(`@/public/model/${Model}`));
+  const DynamicModel = dynamic(() => import(`@/public/model/${Model}`));
 
   const { contextSafe } = useGSAP();
 
   const hover = contextSafe(() => {
+    if (isMobile) return;
     tl.current = gsap
       .timeline()
       .fromTo(
@@ -70,12 +83,12 @@ export const WorkCard = ({
   });
 
   const unhover = contextSafe(() => {
+    if (isMobile) return;
     tl.current?.reverse();
   });
 
   useEffect(() => {
-    if (!glowCaptureRef.current) return;
-
+    if (!glowCaptureRef.current || isMobile) return;
     const refElement = glowCaptureRef.current;
     const clonedChild = refElement.children[0].cloneNode(true);
     const overlay = refElement.querySelector(".glow-overlay");
@@ -97,7 +110,7 @@ export const WorkCard = ({
     });
   }, []);
   return (
-    <div className={`flex flex-grow my-4 md:m-8 `}>
+    <div className={`flex flex-grow my-6 md:m-8 `}>
       <div
         ref={glowCaptureRef}
         className="relative h-full w-full glow-capture text-white"
@@ -113,7 +126,6 @@ export const WorkCard = ({
             style={{ "--glow-color": "#389fd6" }}
           >
             <div className="flex flex-col w-full">
-              {/* Top Section: "2D" and "Uni project" */}
               <div className="flex justify-between items-start">
                 <p
                   className="opacity-50 glow:text-glow/[.80] font-heebo md:text-sm text-xs tracking-wide"
@@ -135,7 +147,6 @@ export const WorkCard = ({
                 {title}
               </h2>
               <div className="flex flex-col md:flex-row w-full gap-8 mt-4">
-                {/* Left Column: Title and Canvas */}
                 <div
                   className="group w-full md:w-1/2 bg-zinc-950/70 border-4 border-pink/5 rounded-2xl p-6 shadow-lg shadow-black/80 flex flex-col items-center justify-center backdrop-blur-md glow glow:ring-1 glow:border-glow glow:ring-glow"
                   style={{ "--glow-color": "#3d2fd4" }}
@@ -165,8 +176,8 @@ export const WorkCard = ({
                               )
                             }
                           />
-                          {load2 ? (
-                            <DynamicModel2
+                          {loadModel ? (
+                            <DynamicModel
                               // @ts-ignore
                               ref={modelRef}
                               disableMobileScaling
@@ -184,7 +195,6 @@ export const WorkCard = ({
                   </div>
                 </div>
 
-                {/* Right Column: Description */}
                 <div className="w-full md:w-1/2 flex flex-col justify-center items-center">
                   <p
                     className="text-xs leading-relaxed md:text-base glow:text-glow/[.80] font-heebo text-center"
@@ -195,7 +205,6 @@ export const WorkCard = ({
                 </div>
               </div>
 
-              {/* Bottom Section: "Time: 8 Weeks" and Button */}
               <div className="flex justify-between items-end mt-4">
                 <p
                   className="opacity-50 md:text-sm text-xs glow:text-glow/[.80] font-heebo tracking-wide md:mb-0 mb-4"
@@ -216,8 +225,6 @@ export const WorkCard = ({
                   />
                 </div>
               </div>
-
-              {/* Glow Overlay */}
               <div
                 className="glow-overlay"
                 style={{ "--glow-color": "#2f4ad4" }}

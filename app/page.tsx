@@ -44,16 +44,16 @@ export default function Home() {
       <div className="w-screen h-screen relative">
         <Navbar />
         <Logoanimated />
-        <h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-3xl md:text-6xl font-pPMonumentExtended text-center z-20">
+        <h1 className="absolute md:top-1/2 top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-3xl md:text-6xl font-pPMonumentExtended text-center z-20">
           Hello World
         </h1>
-        <div className="absolute bottom-8 right-4 p-4">
+        <div className="absolute md:bottom-8 md:right-4 top-1/2 right-1/2 p-4">
           <p className="border-2 bg-gradient-to-b pb-4 pt-6 px-5 backdrop-blur-2xl border-pink/5 bg-zinc-800/30 dark:from-inherit static w-auto rounded-2xl p-4 lg:bg-zinc-800/30 text-zinc-50">
             Mehdi Popal&nbsp;
           </p>
         </div>
       </div>
-      <div className="spacer w-full m-16"></div>
+      <div className="hidden md:block spacer w-full m-16"></div>
       <Work />
       <div className="spacer w-full m-16"></div>
       <div className="flex w-full md:h-20 justify-evenly mb-6">
@@ -78,7 +78,7 @@ export default function Home() {
       </div>
       <div className="z-10 md:w-[96%] items-center md:flex">
         <div className="bg-zinc-900/50 w-full border-4 border-pink/5 rounded-2xl md:py-6 md:px-10 py-4 px-4 shadow-black/80 flex flex-col items-center justify-center gap-6 cursor-none">
-          <div className="w-full bg-zinc-950/70 border-4 border-pink/5 rounded-2xl md:p-6 shadow-lg flex flex-col md:flex-row items-center justify-center gap-8 backdrop-blur-md">
+          <div className="w-full bg-zinc-950/70 border-4 border-pink/5 rounded-2xl md:p-6 shadow-lg flex flex-col md:flex-row items-center justify-center gap-8">
             <div className="w-full md:h-[65vh]" ref={ref}>
               {load ? <DynamicSkillGame /> : null}
             </div>

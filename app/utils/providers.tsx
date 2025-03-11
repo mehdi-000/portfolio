@@ -90,7 +90,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <TransitionRouter
-      auto={true}
       leave={(next, from, to) => {
         /*         if (to === "/#work") {
           next();

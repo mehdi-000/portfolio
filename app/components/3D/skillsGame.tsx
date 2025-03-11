@@ -6,6 +6,7 @@ import { Text } from "troika-three-text";
 
 import * as THREE from "three";
 import { randInt } from "three/src/math/MathUtils.js";
+import { useDeviceOrientation } from "@/app/components/hooks/useDeviceOrientation";
 
 function useButterflyGLTF() {
   if (typeof window === "undefined") {
@@ -34,6 +35,9 @@ export const SkillsGame = () => {
     "Illustrator",
     "Java",
   ];
+
+  const { orientation, requestAccess, revokeAccess, error } =
+    useDeviceOrientation();
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -365,6 +369,7 @@ export const SkillsGame = () => {
     function animate(t = 0) {
       requestAnimationFrame(animate);
       updateCamera(t);
+      console.log(mousePos, "mousePos");
       crosshairs.position.set(mousePos.x, mousePos.y, -1);
       boxGroup.children.forEach((child) => {
         if (child.name === "butterflybox" || child.name === "box") {
@@ -387,7 +392,7 @@ export const SkillsGame = () => {
       scene.remove(...inactiveLasers);
       lasers = lasers.filter((l) => l.userData.active === true);
     }
-    window.addEventListener("click", () => fireLaser());
+    window.addEventListener("mousedown", () => fireLaser());
 
     // Handle resize
     const handleResize = () => {
@@ -395,19 +400,47 @@ export const SkillsGame = () => {
       const height = container.clientHeight;
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
+      const { innerWidth, innerHeight } = window;
+      console.log(
+        "width ",
+        width,
+        "height ",
+        height,
+        "inner window",
+        innerWidth,
+        "innerHeight",
+        innerHeight
+      );
       renderer.setSize(width, height);
     };
     window.addEventListener("resize", handleResize);
 
-    function onMouseMove(evt: { clientX: number; clientY: number }) {
-      w = window.innerWidth;
-      h = window.innerHeight;
+    function onPointerMove(evt: MouseEvent | TouchEvent) {
+      const isTouch = evt instanceof TouchEvent;
+      const { innerWidth: w, innerHeight: h } = window;
       let aspect = w / h;
       let fudge = { x: aspect * 0.75, y: 0.75 };
-      mousePos.x = ((evt.clientX / w) * 2 - 1) * fudge.x;
-      mousePos.y = (-1 * (evt.clientY / h) * 2 + 1) * fudge.y;
+
+      if (isTouch && orientation) {
+        // 🎯 Gyro-based position adjustment
+        const gyroX = (orientation.gamma || 0) / 45; // Normalize gamma (-45 to 45)
+        const gyroY = (orientation.beta || 0) / 45; // Normalize beta (-45 to 45)
+
+        mousePos.x += gyroX * 0.05 * fudge.x; // Slightly alter position
+        mousePos.y += -gyroY * 0.05 * fudge.y;
+      } else {
+        // 🖱 Mouse-based position tracking
+        const clientX = (evt as MouseEvent).clientX ?? 0;
+        const clientY = (evt as MouseEvent).clientY ?? 0;
+
+        mousePos.x = ((clientX / w) * 2 - 1) * fudge.x;
+        mousePos.y = (-1 * (clientY / h) * 2 + 1) * fudge.y;
+      }
     }
-    window.addEventListener("mousemove", onMouseMove, false);
+
+    // 🌍 Attach events for both mouse & touch
+    window.addEventListener("mousemove", onPointerMove, false);
+    window.addEventListener("touchmove", onPointerMove, false);
 
     /*     window.addEventListener("keydown", handleShoot); */
 

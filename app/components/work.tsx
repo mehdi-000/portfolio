@@ -4,7 +4,7 @@ import { WorkCard } from "@/app/components/workCard";
 export const Work = () => {
   return (
     <>
-      <div className="flex w-full md:h-20 justify-evenly">
+      <div className="flex w-full mb-4 md:h-20 justify-evenly">
         <h2 id="work" className=" font-pPMonumentExtended text-4xl">
           Work
         </h2>
