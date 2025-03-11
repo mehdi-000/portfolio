@@ -6,8 +6,12 @@ import { useDeviceOrientation } from "@/app/components/hooks/useDeviceOrientatio
 import { Toggle } from "@/app/components/toogle";
 
 export const Logoanimated = ({}) => {
-  const { orientation, requestAccess, error } = useDeviceOrientation();
+  const { orientation, requestAccess, revokeAccess, error } =
+    useDeviceOrientation();
 
+  const onChange = (toggleState: boolean): void => {
+    const result = toggleState ? requestAccess() : revokeAccess();
+  };
   return (
     <>
       <div className="h-[95%] hidden md:block">
@@ -32,7 +36,7 @@ export const Logoanimated = ({}) => {
         </Canvas>
       </div>
       <div className="h-5/6 block md:hidden">
-        <Toggle />
+        <Toggle onChange={onChange} />
         <Canvas
           fallback={<div>Sorry no WebGL supported!</div>}
           shadows

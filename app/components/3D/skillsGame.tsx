@@ -422,14 +422,13 @@ export const SkillsGame = () => {
       let fudge = { x: aspect * 0.75, y: 0.75 };
 
       if (isTouch && orientation) {
-        // 🎯 Gyro-based position adjustment
-        const gyroX = (orientation.gamma || 0) / 45; // Normalize gamma (-45 to 45)
-        const gyroY = (orientation.beta || 0) / 45; // Normalize beta (-45 to 45)
+        console.log("orientation ", orientation.gamma, orientation.beta);
+        const gyroX = (orientation.gamma || 0) / 45;
+        const gyroY = (orientation.beta || 0) / 45;
 
-        mousePos.x += gyroX * 0.05 * fudge.x; // Slightly alter position
+        mousePos.x += gyroX * 0.05 * fudge.x;
         mousePos.y += -gyroY * 0.05 * fudge.y;
       } else {
-        // 🖱 Mouse-based position tracking
         const clientX = (evt as MouseEvent).clientX ?? 0;
         const clientY = (evt as MouseEvent).clientY ?? 0;
 
@@ -437,8 +436,6 @@ export const SkillsGame = () => {
         mousePos.y = (-1 * (clientY / h) * 2 + 1) * fudge.y;
       }
     }
-
-    // 🌍 Attach events for both mouse & touch
     window.addEventListener("mousemove", onPointerMove, false);
     window.addEventListener("touchmove", onPointerMove, false);
 
