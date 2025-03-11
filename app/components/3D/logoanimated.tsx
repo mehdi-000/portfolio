@@ -44,7 +44,7 @@ export const Logoanimated = ({}) => {
             <CustomGeometryParticles
               orientation={orientation}
               shape="square"
-              picture="/pictures/7cropped.png"
+              picture="/pictures/mobileLogo.png"
               isMobile
               fitToBox
             />
