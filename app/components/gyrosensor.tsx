@@ -1,6 +1,6 @@
 "use client";
 
-import { useDeviceOrientation } from "@/app/components/useDeviceOrientation";
+import { useDeviceOrientation } from "@/app/components/hooks/useDeviceOrientation";
 import { Toggle } from "./toogle";
 
 export const Gyro = () => {
