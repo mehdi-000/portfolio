@@ -1,6 +1,6 @@
 "use client";
 import * as THREE from "three";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { CameraControls } from "@react-three/drei";
 import { useTexture } from "@react-three/drei";
 import { randFloat } from "three/src/math/MathUtils.js";
@@ -69,7 +69,6 @@ const Particles = ({
   vertices,
   initPosition,
   tl,
-  children,
 }: any) => {
   const cameraControlsRef = useRef<CameraControls>(null!);
   const points = useRef<THREE.Points>(null!);
@@ -141,30 +140,36 @@ const Particles = ({
   );
 };
 
-export const UiButton = ({
+export const UiButton2 = ({
   picture,
   isMobile,
   animDuration,
   camDistance,
   to,
   className,
-  children,
-  text,
-  isAnchor,
-  buttonClassName,
+  hovered,
 }: any) => {
   const vertices: number[] = [];
   const initPosition: number[] = [];
   const tl = useRef<gsap.core.Timeline>(null);
   const [container, setContainer] = useState<HTMLElement | null>(null);
   const router = useTransitionRouter();
+
+  useEffect(() => {
+    if (hovered) {
+      if (tl.current) tl.current.play();
+    } else {
+      if (tl.current) tl.current.reverse(0.3);
+    }
+  }, [hovered]);
+
   useEffect(() => {
     setContainer(document.body);
   }, []);
 
   const generateParticlePositions = () => {
     const buttonWidth = 3;
-    const buttonHeight = 0.9;
+    const buttonHeight = 1;
     const borderRadius = 0.2;
     const spacing = 0.009;
 
@@ -189,33 +194,17 @@ export const UiButton = ({
 
   generateParticlePositions();
 
-  const handlePointerEnter = () => {
-    if (tl.current) tl.current.play();
-    if (container) container.style.cursor = "pointer";
-  };
-
-  const handlePointerLeave = () => {
-    if (tl.current) tl.current.reverse(0.3);
-    if (container) container.style.cursor = "auto";
-  };
-
   return (
     <div
       className={cn(
-        "relative w-[9.5rem] h-16  overflow-hidden rounded-2xl",
+        "relative self-end w-100 h-8 rounded-lg overflow-hidden",
         className
       )}
     >
       <div className="absolute inset-0 z-10">
         <Canvas
-          fallback={<div>Sorry, no WebGL supported!</div>}
-          onMouseEnter={() => handlePointerEnter()}
-          onMouseLeave={() => handlePointerLeave()}
-          onClick={() =>
-            isAnchor
-              ? (window.location.href = `mailto:${to}`)
-              : () => router.push(to)
-          }
+          fallback={<div>Sorry no WebGL supported!</div>}
+          onClick={() => router.push(to)}
         >
           <Particles
             picture={picture}
@@ -228,26 +217,16 @@ export const UiButton = ({
           />
         </Canvas>
       </div>
-      <div
-        className={`absolute inset-0 flex items-center justify-center pointer-events-none`}
-      >
+      <div className="absolute pointer-events-none inset-0 flex items-center justify-center">
         <button
-          className={cn(
-            "font-semibold px-[6.5rem] backdrop-blur-md py-7 rounded-xl text-white/90 border-2 border-white glow:ring-1 glow:border-glow glow:ring-glow glow:text-glow/[.80]",
-            buttonClassName
-          )}
+          className={"font-light px-[4.5rem] rounded-xl text-white/90"}
+        ></button>
+        <Link
+          className="absolute z-10 pointer-events-none text-xs"
+          href="/wotw"
         >
-          {children}
-        </button>
-        {isAnchor ? (
-          <a className="absolute z-10 pointer-events-none text-white" href={to}>
-            {text}
-          </a>
-        ) : (
-          <Link className="absolute z-10 pointer-events-none" href={to}>
-            {text}
-          </Link>
-        )}
+          Learn more
+        </Link>
       </div>
     </div>
   );

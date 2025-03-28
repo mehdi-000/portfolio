@@ -1,14 +1,17 @@
 "use client";
 import { useEffect, useState, useRef, Ref, use } from "react";
-import { Canvas, useThree } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment, OrbitControls, useGLTF } from "@react-three/drei";
 import "./workCard.css";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Vector3 } from "three";
-import { UiButton } from "@/app/components/UiButton";
+import { UiButton2 } from "@/app/components/UiButton2";
 import dynamic from "next/dynamic";
 import * as THREE from "three";
+import { FaReact } from "react-icons/fa";
+import { TbBrandNextjs, TbBrandTypescript } from "react-icons/tb";
+import { SiSass } from "react-icons/si";
 
 type WorkCardProps = {
   model: any;
@@ -36,6 +39,7 @@ export const WorkCard = ({
   const tl = useRef<gsap.core.Timeline>(null);
   const ref = useRef<HTMLDivElement>(null);
   const [loadModel, setLoadModel] = useState(false);
+  const [hovered, setHovered] = useState(false);
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
   useEffect(() => {
@@ -65,6 +69,17 @@ export const WorkCard = ({
 
     return () => observer.disconnect();
   });
+  const CameraController = () => {
+    const { camera, pointer } = useThree();
+
+    useFrame(() => {
+      camera.position.x += pointer.x * 2 - camera.position.x;
+      camera.position.y += -pointer.y * 2 - camera.position.y;
+      camera.lookAt(0, 1, 0);
+    });
+
+    return null;
+  };
 
   const DynamicModel = dynamic(() => import(`@/public/model/${Model}`));
 
@@ -108,9 +123,9 @@ export const WorkCard = ({
       const overlayElement = overlay as HTMLElement;
       overlayElement.style.setProperty("--glow-opacity", "0");
     });
-  }, []);
+  });
   return (
-    <div className={`flex flex-grow my-6 md:m-8 `}>
+    <div className="flex flex-grow my-4 md:my-6 max-w-[443px] max-h-[476px]">
       <div
         ref={glowCaptureRef}
         className="relative h-full w-full glow-capture text-white"
@@ -122,42 +137,25 @@ export const WorkCard = ({
           style={{ "--glow-color": "#2f4ad4" }}
         >
           <div
-            className="bg-zinc-900/50 border-4 border-pink/5 rounded-2xl md:py-5 md:px-8 py-6 px-6 shadow-black/80 flex md:flex-row flex-col items-center justify-center md:gap-2 gap-6 glow glow:ring-1 glow:border-glow glow:ring-glow"
+            className="relative justify-center [box-shadow:0_-10px_50px_-10px_#ffffff1f_inset] [border:1px_solid_rgba(255,255,255,.1)] flex flex-col items-center bg-gradient-to-br from-purple-800/5 to-cyan-400/5 backdrop-blur-md pt-4 px-4 rounded-2xl shadow-lg border border-gray-800 text-white w-full mx-auto group glow glow:ring-1 glow:border-glow glow:ring-glow overflow-visible"
             style={{ "--glow-color": "#389fd6" }}
           >
             <div className="flex flex-col w-full">
-              <div className="flex justify-between items-start">
-                <p
-                  className="opacity-50 glow:text-glow/[.80] font-heebo md:text-sm text-xs tracking-wide"
-                  style={{ "--glow-color": "#2f4ad4" }}
-                >
-                  <strong>{heading}</strong>
-                </p>
-                <p
-                  className="opacity-50 md:text-sm text-xs glow:text-glow/[.80]  font-heebo tracking-wide"
-                  style={{ "--glow-color": "#2f4ad4" }}
-                >
-                  <strong>Agency:</strong> {type}
-                </p>
-              </div>
               <h2
-                className="md:font-bold  font-pPMonumentExtended overflow-clip whitespace-normal text-center text-xl md:text-4xl tracking-tight mt-2 md:m-2 glow:text-glow/[.80]"
+                className="text-2xl md:text-3xl font-bold text-center tracking-tight glow:text-glow/[.20] px-2"
                 style={{ "--glow-color": "#2f4ad4" }}
               >
                 {title}
               </h2>
-              <div className="flex flex-col md:flex-row w-full gap-8 mt-4">
-                <div
-                  className="group w-full md:w-1/2 bg-zinc-950/70 border-4 border-pink/5 rounded-2xl p-6 shadow-lg shadow-black/80 flex flex-col items-center justify-center backdrop-blur-md glow glow:ring-1 glow:border-glow glow:ring-glow"
-                  style={{ "--glow-color": "#3d2fd4" }}
-                >
+              <div className="flex flex-col justify-center items-center w-full gap-4 mt-3">
+                <div className="group w-full md:w-3/4 rounded-xl p-4 flex flex-col items-center justify-center">
                   <div
-                    className="flex justify-center prose prose-zinc prose-invert prose-lg md:prose-base text-opacity-90 glow:text-glow/[.80]"
+                    className="flex justify-center text-opacity-90 glow:text-glow/[.80]"
                     style={{ "--glow-color": "#389fd6" }}
                     ref={ref}
                   >
-                    <div className="md:h-64 md:max-w-64 max-w-40">
-                      <div className="pt-4 h-full">
+                    <div className="md:max-w-52 max-w-36 h-40">
+                      <div className="absolute top-[50px] left-1/2 transform -translate-x-1/2 h-52 z-50">
                         <Canvas
                           fallback={<div>Sorry no WebGL supported!</div>}
                           camera={{
@@ -167,6 +165,7 @@ export const WorkCard = ({
                             ],
                           }}
                         >
+                          <CameraController />
                           <OrbitControls
                             target={
                               new Vector3(
@@ -195,33 +194,41 @@ export const WorkCard = ({
                   </div>
                 </div>
 
-                <div className="w-full md:w-1/2 flex flex-col justify-center items-center">
+                <div className="w-full flex flex-col justify-center items-center">
                   <p
-                    className="text-xs leading-relaxed md:text-base glow:text-glow/[.80] font-heebo text-center"
+                    className="text-gray-300 text-xs md:text-sm translate-y-12 transition-transform duration-500 ease-in-out group-hover:translate-y-0 mt-1 glow:text-glow/[.80] font-heebo text-center px-3"
                     style={{ "--glow-color": "#2f4ad4" }}
                   >
                     {description}
                   </p>
+                  <div className="flex gap-2 my-2 transform transition-transform duration-500 ease-in-out translate-y-12 group-hover:translate-y-0 flex-wrap justify-center">
+                    <span className="flex items-center gap-2 bg-gray-800 px-2 py-1 rounded-full text-xs">
+                      <div className="text-white" /> Next.js
+                    </span>
+                    <span className="flex items-center gap-2 bg-gray-800 px-2 py-1 rounded-full text-xs">
+                      <FaReact className="text-blue-400" /> React
+                    </span>
+                    <span className="flex items-center gap-2 bg-gray-800 px-2 py-1 rounded-full text-xs">
+                      <TbBrandTypescript className="text-blue-500" /> TypeScript
+                    </span>
+                    <span className="flex items-center gap-2 bg-gray-800 px-2 py-1 rounded-full text-xs">
+                      <SiSass className="text-pink-400" /> Sass
+                    </span>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex justify-between items-end mt-4">
-                <p
-                  className="opacity-50 md:text-sm text-xs glow:text-glow/[.80] font-heebo tracking-wide md:mb-0 mb-4"
-                  style={{ "--glow-color": "#2f4ad4" }}
-                >
-                  <strong>Time:</strong>{" "}
-                  <span className="block md:inline">{time}</span>
-                </p>
+              <div className="flex ml-3 m-1 transition-opacity duration-500 opacity-0 group-hover:opacity-100">
                 <div
                   className="flex justify-end"
                   style={{ "--glow-color": "#3d2fd4" }}
                 >
-                  <UiButton
+                  <UiButton2
                     picture="/pictures/turqouis8Backround.png"
                     animDuration={0.6}
                     camDistance={0.87}
                     to={buttonLink}
+                    hovered={hovered}
                   />
                 </div>
               </div>

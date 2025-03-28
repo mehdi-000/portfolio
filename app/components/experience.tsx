@@ -1,93 +1,214 @@
-export const Experience = () => (
-  <div className="bg-zinc-900/50 border-4 border-pink/5 rounded-2xl p-6 md:p-8 shadow-lg text-white">
-    <div className="text-xs sm:text-sm text-gray-400 font-heebo uppercase tracking-wide mb-4">
-      3 Years of Experience
-    </div>
-    {[
-      {
-        title: "Web Developer",
-        description:
-          "Developing scalable and high-performance web applications with modern technologies.",
-        descriptionMobile: "Developing responsive web applications",
-        company: "Freelance",
-        years: "2024 - Present",
-      },
-      {
-        title: "Founder & Game Developer",
-        description:
-          "Founded and led Nixx Studios, an independent game studio developing Way of the Warrior, a Visual Novel built in Unity.",
-        descriptionMobile: "Founded Nixx Studios working on Way of the Warrior",
-        company: "Nixx Studios",
-        years: "2024 - Present",
-      },
-    ].map((job, index) => (
+"use client";
+
+import { useEffect, useRef } from "react";
+import { FaBriefcase, FaGraduationCap } from "react-icons/fa";
+import "./workCard.css";
+
+export const Experience = () => {
+  const glowCaptureRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!glowCaptureRef.current) return;
+    const refElement = glowCaptureRef.current;
+    const clonedChild = refElement.children[0].cloneNode(true);
+    const overlay = refElement.querySelector(".glow-overlay");
+    overlay?.appendChild(clonedChild);
+
+    refElement?.addEventListener("mousemove", (event) => {
+      const x = event.pageX - refElement.offsetLeft;
+      const y = event.pageY - refElement.offsetTop;
+
+      const overlayElement = overlay as HTMLElement;
+      overlayElement.style.setProperty("--glow-x", `${x}px`);
+      overlayElement.style.setProperty("--glow-y", `${y}px`);
+      overlayElement.style.setProperty("--glow-opacity", "1");
+    });
+
+    refElement?.addEventListener("mouseleave", () => {
+      const overlayElement = overlay as HTMLElement;
+      overlayElement.style.setProperty("--glow-opacity", "0");
+    });
+  });
+  return (
+    <>
       <div
-        key={index}
-        className="flex flex-row justify-between items-start text-gray-300 mt-4"
+        ref={glowCaptureRef}
+        className=" relative glow-capture"
+        style={{ "--glow-color": "#389fd6" }}
       >
-        <div className="flex-1">
-          <div className="font-semibold font-pPMonumentExtended text-white text-xs md:text-sm sm:text-base">
-            {job.title}
+        <div className="bg-gradient-to-br backdrop from-purple-800/5 to-cyan-400/5 border border-zinc-700 rounded-3xl p-8 shadow-2xl text-white max-w-2xl mx-auto glow glow:ring-1 glow:border-glow glow:ring-glow glow:bg-glow/[.15]">
+          <div className="text-gray-400 text-sm uppercase font-medium tracking-wider mb-8 text-center">
+            3+ Years of Experience
           </div>
-          <div className="hidden md:block sm:text-sm text-gray-400 font-heebo">
-            {job.description}
-          </div>
-          <div className="md:hidden text-xs font-heebo text-gray-400 w-3/5 mt-1">
-            {job.descriptionMobile}
-          </div>
-        </div>
 
-        {/* Company & Years Aligned */}
-        <div className="min-w-[120px] md:min-w-[150px] text-right text-xs sm:text-sm">
-          <div className="font-heebo font-bold text-white">{job.company}</div>
-          <span className="text-gray-500 font-heebo">{job.years}</span>
+          {/* Experience Entries */}
+          <div className="space-y-8 glow glow:ring-1 glow:border-glow glow:ring-glow">
+            {[
+              {
+                title: "Web Developer",
+                description:
+                  "Building scalable, high-performance web applications with modern technologies.",
+                company: "Freelance",
+                years: "2024 - Present",
+              },
+              {
+                title: "Founder & Game Developer",
+                description:
+                  "Founded Nixx Studios, developing 'Way of the Warrior'—a Visual Novel built in Unity.",
+                company: "Nixx Studios",
+                years: "2024 - Present",
+              },
+            ].map((job, index) => (
+              <div
+                key={index}
+                className="flex gap-6 glow:ring-1 glow:border-glow glow:ring-glow"
+              >
+                <FaBriefcase className="text-gray-500 text-xl mt-1" />
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold">{job.title}</h3>
+                  <p className="text-gray-400 text-sm">{job.description}</p>
+                  <div className="text-gray-300 text-sm mt-2">
+                    <span className="font-medium">{job.company}</span> &bull;{" "}
+                    {job.years}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="border-t border-gray-700 my-10"></div>
+          <div className="flex gap-6">
+            <FaGraduationCap className="text-gray-500 text-xl mt-1" />
+            <div className="flex-1">
+              <h3 className="text-lg font-semibold">Bachelor of IT & Design</h3>
+              <p className="text-gray-300 text-sm mt-1">
+                Technische Hochschule Lübeck
+              </p>
+              <p className="text-gray-500 text-sm">2021 - 2025</p>
+            </div>
+          </div>
+          <div className="border-t border-gray-700 my-10"></div>
+          <div className="space-y-6">
+            {[
+              {
+                title: "Working Student Software Engineer",
+                company: "1Komma5°",
+                years: "2023 - 2025",
+              },
+              {
+                title: "Student Intern",
+                company: "Autonomo Technologies",
+                years: "2022",
+              },
+            ].map((job, index) => (
+              <div key={index} className="flex gap-6 items-start">
+                <FaBriefcase className="text-gray-600 text-xl mt-1" />
+                <div className="flex-1">
+                  <h3 className="text-gray-500 text-lg font-medium line-through">
+                    {job.title}
+                  </h3>
+                  <div className="text-gray-500 text-sm mt-1">
+                    <span className="font-medium">{job.company}</span> &bull;{" "}
+                    {job.years}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-    ))}
-
-    <div className="border-t border-gray-700 my-6"></div>
-    <div className="space-y-4">
-      <div className="flex flex-row justify-between items-start font-heebo">
-        <span className="text-xs sm:text-base font-pPMonumentExtended text-gray-300">
-          Bachelor Informations
-          <span className="block md:inline">technologie & Design</span>
-        </span>
-        <div className="min-w-[120px] md:min-w-[150px] text-right text-xs sm:text-sm">
-          <span className="text-white font-bold block">
-            Technische Hochschule Lübeck
-          </span>
-          <span className="text-gray-500">2021 - 2025</span>
-        </div>
-      </div>
-      {[
-        {
-          title: "Working Student Software Engineer",
-          company: "1Komma5°",
-          years: "2023 - 2025",
-        },
-        {
-          title: "Student Intern",
-          company: "Autonomo Technologies",
-          years: "2022 - 2022",
-        },
-      ].map((job, index) => (
         <div
-          key={index}
-          className="flex flex-row justify-between items-start font-heebo"
-        >
-          {/* Strikethrough Effect - Now Crosses Only Text */}
-          <span className="relative inline-block text-xs sm:text-sm font-pPMonumentExtended text-gray-500 line-through">
-            {job.title}
-          </span>
+          className="glow-overlay"
+          style={{ "--glow-color": "#2f4ad4" }}
+        ></div>
+      </div>
 
-          <div className="min-w-[120px] md:min-w-[150px] text-right text-xs sm:text-sm">
-            <span className="text-white block font-bold font-heebo">
-              {job.company}
-            </span>
-            <span className="text-gray-500">{job.years}</span>
+      <div
+        className="relative glow-capture"
+        ref={glowCaptureRef}
+        style={{ "--glow-color": "#2f4ad4" }}
+      >
+        <div className="bg-gradient-to-br backdrop from-purple-800/5 to-cyan-400/5 border border-zinc-700 rounded-3xl p-8 shadow-2xl text-white max-w-2xl mx-auto glow glow:ring-1 glow:border-glow glow:ring-glow glow:bg-glow/[.15]">
+          <div className="text-gray-400 text-sm uppercase font-medium tracking-wider mb-8 text-center glow:text-glow/[.20]">
+            3+ Years of Experience
+          </div>
+          <div className="space-y-8">
+            {[
+              {
+                title: "Web Developer",
+                description:
+                  "Building scalable, high-performance web applications with modern technologies.",
+                company: "Freelance",
+                years: "2024 - Present",
+              },
+              {
+                title: "Founder & Game Developer",
+                description:
+                  "Founded Nixx Studios, developing 'Way of the Warrior'—a Visual Novel built in Unity.",
+                company: "Nixx Studios",
+                years: "2024 - Present",
+              },
+            ].map((job, index) => (
+              <div key={index} className="flex gap-6">
+                <FaBriefcase className="text-gray-500 text-xl mt-1" />
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold glow:text-glow/[.50]">
+                    {job.title}
+                  </h3>
+                  <p className="text-gray-400 text-sm">{job.description}</p>
+                  <div className="text-gray-300 text-sm mt-2">
+                    <span className="font-medium">{job.company}</span> &bull;{" "}
+                    {job.years}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="border-t border-gray-700 my-10"></div>
+          <div className="flex gap-6">
+            <FaGraduationCap className="text-gray-500 text-xl mt-1" />
+            <div className="flex-1">
+              <h3 className="text-lg font-semibold glow:text-glow/[.50]">
+                Bachelor of IT & Design
+              </h3>
+              <p className="text-gray-300 text-sm mt-1">
+                Technische Hochschule Lübeck
+              </p>
+              <p className="text-gray-500 text-sm">2021 - 2025</p>
+            </div>
+          </div>
+          <div className="border-t border-gray-700 my-10"></div>
+          <div className="space-y-6">
+            {[
+              {
+                title: "Working Student Software Engineer",
+                company: "1Komma5°",
+                years: "2023 - 2025",
+              },
+              {
+                title: "Student Intern",
+                company: "Autonomo Technologies",
+                years: "2022",
+              },
+            ].map((job, index) => (
+              <div key={index} className="flex gap-6 items-start">
+                <FaBriefcase className="text-gray-600 text-xl mt-1" />
+                <div className="flex-1">
+                  <h3 className="text-gray-500 text-lg font-medium line-through">
+                    {job.title}
+                  </h3>
+                  <div className="text-gray-500 text-sm mt-1">
+                    <span className="font-medium">{job.company}</span> &bull;{" "}
+                    {job.years}
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      ))}
-    </div>
-  </div>
-);
+        <div
+          className="glow-overlay"
+          style={{ "--glow-color": "#7c3aed" }}
+        ></div>
+      </div>
+    </>
+  );
+};

@@ -369,7 +369,6 @@ export const SkillsGame = () => {
     function animate(t = 0) {
       requestAnimationFrame(animate);
       updateCamera(t);
-      console.log(mousePos, "mousePos");
       crosshairs.position.set(mousePos.x, mousePos.y, -1);
       boxGroup.children.forEach((child) => {
         if (child.name === "butterflybox" || child.name === "box") {
@@ -400,17 +399,6 @@ export const SkillsGame = () => {
       const height = container.clientHeight;
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
-      const { innerWidth, innerHeight } = window;
-      console.log(
-        "width ",
-        width,
-        "height ",
-        height,
-        "inner window",
-        innerWidth,
-        "innerHeight",
-        innerHeight
-      );
       renderer.setSize(width, height);
     };
     window.addEventListener("resize", handleResize);
@@ -420,7 +408,7 @@ export const SkillsGame = () => {
       const { innerWidth: w, innerHeight: h } = window;
       let aspect = w / h;
       let fudge = { x: aspect * 0.75, y: 0.75 };
-
+      console.log("orientation ", orientation);
       if (isTouch && orientation) {
         console.log("orientation ", orientation.gamma, orientation.beta);
         const gyroX = (orientation.gamma || 0) / 45;
@@ -437,7 +425,6 @@ export const SkillsGame = () => {
       }
     }
     window.addEventListener("mousemove", onPointerMove, false);
-    window.addEventListener("touchmove", onPointerMove, false);
 
     /*     window.addEventListener("keydown", handleShoot); */
 
@@ -451,7 +438,7 @@ export const SkillsGame = () => {
 
   return (
     <div
-      className="cursor-none w-64 md:w-full h-72 md:h-[65vh]"
+      className="cursor-none w-72 md:w-full h-52 md:h-[65vh]"
       ref={containerRef}
     />
   );

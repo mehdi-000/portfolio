@@ -26,7 +26,11 @@ export const Model = ({
   };
   return (
     <group {...props} dispose={null} ref={ref}>
-      <group rotation={[1.554, -0.102, 3.114]} scale={105.456}>
+      <group
+        position={[0, 1.5, 0]}
+        rotation={[1.554, -0.102, 3.114]}
+        scale={105.456}
+      >
         <mesh
           geometry={nodes.Curve131.geometry}
           material={materials["SVGMat.056"]}

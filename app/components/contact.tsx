@@ -64,53 +64,56 @@ export const Contact = () => {
       onMouseLeave={unhover}
       className="fixed right-4 bottom-4 z-20"
     >
-      <div
-        ref={boxRef}
-        className="w-20 h-20 border-2 bg-gradient-to-b backdrop-blur-2xl border-pink/5 bg-zinc-800/30 dark:from-inherit rounded-xl flex flex-col items-center justify-center relative overflow-hidden"
-      >
-        <Image
-          src="/pictures/contact_icon.png"
-          className="contact"
-          alt="contact"
-          width={80}
-          height={80}
-        />
-        <div className="absolute flex flex-col gap-4">
-          {[
-            {
-              src: "/pictures/email_icon.png",
-              alt: "Email",
-              link: "mailto:mehdipopal@outlook.de",
-            },
-            {
-              src: "/pictures/github_icon.png",
-              alt: "Github",
-              link: "https://github.com/mehdi-000",
-            },
-            {
-              src: "/pictures/linkedin_icon.png",
-              alt: "Linkedin",
-              link: "https://www.linkedin.com/in/mehdi-popal-65a2a525a",
-            },
-            { src: "/pictures/steam_icon.png", alt: "Steam", link: "#" },
-          ].map((icon, index) => (
-            <a
-              key={index}
-              href={icon.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="icon"
-              style={{ opacity: 0 }}
-            >
-              <Image
-                src={icon.src}
-                alt={icon.alt}
-                width={80}
-                height={80}
-                unoptimized={true}
-              />
-            </a>
-          ))}
+      <div className="relative">
+        <div
+          ref={boxRef}
+          className="w-20 h-20 border-2 rounded-xl flex flex-col items-center justify-center relative overflow-hidden z-10 bg-gradient-to-r from-white/20 to-black/20 backdrop-blur-2xl border-pink/5"
+        >
+          <Image
+            src="/pictures/contact_icon.png"
+            className="contact"
+            alt="contact"
+            width={80}
+            height={80}
+            quality={100}
+          />
+          <div className="absolute flex flex-col gap-4">
+            {[
+              {
+                src: "/pictures/email_icon.png",
+                alt: "Email",
+                link: "mailto:mehdipopal@outlook.de",
+              },
+              {
+                src: "/pictures/github_icon.png",
+                alt: "Github",
+                link: "https://github.com/mehdi-000",
+              },
+              {
+                src: "/pictures/linkedin_icon.png",
+                alt: "Linkedin",
+                link: "https://www.linkedin.com/in/mehdi-popal-65a2a525a",
+              },
+              { src: "/pictures/steam_icon.png", alt: "Steam", link: "#" },
+            ].map((icon, index) => (
+              <a
+                key={index}
+                href={icon.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="icon"
+                style={{ opacity: 0 }}
+              >
+                <Image
+                  src={icon.src}
+                  alt={icon.alt}
+                  width={80}
+                  height={80}
+                  unoptimized={true}
+                />
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </div>

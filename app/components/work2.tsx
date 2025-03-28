@@ -1,7 +1,7 @@
 "use client";
-import { WorkCard } from "@/app/components/workCard";
+import { WorkCard2 } from "@/app/components/workCard2";
 
-export const Work = () => {
+export const Work2 = () => {
   return (
     <>
       <div className="flex w-full mb-4 md:h-20 justify-evenly">
@@ -10,43 +10,31 @@ export const Work = () => {
         </h2>
       </div>
       <div className="z-10 w-full items-center justify-around lg:flex">
-        <WorkCard
-          heading="2D Game"
+        <WorkCard2
           model="PlayerModel"
           title="Time Travel Sync"
           description="Procedurally generated endless runner emphasizing on fluid gameplay"
-          time="2 Months"
-          type="Uni Project"
-          buttonLink="/wotw"
+          usedTechnology={["CSharp", "Unity", "Aseprite"]}
         />
-        <WorkCard
-          heading="2D Game"
+        <WorkCard2
           model="WotwTitle"
           title="Way of the Warrior"
           description="Scalable Visual Novel prototype"
-          time="4 Months"
-          type="Uni Project"
-          buttonLink="/wotw"
+          usedTechnology={["Unity", "CSharp", "Aseprite"]}
         />
       </div>
       <div className="z-10 w-full items-center justify-around lg:flex">
-        <WorkCard
-          heading="3D Model"
+        <WorkCard2
           model="Cart"
           title="Cyberpunk Cart"
           description="Low-poly modeled & rigged Cyberpunk cart "
-          time="3 Weeks"
-          type="Uni Project"
-          buttonLink="/cyberpunk-cart"
+          usedTechnology={["Blender", "Cinema4D"]}
         />
-        <WorkCard
-          heading="Website"
+        <WorkCard2
           model="LegacyLines"
           title="Legacy Lines"
           description="Fullstack visual database for Family trees"
-          time="2 Months"
-          type="Uni Project"
-          buttonLink="/legacy-lines"
+          usedTechnology={["VueJs", "Prisma", "NodeJs", "MySQL"]}
         />
       </div>
     </>

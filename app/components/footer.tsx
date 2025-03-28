@@ -1,36 +1,45 @@
 import Image from "next/image";
+import { UiButton } from "./UiButton";
+
 export const Footer = () => (
-  <div className="flex flex-col items-center m-2">
-    <div className="w-10/12 border  border-gray-700 my-4"></div>
-    <div className="flex gap-4 justify-center">
-      {[
-        {
-          src: "/pictures/email_icon.png",
-          alt: "Email",
-          link: "mailto:mehdipopal@outlook.de",
-        },
-        {
-          src: "/pictures/github_icon.png",
-          alt: "Github",
-          link: "https://github.com/mehdi-000",
-        },
-        {
-          src: "/pictures/linkedin_icon.png",
-          alt: "Linkedin",
-          link: "https://www.linkedin.com/in/mehdi-popal-65a2a525a",
-        },
-        { src: "/pictures/steam_icon.png", alt: "Steam", link: "#" },
-      ].map((icon, index) => (
-        <a
-          key={index}
-          href={icon.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="icon"
-        >
-          <Image src={icon.src} alt={icon.alt} width={30} height={30} />
-        </a>
-      ))}
-    </div>
-  </div>
+  <>
+    <div className="h-14 w-full" />
+    <footer className="h-screen w-full bg-black flex flex-col overflow-hidden justify-center">
+      <div className="flex flex-col justify-center items-center w-full h-full overflow-hidden">
+        <h2 className="text-5xl font-extrabold tracking-wide bg-gradient-to-br from-purple-800 to-cyan-400 bg-clip-text text-transparent font-heebo text-center mb-4">
+          Let&apos;s work together.
+        </h2>
+        <div className="relative m-4">
+          <UiButton
+            picture="/pictures/turqouis11Background.png"
+            animDuration={0.6}
+            camDistance={0.752}
+            to={"mailto:mehdipopal@outlook.de"}
+            isAnchor
+            text="mehdipopal@outlook.de"
+            className="w-[17rem] h-20"
+          ></UiButton>
+        </div>
+        <p className="mt-4 text-sm text-zinc-400"></p>
+      </div>
+
+      <div className="text-sm w-full flex flex-col justify-center items-center">
+        <div className="w-5/6 border-t border-zinc-700 mt-4"></div>
+
+        <div className="w-5/6 flex flex-col sm:flex-row justify-between items-center text-xs text-zinc-500 py-3">
+          <div className="flex gap-6">
+            <a href="#" className="hover:text-white transition-colors">
+              Privacy Policy
+            </a>
+            <a href="#" className="hover:text-white transition-colors">
+              Agreements & Guidelines
+            </a>
+          </div>
+          <p className="text-center sm:text-left mt-2">
+            © {new Date().getFullYear()} Mehdi Popal. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+  </>
 );
