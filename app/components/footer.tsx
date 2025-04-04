@@ -13,7 +13,7 @@ export const Footer = () => (
           <UiButton
             picture="/pictures/turqouis11Background.png"
             animDuration={0.6}
-            camDistance={0.752}
+            camDistance={0.73}
             to={"mailto:mehdipopal@outlook.de"}
             isAnchor
             text="mehdipopal@outlook.de"

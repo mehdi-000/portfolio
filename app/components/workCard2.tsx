@@ -51,6 +51,7 @@ interface WorkCardProps {
   title: string;
   description: string;
   usedTechnology: TechName[];
+  to: string;
 }
 
 export const WorkCard2 = ({
@@ -58,6 +59,7 @@ export const WorkCard2 = ({
   title,
   description,
   usedTechnology,
+  to,
 }: WorkCardProps) => {
   const modelRef = useRef<any>(null);
   const ref = useRef<HTMLDivElement>(null);
@@ -72,6 +74,10 @@ export const WorkCard2 = ({
   const tl2 = useRef<gsap.core.Timeline>(null);
   const [container, setContainer] = useState<HTMLElement | null>(null);
   const router = useTransitionRouter();
+  useEffect(() => {
+    setContainer(document.body);
+  }, []);
+
   const CameraController = () => {
     const { camera, pointer } = useThree();
 
@@ -165,11 +171,21 @@ export const WorkCard2 = ({
     <div
       onPointerEnter={hover}
       onPointerLeave={unhover}
-      className="relative my-4 md:my-6 max-w-xl max-h-[600px] justify-center [box-shadow:0_-10px_50px_-10px_#ffffff1f_inset] [border:1px_solid_rgba(255,255,255,.1)] flex flex-col items-center bg-gradient-to-br from-purple-800/5 to-cyan-400/5 backdrop-blur-md pt-4 px-4 rounded-2xl shadow-lg border border-gray-800 text-white w-full mx-auto group overflow-hidden"
+      className="relative font-ubuntu my-4 md:my-6 max-w-xl max-h-[600px] justify-center [box-shadow:0_-10px_50px_-10px_#ffffff1f_inset] [border:1px_solid_rgba(255,255,255,.1)] flex flex-col items-center bg-gradient-to-br from-purple-800/5 to-cyan-400/5 backdrop-blur-md pt-4 px-4 rounded-2xl shadow-lg border-pink/5 border-2 text-white w-full mx-auto group overflow-hidden"
     >
       <div className="absolute inset-0 z-50">
         <Canvas
-          onClick={() => router.push("/cyberpunk-cart")}
+          onClick={() => router.push(to)}
+          onPointerEnter={() => {
+            if (container) {
+              container.style.cursor = "pointer";
+            }
+          }}
+          onPointerLeave={() => {
+            if (container) {
+              container.style.cursor = "auto";
+            }
+          }}
           fallback={<div>Sorry no WebGL supported!</div>}
           camera={{
             position: [
@@ -191,7 +207,7 @@ export const WorkCard2 = ({
         </Canvas>
       </div>
       <div
-        className="relative z-10 flex flex-col w-full text-center pointer-events-auto group"
+        className="relative font-mono z-10 flex flex-col w-full text-center pointer-events-auto group"
         ref={ref}
       >
         <h2 className="text-2xl md:text-3xl font-bold text-center tracking-tight h-64 transform transition-transform duration-500 ease-in-out translate-y-0 group-hover:translate-y-1 px-2">

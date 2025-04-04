@@ -33,11 +33,11 @@ export const Navbar = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-between overflow-hidden bg-black text-white font-pPMonumentExtended">
-      <div className="z-10 flex justify-evenly">
+    <div className="flex justify-center">
+      <div className="flex items-center justify-around overflow-hidden bg-black text-white font-ubuntu text-xl w-3/6">
         <Link
           href={"/#work"}
-          className="work m-2"
+          className="work"
           ref={workRef}
           onMouseEnter={() => handleHover(workRef.current)}
           onMouseLeave={() => handleHoverOut(workRef.current)}
@@ -47,7 +47,7 @@ export const Navbar = () => {
 
         <Link
           href={"#experience"}
-          className="work m-2"
+          className="work"
           ref={experienceRef}
           onMouseEnter={() => handleHover(experienceRef.current)}
           onMouseLeave={() => handleHoverOut(experienceRef.current)}
@@ -57,7 +57,7 @@ export const Navbar = () => {
 
         <Link
           href={"#skills"}
-          className="contact m-2"
+          className="contact"
           ref={contactRef}
           onMouseEnter={() => handleHover(contactRef.current)}
           onMouseLeave={() => handleHoverOut(contactRef.current)}

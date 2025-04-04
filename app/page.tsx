@@ -41,7 +41,6 @@ export default function Home() {
 
   return (
     <main className="flex flex-col items-center justify-between overflow-hidden p-10 bg-black text-white font-mono">
-      {/*    {isVisible ? <Contact /> : null} */}
       <div className="w-screen h-screen relative">
         <Navbar />
         <Logoanimated />
@@ -62,7 +61,6 @@ export default function Home() {
                     alt="Email"
                     width={32}
                     height={32}
-                    unoptimized={true}
                   />
                 </a>
               </button>
@@ -79,7 +77,6 @@ export default function Home() {
                     alt="Github"
                     width={32}
                     height={32}
-                    unoptimized={true}
                   />
                 </a>
               </button>
@@ -96,7 +93,6 @@ export default function Home() {
                     alt="Linkedin"
                     width={32}
                     height={32}
-                    unoptimized={true}
                   />
                 </a>
               </button>
@@ -121,15 +117,11 @@ export default function Home() {
             <p>Hamburg, Germany </p>
           </div>
           <p className="text-gray-300 text-sm mt-4">
-            I am Full-Stack Software Engineer with 3 years of experience
-            <br /> mostly focused on Web.
+            I am a Software Engineer with 3 years of experience, skilled in both
+            <br />
+            front-end and back-end development, with a specialization in web
           </p>
         </div>
-        {/*         <div className="absolute md:bottom-8 md:right-4 top-1/2 right-1/2 p-4">
-          <p className="border-2 bg-gradient-to-b pb-4 pt-6 px-5 backdrop-blur-2xl border-pink/5 bg-zinc-800/30 dark:from-inherit static w-auto rounded-2xl p-4 lg:bg-zinc-800/30 text-zinc-50">
-            Mehdi Popal&nbsp;
-          </p>
-        </div> */}
       </div>
       <div className="hidden md:block spacer w-full m-16"></div>
       {/*     <Work /> */}
@@ -137,7 +129,7 @@ export default function Home() {
       <div className="flex w-full md:h-20 justify-evenly mb-6">
         <h1
           id="experience"
-          className="font-pPMonumentExtended text-center text-4xl"
+          className="font-pPMonumentExtended tracking-wide text-center text-4xl leading-[2.75rem]"
         >
           Experience
         </h1>
@@ -146,20 +138,28 @@ export default function Home() {
         <Experience />
       </div>
       <div className="spacer w-full m-16"></div>
-      <div className="hidden md:block spacer w-full m-16"></div>
+      <div className="md:block spacer w-full m-16"></div>
+      <div className="flex w-full mb-4 md:h-20 justify-evenly">
+        <h2
+          id="work"
+          className="font-pPMonumentExtended tracking-wide text-4xl leading-[2.75rem]"
+        >
+          Work
+        </h2>
+      </div>
       <Work2 />
       <div className="spacer w-full m-32"></div>
       <div className="flex w-full md:h-20 justify-evenly mb-6">
         <h1
           id="skills"
-          className="font-pPMonumentExtended text-center text-4xl"
+          className="font-pPMonumentExtended tracking-wide text-center text-4xl leading-[2.75rem]"
         >
           Skills
         </h1>
       </div>
       <div className="z-10 md:w-[96%] items-center md:flex">
-        <div className="bg-gradient-to-br from-purple-800/5 to-cyan-400/5 w-full border-4 border-pink/5 rounded-2xl md:py-6 md:px-10 py-4 px-4 shadow-black/80 flex flex-col items-center justify-center gap-6 cursor-none">
-          <div className="w-full bg-gradient-to-br from-purple-800/5 to-cyan-400/5 border-4 border-pink/5 rounded-2xl md:p-6 shadow-lg flex flex-col md:flex-row items-center justify-center gap-8">
+        <div className="bg-gradient-to-br from-purple-800/5 to-cyan-400/5 w-full border-2 border-pink/5 rounded-2xl md:py-6 md:px-10 py-4 px-4 shadow-black/80 flex flex-col items-center justify-center gap-6 cursor-none">
+          <div className="w-full bg-gradient-to-br from-purple-800/5 to-cyan-400/5 border-2 border-pink/5 rounded-2xl md:p-6 shadow-lg flex flex-col md:flex-row items-center justify-center gap-8">
             <div className="w-full md:h-[65vh]" ref={ref}>
               {load ? <DynamicSkillGame /> : null}
             </div>

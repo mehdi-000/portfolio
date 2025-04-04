@@ -46,6 +46,7 @@ export const SkillsGame = () => {
     if (!container) return;
     let w = container?.clientWidth;
     let h = container?.clientHeight;
+    const isMobile = window.innerWidth < 768;
 
     // Scene setup
     const scene = new THREE.Scene();
@@ -228,7 +229,7 @@ export const SkillsGame = () => {
       myText.text = skills[randInt(0, 5)];
       myText.fontSize = 0.1;
       myText.position.set(pos.x - 0.1, pos.y, pos.z);
-      myText.color = 0x389fd6;
+      myText.color = isMobile ? 0xc23e91 : 0x33c4c0;
 
       myText.scale.set(0.5, 0.5, 0.5);
       hitBox.userData.myText = myText;
@@ -238,9 +239,11 @@ export const SkillsGame = () => {
     const crosshairs = new THREE.Group();
     crosshairs.position.z = -1;
     camera.add(crosshairs);
-    const crossMat = new THREE.LineBasicMaterial({
-      color: 0x389fd6,
-    });
+    const crossMat = isMobile
+      ? new THREE.LineBasicMaterial({ color: 0xc23e91 })
+      : new THREE.LineBasicMaterial({
+          color: 0x33c4c0,
+        });
     const lineGeo = new THREE.BufferGeometry();
     const lineVerts = [0, 0.05, 0, 0, 0.02, 0];
     lineGeo.setAttribute(
@@ -408,9 +411,7 @@ export const SkillsGame = () => {
       const { innerWidth: w, innerHeight: h } = window;
       let aspect = w / h;
       let fudge = { x: aspect * 0.75, y: 0.75 };
-      console.log("orientation ", orientation);
       if (isTouch && orientation) {
-        console.log("orientation ", orientation.gamma, orientation.beta);
         const gyroX = (orientation.gamma || 0) / 45;
         const gyroY = (orientation.beta || 0) / 45;
 
