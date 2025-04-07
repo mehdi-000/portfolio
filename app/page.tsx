@@ -40,12 +40,12 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="flex flex-col items-center justify-between overflow-hidden p-10 bg-black text-white font-mono">
+    <main className="flex flex-col items-center justify-between overflow-hidden p-10 bg-[#070707] text-white font-mono">
       <div className="w-screen h-screen relative">
         <Navbar />
         <Logoanimated />
         <div className="absolute md:top-1/2 top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border-2 backdrop-blur-2xl border-pink/5 bg-gradient-to-br from-purple-800/5 to-cyan-400/5 p-6 rounded-xl shadow-lg flex flex-col">
-          <div className="flex items-center justify-between ">
+          <div className="flex items-center justify-between font-ubuntu">
             <h1 className="text-xl font-bold">Mehdi Popal</h1>
             <div className="flex gap-3 md:ml-0 ml-4">
               <button className="button">
@@ -66,7 +66,7 @@ export default function Home() {
               </button>
               <button className="">
                 <a
-                  key="1"
+                  key="2"
                   href="https://github.com/mehdi-000"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -82,7 +82,7 @@ export default function Home() {
               </button>
               <button className="">
                 <a
-                  key="1"
+                  key="3"
                   href="https://www.linkedin.com/in/mehdi-popal-65a2a525a"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -114,12 +114,15 @@ export default function Home() {
                 ></path>
               </svg>
             </div>
-            <p>Hamburg, Germany </p>
+            <p className="font-heebo">Hamburg, Germany </p>
           </div>
-          <p className="text-gray-300 text-sm mt-4">
+          <p className="text-gray-300 text-base mt-4 hidden md:block font-heebo">
             I am a Software Engineer with 3 years of experience, skilled in both
-            <br />
+            <br className="hidden md:block" />
             front-end and back-end development, with a specialization in web
+          </p>
+          <p className="text-gray-300 text-sm mt-4 md:hidden font-heebo">
+            I am a fullstack Software Engineer with 3 years of experience
           </p>
         </div>
       </div>

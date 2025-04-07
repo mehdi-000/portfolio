@@ -77,7 +77,7 @@ export const Experience = () => {
           <div className="flex gap-6">
             <FaGraduationCap className="text-gray-500 text-xl mt-1" />
             <div className="flex-1">
-              <h3 className="text-lg font-semibold glow:text-glow/[.50]">
+              <h3 className="text-lg font-ubuntu glow:text-glow/[.50]">
                 Bachelor of IT & Design
               </h3>
               <p className="text-gray-300 text-sm mt-1">
@@ -103,10 +103,10 @@ export const Experience = () => {
               <div key={index} className="flex gap-6 items-start">
                 <FaBriefcase className="text-gray-600 text-xl mt-1" />
                 <div className="flex-1">
-                  <h3 className="text-gray-500 text-lg font-medium line-through">
+                  <h3 className="text-gray-500 font-ubuntu text-lg font-medium line-through">
                     {job.title}
                   </h3>
-                  <div className="text-gray-500 text-sm mt-1">
+                  <div className="text-gray-500 text-sm mt-1 font-heebo">
                     <span className="font-medium">{job.company}</span> &bull;{" "}
                     {job.years}
                   </div>

@@ -27,6 +27,7 @@ import * as THREE from "three";
 import Link from "next/link";
 import { randFloat } from "three/src/math/MathUtils.js";
 import { cn } from "../utils/tailwind";
+import { UsedTechList } from "@/app/components/usedTechList";
 
 const techIcons = {
   NextJs: <TbBrandNextjs />,
@@ -207,7 +208,7 @@ export const WorkCard2 = ({
         </Canvas>
       </div>
       <div
-        className="relative font-mono z-10 flex flex-col w-full text-center pointer-events-auto group"
+        className="relative font-ubuntu z-10 flex flex-col w-full text-center pointer-events-auto group"
         ref={ref}
       >
         <h2 className="text-2xl md:text-3xl font-bold text-center tracking-tight h-64 transform transition-transform duration-500 ease-in-out translate-y-0 group-hover:translate-y-1 px-2">
@@ -217,15 +218,8 @@ export const WorkCard2 = ({
           <p className="text-gray-300 text-xs md:text-sm translate-y-4 transition-transform duration-500 ease-in-out group-hover:translate-y-2 mt-1 font-heebo text-center px-3">
             {description}
           </p>
-          <div className="grid grid-cols-2 gap-4 md:flex md:justify-around w-5/6 my-4 transition-transform duration-500 ease-in-out translate-y-4 group-hover:translate-y-2">
-            {usedTechnology.map((tech) => (
-              <span
-                key={tech}
-                className="flex items-center gap-2 border border-gray-400 px-2 py-1 rounded-md text-xs sm:text-sm justify-center w-full"
-              >
-                {techIcons[tech] || <div />} {tech}
-              </span>
-            ))}
+          <div className="my-2 w-full flex justify-center">
+            <UsedTechList technologies={usedTechnology} />
           </div>
         </div>
       </div>

@@ -3,101 +3,61 @@ import { Navbar } from "../components/navbar";
 import { CartComponent } from "./CartComponent";
 import "../components/workCard.css";
 import { useEffect, useRef } from "react";
+import { UsedTechList } from "@/app/components/usedTechList";
 
 export default function CyberpunkCar() {
   return (
-    <main className="flex flex-col items-center justify-between overflow-hidden px-10 font- bg-black">
+    <main className="flex flex-col items-center justify-between overflow-hidden p-10 font- bg-[#070707] text-white">
       <Navbar />
-      <h1 className="font-bold font-pPMonumentExtended text-white text-center text-3xl md:text-4xl pt-8">
-        Cyberpunk Cart
-      </h1>
-      <div className={`flex flex-grow my-4 md:m-8 `}>
-        <div className="relative h-full w-full glow-capture text-white">
-          <div
-            className="glow:bg-glow/[.20]"
-            style={{ "--glow-color": "#2f4ad4" }}
-          >
-            <div
-              className="bg-zinc-900/50 border-4 border-pink/5 rounded-2xl py-6 px-10 shadow-black/80 flex  flex-col items-center justify-center gap-6 glow glow:ring-1 glow:border-glow glow:ring-glow"
-              style={{ "--glow-color": "#389fd6" }}
-            >
-              <div className="flex flex-col w-full">
-                {/* Top Section: "2D" and "Uni project" */}
-                <div className="flex justify-between items-start">
-                  <p
-                    className="opacity-50 glow:text-glow/[.80] font-heebo text-sm tracking-wide"
-                    style={{ "--glow-color": "#2f4ad4" }}
-                  >
-                    <strong>3D Model</strong>
-                  </p>
-                  <p
-                    className="opacity-50 text-sm glow:text-glow/[.80]  font-heebo tracking-wide"
-                    style={{ "--glow-color": "#2f4ad4" }}
-                  >
-                    <strong>Agency:</strong> Uni Project
-                  </p>
-                </div>
-
-                {/* Middle Section: Content */}
-                {/*           <h2
-                    className="font-bold font-pPMonumentExtended text-center text-3xl md:text-4xl tracking-tight m-2 glow:text-glow/[.80]"
-                    style={{ "--glow-color": "#2f4ad4" }}
-                  >
-                    Cyberpunk Cart
-                  </h2> */}
-                <div className="flex flex-col w-full gap-8 mt-4">
-                  {/* Left Column: Title and Canvas */}
-                  <div
-                    className="group w-full  bg-zinc-950/70 border-4 border-pink/5 rounded-2xl shadow-lg shadow-black/80 flex flex-col items-center justify-center backdrop-blur-md glow glow:ring-1 glow:border-glow glow:ring-glow"
-                    style={{ "--glow-color": "#3d2fd4" }}
-                  >
-                    <div
-                      className="flex justify-center prose prose-zinc prose-invert prose-lg md:prose-base text-opacity-90 glow:text-glow/[.80]  w-full h-full"
-                      style={{ "--glow-color": "#389fd6" }}
-                      /*   ref={ref} */
-                    >
-                      <div className="w-full h-full">
-                        <div className="h-full w-full">
-                          <CartComponent />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Right Column: Description */}
-                  <div className="w-full  flex flex-col justify-center items-center">
-                    <p
-                      className="text-sm leading-relaxed md:text-base glow:text-glow/[.80] font-heebo w-4/5 text-center"
-                      style={{ "--glow-color": "#389fd6" }}
-                    >
-                      The Cart is low poli Cyberpunk cart modeled in Cinema4D.
-                      The concept is that the cart is hold together by magnetic
-                      fields. That is why the body and steeringwheel are in the
-                      air. The magnetic animation is done in the engine like
-                      unreal for performance reasons.
-                    </p>
-                  </div>
-                </div>
-
-                {/* Bottom Section: "Time: 8 Weeks" and Button */}
-                <div className="flex justify-between items-end  mt-4">
-                  <p
-                    className="opacity-50 text-sm glow:text-glow/[.80] font-heebo tracking-wide"
-                    style={{ "--glow-color": "#2f4ad4" }}
-                  >
-                    <strong>Time:</strong> 2 Weeks
-                  </p>
-                </div>
-
-                {/* Glow Overlay */}
-                <div
-                  className="glow-overlay"
-                  style={{ "--glow-color": "#2f4ad4" }}
-                ></div>
-              </div>
-            </div>
+      <div className="w-full h-14" />
+      <div className="h-full w-3/5">
+        <CartComponent />
+      </div>
+      <div className="w-full h-14" />
+      <div className="md:w-2/5 font-heebo">
+        <div className="bg-[#070707] pb-6 pt-4 px-6 rounded-xl bg-gradient-to-br from-purple-800/5 to-cyan-400/5 border-2 border-pink/5  shadow-md ">
+          <div className="flex justify-between text-gray-400 text-sm">
+            <p>
+              <strong className="text-gray-500">3D Model</strong>
+            </p>
+            <p>
+              <strong className="text-gray-500">Agency:</strong> Uni Project
+            </p>
           </div>
+          <div className="flex items-center gap-3 pt-2">
+            <h1 className="text-white text-2xl font-bold">Cyberpunk Cart</h1>
+          </div>
+          <UsedTechList technologies={["Cinema4D", "Blender"]} />
+          <p className="text-gray-400 text-sm mt-8 mb-6">
+            This low-poly 3D cart was modeled in Cinema4D and textured in
+            Blender. It&apos;s designed for a cyberpunk future which is a blend
+            between our and future tech.
+          </p>
         </div>
+        <div className="w-full h-4" />
+        <h2 className="text-xl font-bold mt-6">Focus</h2>
+        <p className="text-gray-300 text-sm leading-relaxed my-4">
+          I put special focus on the exposed internal components from the engine
+          parts to the suspension and seating making them not differ too much
+          from our reality to make it feel grounded, even in a sci-fi world.
+        </p>
+
+        <h2 className="text-xl font-bold">Why are some parts floating?</h2>
+        <p className="text-gray-300 text-sm leading-relaxed my-4">
+          The cart is held together by magnetic fields that&apos;s why the body,
+          engine, and steering wheel appear to float. The thing above the seat
+          is supposed to be a floating HUD display giving the driver extra
+          information.
+        </p>
+
+        <h2 className="text-xl font-bold">What&apos;s that on the engine?</h2>
+        <p className="text-gray-300 text-sm leading-relaxed my-4">
+          That&apos;s the logo of the fictional manufacturer a nod to the
+          worldbuilding in{" "}
+          <a key={1} href="/wotw" target="_blank" rel="noopener noreferrer">
+            <strong>Way of a Warrior</strong>
+          </a>
+        </p>
       </div>
     </main>
   );

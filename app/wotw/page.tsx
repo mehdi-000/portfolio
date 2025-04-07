@@ -1,131 +1,99 @@
 import { Navbar } from "@/app/components/navbar";
+import { UsedTechList } from "@/app/components/usedTechList";
 
 export default function Wotw() {
   return (
-    <main className="flex flex-col items-center justify-between overflow-hidden px-10 font- bg-black">
-      <Navbar />
-      <h1 className="font-bold font-pPMonumentExtended text-white text-center text-3xl md:text-4xl pt-8">
-        Way of the Warrior
-      </h1>
-      <div className={`flex flex-grow my-4 md:m-8 `}>
-        <div className="md:hidden z-20 flex justify-evenly">
-          <div className=" group bg-zinc-900/50 border-4 border-pink/5 rounded-2xl p-10 shadow-lg shadow-black/80  flex-col flex-wrap md:items-start items-center md:justify-between justify-center gap-6">
-            <div className="flex-1 md:order-1 order-2 flex-grow">
-              <p className="opacity-50">2D Visual Novel</p>
-              <h2 className="font-bold text-4xl tracking-tighter mb-3 glow:text-glow/[.80]">
-                Way of the Warrior
-              </h2>
-            </div>
-            <div className="md:prose-base prose-lg prose-zinc prose-invert opacity-65 glow:text-glow/[.80]">
+    <>
+      <main className="flex flex-col items-center justify-between overflow-hidden p-10 font- bg-[#070707] text-white">
+        <Navbar />
+        <div className="w-full h-14" />
+
+        <iframe
+          src="https://i.simmer.io/@Nixx/way--of-the-warrior"
+          style={{
+            width: "960px",
+            height: "600px",
+            borderRadius: "12px",
+          }}
+        ></iframe>
+        <div className="w-full h-14" />
+        <div className="md:w-2/5 font-heebo">
+          <div className="bg-[#070707] pb-6 pt-4 px-6 rounded-xl bg-gradient-to-br from-purple-800/5 to-cyan-400/5 border-2 border-pink/5  shadow-md ">
+            <div className="flex justify-between text-gray-400 text-sm">
               <p>
-                The Game is created with Unity sadly there is no way to properly
-                support mobile while exporting to Web. <br />
-                <br />
-                Feel free to check upcoming mobile release of the game in the
-                android app store.
+                <strong className="text-gray-500">2D Visual Novel</strong>
+              </p>
+              <p>
+                <strong className="text-gray-500">Agency:</strong> Uni Project
               </p>
             </div>
-          </div>
-        </div>
-        <div className="relative h-full w-full glow-capture text-white">
-          <div
-            className="glow:bg-glow/[.20]"
-            style={{ "--glow-color": "#2f4ad4" }}
-          >
-            <div
-              className="bg-zinc-900/50 border-4 border-pink/5 rounded-2xl py-6 px-10 shadow-black/80 flex  flex-col items-center justify-center gap-6 glow glow:ring-1 glow:border-glow glow:ring-glow"
-              style={{ "--glow-color": "#389fd6" }}
-            >
-              <div className="flex flex-col w-full">
-                {/* Top Section: "2D" and "Uni project" */}
-                <div className="flex justify-between items-start">
-                  <p
-                    className="opacity-50 glow:text-glow/[.80] font-heebo text-sm tracking-wide"
-                    style={{ "--glow-color": "#2f4ad4" }}
-                  >
-                    <strong>2D Visual Novel</strong>
-                  </p>
-                  <p
-                    className="opacity-50 text-sm glow:text-glow/[.80]  font-heebo tracking-wide"
-                    style={{ "--glow-color": "#2f4ad4" }}
-                  >
-                    <strong>Agency:</strong> Uni Project
-                  </p>
-                </div>
-
-                {/* Middle Section: Content */}
-                {/*           <h2
-                    className="font-bold font-pPMonumentExtended text-center text-3xl md:text-4xl tracking-tight m-2 glow:text-glow/[.80]"
-                    style={{ "--glow-color": "#2f4ad4" }}
-                  >
-                    Cyberpunk Cart
-                  </h2> */}
-                <div className="flex flex-col w-full gap-8 mt-4">
-                  {/* Left Column: Title and Canvas */}
-                  <div
-                    className="group w-full  bg-zinc-950/70 border-4 border-pink/5 rounded-2xl shadow-lg shadow-black/80 flex flex-col items-center justify-center backdrop-blur-md glow glow:ring-1 glow:border-glow glow:ring-glow"
-                    style={{ "--glow-color": "#3d2fd4" }}
-                  >
-                    <div
-                      className=" justify-center prose prose-zinc prose-invert prose-lg md:prose-base text-opacity-90 glow:text-glow/[.80] hidden md:block  w-full h-full"
-                      style={{ "--glow-color": "#389fd6" }}
-                      /*   ref={ref} */
-                    >
-                      <div className="w-full h-full">
-                        <div className="h-full w-full rounded-2xl">
-                          <iframe
-                            src="https://i.simmer.io/@Nixx/way--of-the-warrior"
-                            style={{
-                              width: "960px",
-                              height: "600px",
-                              borderRadius: "12px",
-                            }}
-                          ></iframe>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Right Column: Description */}
-                  <div className="w-full  flex flex-col justify-center items-center">
-                    <p
-                      className="text-sm leading-relaxed md:text-base glow:text-glow/[.80] font-heebo w-4/5 text-center"
-                      style={{ "--glow-color": "#389fd6" }}
-                    >
-                      The Game was created as an University project together
-                      with Sophie Kretschmann <br /> which got expanded on over
-                      time. Goal was to create a fully functional scalable
-                      Visual <br />
-                      Novel prototype, with emphasis on an interactive story{" "}
-                      multiple story paths <br />
-                      based on the inventory system, players choices and a mini
-                      game to break up the story in inside <br />
-                      the game engine Unity. Initially for mobile but support
-                      for other devices is planned.
-                    </p>
-                  </div>
-                </div>
-
-                {/* Bottom Section: "Time: 8 Weeks" and Button */}
-                <div className="flex justify-between items-end  mt-4">
-                  <p
-                    className="opacity-50 text-sm glow:text-glow/[.80] font-heebo tracking-wide"
-                    style={{ "--glow-color": "#2f4ad4" }}
-                  >
-                    <strong>Time:</strong> 4 Months
-                  </p>
-                </div>
-
-                {/* Glow Overlay */}
-                <div
-                  className="glow-overlay"
-                  style={{ "--glow-color": "#2f4ad4" }}
-                ></div>
-              </div>
+            <div className="flex items-center gap-3 pt-2">
+              <h1 className="text-white text-2xl font-bold">
+                Way of the Warrior
+              </h1>
             </div>
+            <UsedTechList technologies={["CSharp", "Unity", "Aseprite"]} />
+            <p className="text-gray-400 text-sm mt-8 mb-6">
+              <em>Way of the Warrior</em> is a weird, choice-driven visual novel
+              prototype built in Unity with dynamic story paths, item-based
+              progression, and mini-games.
+            </p>
+
+            <p className="text-gray-300 text-sm m-4">
+              Travel through time in search of your destined partner. Your
+              future child might either doom or save the world. As you repair
+              your malfunctioning time machine, you’ll smuggle “souvenirs”
+              across eras. How will people in the Middle Ages react to
+              cybernetic implants? How will the Bible influence Ancient Egypt?
+            </p>
           </div>
+          <div className="w-full h-4" />
+          <h2 className="text-xl font-bold">
+            Where did the inspiration come from?
+          </h2>
+          <p className="text-gray-300 text-sm leading-relaxed my-4 ">
+            This started as a university project with{" "}
+            <strong className="text-white">Sophie Kretschmann</strong>, but
+            quickly turned into something much bigger. Instead of relying on
+            existing tools like Ren&apos;Py, we developed our own custom visual
+            novel framework tailored to our gameplay needs—with branching
+            stories written with{" "}
+            <a
+              key={1}
+              href="https://www.inklestudios.com/ink/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <strong>Ink</strong>
+            </a>
+            , complex item logic, and narrative mini-game. Think{" "}
+            <em>Zelda: Breath of the Wild&apos;s</em> &quot;one goal, infinite
+            ways to get there&quot; vibe mixed with a dating sim parody.
+          </p>
+
+          <h2 className="text-xl font-bold mt-6">
+            Why not just use Ren&apos;Py?
+          </h2>
+          <p className="text-gray-300 text-sm leading-relaxed my-4">
+            While Ren&apos;Py is solid for classic visual novels, it fell short
+            when we wanted create something breaking out of the visual novel
+            norm, like non-linear storytelling, interactive item systems and
+            more gameplay focused minigames. Building our own framework in Unity
+            gave us total creative control.
+          </p>
+          <h2 className="text-xl font-bold mt-6 font-">What’s next?</h2>
+          <p className="text-gray-300 text-sm leading-relaxed my-4">
+            <em>Way of the Warrior</em> was originally scoped for mobile, but as
+            the vision grew, so did the platform. Now gearing up for a full
+            release on <strong>Steam</strong>, with revamped UI, expanded,
+            mechanics, full custom soundtrack, Artist-drawn backgrounds.
+          </p>
+          <p className="leading-relaxed text-gray-200 text-base">
+            Time travel. Date across dimensions. Break history to fix the future
+            and maybe fall in love — one bad decision at a time.
+          </p>
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }

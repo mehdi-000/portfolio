@@ -63,7 +63,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
       .fromTo(
         shader.current.uniforms.uProgress,
         { value: 0 },
-        { value: 1, duration: 1, ease: "slow(0.3,0.7,false)" },
+        /*         { value: 1, duration: 2, ease: "power4.in" }, */
+        { value: 1, duration: 2, ease: "slow(0.3,0.7,false)" },
         ">"
       );
   });
@@ -75,7 +76,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       .fromTo(
         shader.current.uniforms.uProgress,
         { value: 1 },
-        { value: -300, duration: 2.5 }
+        { value: -300, duration: 6, ease: "power4.in" }
       )
       .fromTo(
         firstLayer.current,
@@ -91,18 +92,13 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <TransitionRouter
       leave={(next, from, to) => {
-        /*         if (to === "/#work") {
-          next();
-        } else { */
         transition(next);
-        /*   } */
       }}
       enter={(next) => {
         detransition(next);
       }}
     >
       <main>{children}</main>
-
       <div
         ref={firstLayer}
         className="fixed inset-0 translate-y-full z-50 overflow-hidden"
