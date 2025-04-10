@@ -43,7 +43,7 @@ export const Toggle = ({
             />
             <div
               className={`w-14 h-8 rounded-full shadow-inner transition-colors duration-300 ${
-                isOn ? "bg-[#389fd6]" : "bg-[#3d2fd4]"
+                isOn ? "bg-[#c23e91]" : "bg-[#3d2fd4]"
               }`}
             />
             <div

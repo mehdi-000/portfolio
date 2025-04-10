@@ -1,6 +1,5 @@
 import type { Config } from "tailwindcss";
 import plugin from "tailwindcss/plugin";
-import tailwindcssAnimate from "tailwindcss-animate";
 
 const config: Config = {
   content: [
@@ -53,7 +52,6 @@ const config: Config = {
     plugin(function ({ addVariant }) {
       addVariant("glow", ".glow-capture .glow-overlay &");
     }),
-    tailwindcssAnimate,
   ],
 };
 export default config;

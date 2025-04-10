@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Providers } from "@/app/utils/providers";
 import { Heebo } from "next/font/google";
 import { IBM_Plex_Sans } from "next/font/google";
 import { Ubuntu } from "next/font/google";
 import localFont from "next/font/local";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Footer } from "@/app/components/footer";
+import { Analytics } from "@vercel/analytics/react";
+import { Providers } from "./utils/providers";
 
 const heebo = Heebo({ subsets: ["latin"], variable: "--font-heebo" });
 const iBMPlexSans = IBM_Plex_Sans({
@@ -43,6 +44,7 @@ export default function RootLayout({
       >
         <Providers>{children}</Providers>
         <SpeedInsights />
+        <Analytics />
         <Footer />
       </body>
     </html>

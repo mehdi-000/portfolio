@@ -3,7 +3,6 @@ import { Logoanimated } from "@/app/components/3D/logoanimated";
 import { Navbar } from "@/app/components/navbar";
 import { Work } from "@/app/components/work";
 import { useEffect, useRef, useState } from "react";
-import { Contact } from "@/app/components/contact";
 import dynamic from "next/dynamic";
 import { Experience } from "@/app/components/experience";
 import Image from "next/image";

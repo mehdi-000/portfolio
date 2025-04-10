@@ -6,18 +6,18 @@ export const Work2 = () => {
     <>
       <div className="z-10 w-full items-center justify-around lg:flex">
         <WorkCard2
-          model="PlayerModel"
-          title="Time Travel Sync"
-          description="Procedurally generated endless runner emphasizing on fluid gameplay"
-          usedTechnology={["CSharp", "Unity", "Aseprite"]}
-          to={"/wotw"}
-        />
-        <WorkCard2
           model="WotwTitle"
           title="Way of the Warrior"
           description="Scalable Visual Novel prototype"
           usedTechnology={["Unity", "CSharp", "Aseprite"]}
           to={"/wotw"}
+        />
+        <WorkCard2
+          model="PlayerModel"
+          title="Time Travel Sync"
+          description="Procedurally generated endless runner emphasizing on fluid gameplay"
+          usedTechnology={["CSharp", "Unity", "Aseprite"]}
+          to={"/ttsync"}
         />
       </div>
       <div className="z-10 w-full items-center justify-around lg:flex">

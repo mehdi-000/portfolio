@@ -12,7 +12,8 @@ export const Experience = () => {
     if (window.innerWidth < 768) {
       setIsMobile(true);
     }
-
+  }, []);
+  useEffect(() => {
     if (!glowCaptureRef.current) return;
     const refElement = glowCaptureRef.current;
     const clonedChild = refElement.children[0].cloneNode(true);
