@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useDeviceOrientationContext } from "@/app/components/hooks/DeviceOrientationContext";
 
 type ToggleProps = {
   isOn?: boolean;
@@ -13,10 +14,19 @@ export const Toggle = ({
 }: ToggleProps) => {
   const [isOn, setIsOn] = useState(isOnDefault);
   const [isVisible, setIsVisible] = useState(true);
+  const { requestAccess, revokeAccess } = useDeviceOrientationContext();
 
-  const onToggle = () => {
-    setIsOn((prev) => !prev);
-    onChange?.(!isOn);
+  const onToggle = async () => {
+    const newState = !isOn;
+    setIsOn(newState);
+    onChange?.(newState);
+
+    if (newState) {
+      const granted = await requestAccess();
+      console.log("Gyro permission granted:", granted);
+    } else {
+      await revokeAccess();
+    }
   };
 
   useEffect(() => {

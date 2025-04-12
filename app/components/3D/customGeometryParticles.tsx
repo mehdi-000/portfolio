@@ -1,6 +1,12 @@
 "use client";
 import * as THREE from "three";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { CameraControls } from "@react-three/drei";
 import { useTexture, DeviceOrientationControls } from "@react-three/drei";
 import { randFloat } from "three/src/math/MathUtils.js";
@@ -8,10 +14,11 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { fragment } from "@/app/utils/fragment";
 import { vertex } from "@/app/utils/vertex";
+import { useDeviceOrientationContext } from "@/app/components/hooks/DeviceOrientationContext";
 
 export const CustomGeometryParticles = (props: any) => {
-  const { shape, picture, isMobile, animDuration, camDistance, orientation } =
-    props;
+  const { shape, picture, isMobile, animDuration, camDistance } = props;
+  const { orientation, error } = useDeviceOrientationContext();
 
   const cameraControlsRef = useRef<CameraControls>(null!);
   const points = useRef<THREE.Points>(null!);
@@ -93,16 +100,7 @@ export const CustomGeometryParticles = (props: any) => {
       <CameraControls
         distance={camDistance ?? null}
         ref={cameraControlsRef}
-        mouseButtons={
-          isMobile
-            ? { left: 0, middle: 0, right: 0, wheel: 0 }
-            : {
-                left: 4,
-                middle: 0,
-                right: 0,
-                wheel: 0,
-              }
-        }
+        mouseButtons={{ left: 0, middle: 0, right: 0, wheel: 0 }}
       />
       <bufferGeometry>
         <bufferAttribute

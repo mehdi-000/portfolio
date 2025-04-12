@@ -6,7 +6,7 @@ import { Text } from "troika-three-text";
 
 import * as THREE from "three";
 import { randInt } from "three/src/math/MathUtils.js";
-import { useDeviceOrientation } from "@/app/components/hooks/useDeviceOrientation";
+import { useDeviceOrientationContext } from "@/app/components/hooks/DeviceOrientationContext";
 
 function useButterflyGLTF() {
   if (typeof window === "undefined") {
@@ -34,10 +34,10 @@ export const SkillsGame = () => {
     "Blender",
     "Illustrator",
     "Java",
+    "Asesprite",
   ];
 
-  const { orientation, requestAccess, revokeAccess, error } =
-    useDeviceOrientation();
+  const { orientation } = useDeviceOrientationContext();
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -409,11 +409,23 @@ export const SkillsGame = () => {
     function onMouseMove(evt: { clientX: number; clientY: number }) {
       w = window.innerWidth;
       h = window.innerHeight;
-      let aspect = w / h;
-      let fudge = { x: aspect * 0.75, y: 0.75 };
-      mousePos.x = ((evt.clientX / w) * 2 - 1) * fudge.x;
-      mousePos.y = (-1 * (evt.clientY / h) * 2 + 1) * fudge.y;
+      const aspect = w / h;
+      const fudge = { x: aspect * 0.75, y: 0.75 };
+
+      if (isMobile && orientation) {
+        const { beta, gamma } = orientation;
+
+        const gyroX = (gamma ?? 0) / 45;
+        const gyroY = (beta ?? 0) / 45;
+
+        mousePos.x = gyroX * fudge.x;
+        mousePos.y = -gyroY * fudge.y;
+      } else {
+        mousePos.x = ((evt.clientX / w) * 2 - 1) * fudge.x;
+        mousePos.y = (-1 * (evt.clientY / h) * 2 + 1) * fudge.y;
+      }
     }
+
     window.addEventListener("mousemove", onMouseMove, false);
 
     /*     window.addEventListener("keydown", handleShoot); */

@@ -8,7 +8,8 @@ import localFont from "next/font/local";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Footer } from "@/app/components/footer";
 import { Analytics } from "@vercel/analytics/react";
-import { Providers } from "./utils/providers";
+import { Providers } from "@/app/utils/providers";
+import { DeviceOrientationProvider } from "@/app/components/hooks/DeviceOrientationContext";
 
 const heebo = Heebo({ subsets: ["latin"], variable: "--font-heebo" });
 const iBMPlexSans = IBM_Plex_Sans({
@@ -42,7 +43,9 @@ export default function RootLayout({
       <body
         className={`${pPMonumentExtendedBlack.variable} ${ubuntu.variable} ${heebo.variable} ${iBMPlexSans.variable} antialiased bg-black`}
       >
-        <Providers>{children}</Providers>
+        <DeviceOrientationProvider>
+          <Providers>{children}</Providers>
+        </DeviceOrientationProvider>
         <SpeedInsights />
         <Analytics />
         <Footer />
