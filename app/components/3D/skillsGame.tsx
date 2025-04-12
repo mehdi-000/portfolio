@@ -406,26 +406,15 @@ export const SkillsGame = () => {
     };
     window.addEventListener("resize", handleResize);
 
-    function onPointerMove(evt: MouseEvent | TouchEvent) {
-      const isTouch = evt instanceof TouchEvent;
-      const { innerWidth: w, innerHeight: h } = window;
+    function onMouseMove(evt: { clientX: number; clientY: number }) {
+      w = window.innerWidth;
+      h = window.innerHeight;
       let aspect = w / h;
       let fudge = { x: aspect * 0.75, y: 0.75 };
-      if (isTouch && orientation) {
-        const gyroX = (orientation.gamma || 0) / 45;
-        const gyroY = (orientation.beta || 0) / 45;
-
-        mousePos.x += gyroX * 0.05 * fudge.x;
-        mousePos.y += -gyroY * 0.05 * fudge.y;
-      } else {
-        const clientX = (evt as MouseEvent).clientX ?? 0;
-        const clientY = (evt as MouseEvent).clientY ?? 0;
-
-        mousePos.x = ((clientX / w) * 2 - 1) * fudge.x;
-        mousePos.y = (-1 * (clientY / h) * 2 + 1) * fudge.y;
-      }
+      mousePos.x = ((evt.clientX / w) * 2 - 1) * fudge.x;
+      mousePos.y = (-1 * (evt.clientY / h) * 2 + 1) * fudge.y;
     }
-    window.addEventListener("mousemove", onPointerMove, false);
+    window.addEventListener("mousemove", onMouseMove, false);
 
     /*     window.addEventListener("keydown", handleShoot); */
 
