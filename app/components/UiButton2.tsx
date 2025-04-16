@@ -107,12 +107,14 @@ const Particles = ({
           count={vertices.length / 3}
           array={new Float32Array(vertices)}
           itemSize={3}
+          args={[new Float32Array(vertices), 3]}
         />
         <bufferAttribute
           attach="attributes-initPosition"
           count={initPosition.length / 3}
           array={new Float32Array(initPosition)}
           itemSize={3}
+          args={[new Float32Array(initPosition), 3]}
         />
       </bufferGeometry>
       <pointsMaterial
