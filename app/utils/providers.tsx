@@ -5,22 +5,34 @@ import {
   CameraControls,
   OrbitControls,
   shaderMaterial,
+  useGLTF,
 } from "@react-three/drei";
 import { useGSAP } from "@gsap/react";
 import { Canvas, extend, useThree } from "@react-three/fiber";
 import { fragment } from "@/app/utils/fragment";
 import { vertex } from "@/app/utils/vertex";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { TransitionRouter } from "next-transition-router";
 import { randFloat } from "three/src/math/MathUtils.js";
+import { MeshSurfaceSampler } from "three/examples/jsm/Addons.js";
+import { BufferAttribute, BufferGeometry, Vector3 } from "three";
+
+function useButterflyGLTF() {
+  if (typeof window === "undefined") {
+    return { nodes: null, materials: null };
+  }
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { nodes, materials } = useGLTF("/butterfly-transformed.glb");
+  return { nodes, materials };
+}
 
 type sceneProps = {
   isMobile: boolean;
   rows: number;
   columns: number;
-  vertices: number[];
-  initPosition: number[];
+  vertices: Float32Array;
+  initPosition: Float32Array;
   texture: THREE.Texture | null;
   shaderRef: any;
 };
@@ -34,8 +46,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   const rows = isMobile ? 8 * 24 : 16 * 24;
   const columns = isMobile ? 13 * 24 : 9 * 24;
-  const vertices: number[] = [];
-  const initPosition: number[] = [];
   const [texture, setTexture] = useState<THREE.Texture | null>(null);
 
   useLayoutEffect(() => {
@@ -47,29 +57,41 @@ export function Providers({ children }: { children: React.ReactNode }) {
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
+  const butterflybox = useButterflyGLTF();
 
-  const generateParticlePositions = () => {
-    const width = 3.2;
-    const height = 1.68;
-    const depth = 1.5; // add depth to make it 3D
-    const spacing = 0.1; // adjust spacing as needed
-
-    for (let x = -width / 2; x <= width / 2; x += spacing) {
-      for (let y = -height / 2; y <= height / 2; y += spacing) {
-        for (let z = -depth / 2; z <= depth / 2; z += spacing) {
-          vertices.push(x, y, z);
-          const initPositionpoints = [
-            x + randFloat(0, 100),
-            y + randFloat(0, 100),
-            z + randFloat(0, 100),
-          ];
-          initPosition.push(...initPositionpoints);
-        }
-      }
+  const { vertices, initPosition } = useMemo(() => {
+    if (typeof window === "undefined" || !butterflybox.nodes) {
+      return {
+        vertices: new Float32Array(0),
+        initPosition: new Float32Array(0),
+      };
     }
-  };
 
-  generateParticlePositions();
+    const original = butterflybox.nodes.Curve033_2 as THREE.Mesh;
+    const geometry = original.geometry.clone();
+    const transform = new THREE.Matrix4()
+      .makeRotationX(Math.PI / 2)
+      .multiply(new THREE.Matrix4().makeScale(6, 6, 6));
+    geometry.applyMatrix4(transform);
+    const sampler = new MeshSurfaceSampler(new THREE.Mesh(geometry)).build();
+    const count = 10000;
+
+    const verts = new Float32Array(count * 3);
+    const init = new Float32Array(count * 3);
+    const temp = new THREE.Vector3();
+
+    for (let i = 0; i < count; i++) {
+      sampler.sample(temp);
+      verts.set([temp.x, temp.y, temp.z], i * 3);
+
+      const rand = new THREE.Vector3()
+        .randomDirection()
+        .multiplyScalar(randFloat(1, 500));
+      init.set([rand.x, rand.y, rand.z], i * 3);
+    }
+
+    return { vertices: verts, initPosition: init };
+  }, [butterflybox]);
 
   useEffect(() => {
     const tex = isMobile
@@ -99,7 +121,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
           .fromTo(
             shader.current.uniforms.uProgress,
             { value: 0 },
-            { value: 1, duration: 2, ease: "slow(0.3,0.7,false)" }
+            { value: 1, duration: 3, ease: "slow(0.3,0.7,false)" }
           );
         return () => {
           tl.kill();
@@ -123,7 +145,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
               y: "-100%",
               duration: 1,
               ease: "circ.inOut",
-            }
+            },
+            "-=2"
           );
         return () => {
           tl.kill();
@@ -167,44 +190,48 @@ const Scene = ({
     : Math.max(0.9, viewport.width / 3.5);
 
   return (
-    <points>
-      <OrbitControls
-        distance={cameraDistance}
-        autoRotate
-        autoRotateSpeed={10}
-      />
-      <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          count={vertices.length / 3}
-          array={new Float32Array(vertices)}
-          itemSize={3}
+    <>
+      <points>
+        <OrbitControls
+          distance={cameraDistance}
+          autoRotate
+          autoRotateSpeed={3}
         />
-        <bufferAttribute
-          attach="attributes-initPosition"
-          count={initPosition.length / 3}
-          array={new Float32Array(initPosition)}
-          itemSize={3}
+        <bufferGeometry>
+          <bufferAttribute
+            attach="attributes-position"
+            count={vertices.length / 3}
+            array={new Float32Array(vertices)}
+            itemSize={3}
+            args={[new Float32Array(vertices), 3]}
+          />
+          <bufferAttribute
+            attach="attributes-initPosition"
+            count={initPosition.length / 3}
+            array={new Float32Array(initPosition)}
+            itemSize={3}
+            args={[new Float32Array(initPosition), 3]}
+          />
+        </bufferGeometry>
+        <pointsMaterial
+          size={0.015}
+          color="#5786F5"
+          sizeAttenuation
+          depthWrite={false}
         />
-      </bufferGeometry>
-      <pointsMaterial
-        size={0.015}
-        color="#5786F5"
-        sizeAttenuation
-        depthWrite={false}
-      />
-      <transitionMaterial
-        ref={shaderRef}
-        uPointSize={3}
-        uTexture={texture ?? undefined}
-        uNbLines={rows}
-        uNbColumns={columns}
-        uProgress={0}
-        depthTest={false}
-        depthWrite={false}
-        transparent
-      />
-    </points>
+        <transitionMaterial
+          ref={shaderRef}
+          uPointSize={3}
+          uTexture={texture ?? undefined}
+          uNbLines={rows}
+          uNbColumns={columns}
+          uProgress={0}
+          depthTest={false}
+          depthWrite={false}
+          transparent
+        />
+      </points>
+    </>
   );
 };
 

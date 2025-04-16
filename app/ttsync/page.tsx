@@ -7,7 +7,16 @@ export default function Ttsync() {
       <main className="flex flex-col items-center justify-between overflow-hidden p-10 font- bg-[#070707] text-white">
         <Navbar />
         <div className="w-full h-14" />
+        <div className="md:hidden block w-full text-center p-6 border-2 border-pink/5  shadow-md rounded-2xl">
+          <p className="text-lg md:text-xl leading-relaxed">
+            Unfortunately, Unity currently doesn&apos;t support mobile browser
+            games. Resulting in this screen, the game is only playable on
+            desktop computers for now. However, a mobile version for both the
+            App Store and Google Play is planned.
+          </p>
+        </div>
         <iframe
+          className="hidden md:block"
           src="https://i.simmer.io/@Nixx/way--of-the-warrior"
           style={{
             width: "960px",
@@ -17,7 +26,7 @@ export default function Ttsync() {
         ></iframe>
         <div className="w-full h-14" />
         <div className="md:w-2/5 font-heebo">
-          <div className="bg-[#070707] pb-6 pt-4 px-6 rounded-xl bg-gradient-to-br from-purple-800/5 to-cyan-400/5 border-2 border-pink/5  shadow-md ">
+          <div className="pb-6 pt-4 px-6 rounded-xl bg-gradient-to-br from-purple-800/5 to-cyan-400/5 border-2 border-pink/5  shadow-md ">
             <div className="flex justify-between text-gray-400 text-sm">
               <p>
                 <strong className="text-gray-500">2D Endless Runner</strong>

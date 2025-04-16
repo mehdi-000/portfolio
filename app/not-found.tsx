@@ -1,18 +1,23 @@
 "use client";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import {
-  Text3D,
-  useGLTF,
-  Text,
-  RoundedBox,
-  Outlines,
-  Edges,
-} from "@react-three/drei";
+import { Canvas, useThree } from "@react-three/fiber";
+import { Text3D, useGLTF, Text, Center } from "@react-three/drei";
 import { Float } from "@react-three/drei";
 import { MeshTransmissionMaterial } from "@react-three/drei";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import * as THREE from "three";
 import { useRouter } from "next/navigation";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+
+function useBreakpoints() {
+  const { width } = useThree((state) => state.viewport);
+  return {
+    isMobile: width < 6,
+    isTablet: width >= 6 && width < 10,
+    isDesktop: width >= 10,
+    width,
+  };
+}
 
 export default function NotFound() {
   const [cursorStyle, setCursorStyle] = useState<React.CSSProperties>({
@@ -37,197 +42,110 @@ function Model({
 }: {
   setCursorStyle: React.Dispatch<React.SetStateAction<React.CSSProperties>>;
 }) {
-  const { viewport } = useThree();
   const { nodes } = useGLTF("/404_broken_glass_separated.glb");
   const ref = useRef<THREE.Mesh>(null);
-  const isMobile = viewport.width < 10;
   const mesh = useRef<THREE.Mesh | null>(null);
   const router = useRouter();
-  useEffect(() => {
-    if (!ref.current) {
-      return;
-    }
-    ref.current.geometry.computeBoundingBox();
-    const boundingBox = ref.current.geometry.boundingBox;
-    const center = new THREE.Vector3();
-    if (boundingBox) boundingBox.getCenter(center);
-    ref.current.geometry.translate(-center.x, -center.y, -center.z);
-  });
-
-  useFrame(() => {
-    if (ref.current) {
-      ref.current.rotation.y += 0.01;
-    }
-  });
+  const workRef = useRef<HTMLAnchorElement | null>(null);
+  const experienceRef = useRef<HTMLAnchorElement | null>(null);
+  const skillsRef = useRef<HTMLAnchorElement | null>(null);
+  const { contextSafe } = useGSAP();
+  const { isMobile, isTablet, width } = useBreakpoints();
 
   const curveGeometries = [
     "Curve",
     isMobile ? "Curve001" : null,
     "Curve002",
     "Curve003",
+    isMobile ? null : "Curve004",
     "Curve004",
     "Curve005",
     "Curve006",
     "Curve007",
     "Curve008",
     "Curve009",
-    "Curve010",
-    "Curve012",
+    isMobile ? "Curve010" : "Curve010",
+    isMobile ? null : "Curve012",
     "Curve013",
   ].filter((curve): curve is string => curve !== null);
 
+  const handleHover = contextSafe((element: HTMLAnchorElement | null) => {
+    setCursorStyle({ cursor: "pointer" });
+    if (element) {
+      gsap.to(element, {
+        fontSize: isMobile ? 0.28 : 0.37,
+        duration: 0.3,
+        ease: "power1.out",
+        color: isMobile ? "#c23e91" : "#33c4c0",
+      });
+    }
+  });
+
+  const handleHoverOut = contextSafe((element: HTMLAnchorElement | null) => {
+    setCursorStyle({ cursor: "default" });
+    if (element) {
+      gsap.to(element, {
+        fontSize: isMobile ? 0.27 : 0.36,
+        duration: 0.3,
+        ease: "power1.out",
+        color: "#ffffff",
+      });
+    }
+  });
+
   return (
     <>
-      <RoundedBox
-        ref={mesh}
-        args={isMobile ? [11, 24, 1] : [24, 11, 1]}
-        radius={0.4}
-        position={[0, -1, -15]}
-        scale={viewport.width * (isMobile ? 0.2 : 0.12)}
+      <mesh position={[0, 0, -10]}>
+        <planeGeometry args={[30, 30]} />
+        <meshBasicMaterial color="#ffffff" transparent opacity={0.03} />
+      </mesh>
+      <Text
+        ref={workRef}
+        font="/PPMonumentExtendedBlack.woff"
+        fontSize={isMobile ? 0.27 : 0.36}
+        color={"white"}
+        position={isMobile ? [-2, 6.7, -5] : [-4.6, 6.7, -5]}
+        onPointerEnter={() => {
+          handleHover(workRef.current);
+        }}
+        onPointerLeave={() => {
+          handleHoverOut(workRef.current);
+        }}
+        onClick={() => router.push("/#work")}
       >
-        <meshBasicMaterial color="#18181b" />
-        <Edges linewidth={2} threshold={15} color={"white"} />
-        <Outlines thickness={0.07} color={"#1a1e21"} />
+        work
+      </Text>
+      <Text
+        ref={experienceRef}
+        font="/PPMonumentExtendedBlack.woff"
+        fontSize={isMobile ? 0.27 : 0.36}
+        color={"white"}
+        position={isMobile ? [0.2, 6.7, -5] : [0, 6.7, -5]}
+        onPointerEnter={() => {
+          handleHover(experienceRef.current);
+        }}
+        onPointerLeave={() => {
+          handleHoverOut(experienceRef.current);
+        }}
+        onClick={() => router.push("/#experience")}
+      >
+        experience
+      </Text>
+      <Text
+        ref={skillsRef}
+        font="/PPMonumentExtendedBlack.woff"
+        fontSize={isMobile ? 0.27 : 0.36}
+        color={"white"}
+        position={isMobile ? [2.4, 6.7, -5] : [4.6, 6.7, -5]}
+        onPointerEnter={() => handleHover(skillsRef.current)}
+        onPointerLeave={() => handleHoverOut(skillsRef.current)}
+        onClick={() => router.push("/#contact")}
+      >
+        skills
+      </Text>
 
-        {/*     React Three alpha introduced a bug where pointer events don't fire on <Text/> */}
-        <RoundedBox
-          args={[1, 0.5, 0.1]}
-          position={[-2.2, 7.8, 1.1]}
-          onPointerEnter={() => setCursorStyle({ cursor: "pointer" })}
-          onPointerLeave={() => setCursorStyle({ cursor: "default" })}
-          onClick={() => router.push("/#work")}
-        >
-          <meshBasicMaterial opacity={0.0} transparent />
-        </RoundedBox>
-        <Text
-          font="/PPMonumentExtendedBlack.woff"
-          fontSize={0.26}
-          color={"white"}
-          position={isMobile ? [-2, 14, 1] : [-2.2, 7.8, 1]}
-        >
-          work
-        </Text>
-        <RoundedBox
-          args={[2.1, 0.5, 0.1]}
-          position={[-0.2, 7.8, 1.1]}
-          onPointerEnter={() => setCursorStyle({ cursor: "pointer" })}
-          onPointerLeave={() => setCursorStyle({ cursor: "default" })}
-          onClick={() => router.push("/#experience")}
-        >
-          <meshBasicMaterial opacity={0.0} transparent />
-        </RoundedBox>
-        <Text
-          font="/PPMonumentExtendedBlack.woff"
-          fontSize={0.26}
-          color={"white"}
-          position={isMobile ? [-0.2, 14, 1] : [-0.2, 7.8, 1]}
-        >
-          experience
-        </Text>
-        <RoundedBox
-          args={[1.5, 0.5, 0.1]}
-          position={[2, 7.8, 1.1]}
-          onPointerEnter={() => setCursorStyle({ cursor: "pointer" })}
-          onPointerLeave={() => setCursorStyle({ cursor: "default" })}
-          onClick={() => router.push("/#contact")}
-        >
-          <meshBasicMaterial opacity={0.0} transparent />
-        </RoundedBox>
-        <Text
-          font="/PPMonumentExtendedBlack.woff"
-          fontSize={0.26}
-          color={"white"}
-          position={isMobile ? [2, 14, 1] : [2, 7.8, 1]}
-        >
-          contact
-        </Text>
-        <Text
-          font="/Heebo-Bold.woff"
-          fontSize={0.3}
-          position={isMobile ? [-4, 10, 1] : [-10, 4.5, 1]}
-          color={"gray"}
-        >
-          404 Page
-        </Text>
-        <Text
-          font="/Heebo-Bold.woff"
-          fontSize={0.3}
-          position={isMobile ? [-4, 10, 1] : [9.8, 4.5, 1]}
-          color={"white"}
-        >
-          Agency:
-        </Text>
-        <Text
-          font="/Heebo-Regular.woff"
-          fontSize={0.3}
-          position={isMobile ? [-4, 10, 1] : [10.7, 4.5, 1]}
-          color={"white"}
-        >
-          ???
-        </Text>
-        <Text
-          font="/Heebo-Bold.woff"
-          fontSize={0.3}
-          position={isMobile ? [-4, 10, 1] : [-10.4, -4.5, 1]}
-          color={"white"}
-        >
-          Time:
-        </Text>
-        <Text
-          font="/Heebo-Regular.woff"
-          fontSize={0.3}
-          position={isMobile ? [-4, 10, 1] : [-9.7, -4.5, 1]}
-          color={"white"}
-        >
-          ???
-        </Text>
-        <Text
-          font="/PPMonumentExtendedBlack.woff"
-          fontSize={0.8}
-          position={isMobile ? [-1.6, 9.3, 1] : [0, 4, 1]}
-          color={"white"}
-        >
-          Page not found
-        </Text>
-        <Text
-          font="/Heebo-Regular.woff"
-          fontSize={0.3}
-          position={isMobile ? [-4, 10, 1] : [5, 1, 1]}
-          color={"white"}
-        >
-          Congratulations! You&apos;ve reached the end of the line.
-        </Text>
-        <Text
-          font="/Heebo-Regular.woff"
-          fontSize={0.3}
-          position={isMobile ? [-4, 10, 1] : [5, 0.5, 1]}
-          color={"white"}
-        >
-          This Page has been build in side the HTML Canvas
-        </Text>
-        <Text
-          font="/Heebo-Regular.woff"
-          fontSize={0.3}
-          position={isMobile ? [-4, 10, 1] : [5, 0, 1]}
-          color={"white"}
-        >
-          with Three.js and took me wayy too long...
-        </Text>
-
-        <RoundedBox
-          ref={mesh}
-          args={isMobile ? [11, 24, 1] : [4, 4, 1]}
-          radius={0.4}
-          position={[-7.2, 0, 0.3]}
-          scale={viewport.width * (isMobile ? 0.2 : 0.12)}
-        >
-          <meshBasicMaterial color="#18181b" />
-          <Edges linewidth={1} threshold={15} color={"white"} />
-          <Outlines thickness={0.03} color={"#1a1e21"} />
-        </RoundedBox>
-      </RoundedBox>
       <group
-        scale={viewport.width * (isMobile ? 7.5 : 10)}
+        scale={width * (isMobile ? 6 : isTablet ? 8 : 10)}
         position={[0, 0, 0]}
         dispose={null}
       >
@@ -245,33 +163,43 @@ function Model({
               scale={isMobile ? [1, 1, 5] : [1, 1, 1]}
             >
               <MeshTransmissionMaterial
-                background={new THREE.Color()}
-                samples={10}
-                resolution={2048}
-                thickness={3}
-                ior={1.6}
-                chromaticAberration={0.4}
-                anisotropy={0.5}
-                distortionScale={0.5}
-                temporalDistortion={0.5}
-                clearcoat={0.8}
-                attenuationColor={3}
-                color={"#389fd6"}
+                background={
+                  isMobile
+                    ? new THREE.Color("#f22e8d")
+                    : new THREE.Color("#ab2668")
+                }
+                samples={32}
+                resolution={1024}
+                thickness={1.8}
+                ior={1.45}
+                chromaticAberration={0.1}
+                anisotropy={0.3}
+                distortion={0.1}
+                distortionScale={0.1}
+                temporalDistortion={0.05}
+                clearcoat={1}
+                attenuationDistance={1}
+                attenuationColor={new THREE.Color("#00ffff")}
+                color={isMobile ? "#f22e8d" : "#26abab"}
+                roughness={0.1}
               />
             </mesh>
           </Float>
         ))}
       </group>
-      <Text3D
-        scale={viewport.width * 0.2}
-        ref={ref}
-        position={isMobile ? [0, 0, -6] : [-9, -0.5, -9]}
-        letterSpacing={-0.06}
-        size={1}
-        font="/Heebo_SemiBold.json"
-      >
-        404
-      </Text3D>
+      <Center disableZ position={[0, 0, -4]}>
+        <Float speed={0.8} rotationIntensity={1} floatIntensity={1}>
+          <Text3D
+            scale={width * (isMobile ? 0.3 : isTablet ? 0.25 : 0.2)}
+            ref={ref}
+            letterSpacing={-0.06}
+            size={1}
+            font="/Heebo_SemiBold.json"
+          >
+            404
+          </Text3D>
+        </Float>
+      </Center>
     </>
   );
 }

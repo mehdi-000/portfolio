@@ -17,8 +17,8 @@ import { vertex } from "@/app/utils/vertex";
 import { useDeviceOrientationContext } from "@/app/components/hooks/DeviceOrientationContext";
 
 export const CustomGeometryParticles = (props: any) => {
-  const { shape, picture, isMobile, animDuration, camDistance } = props;
-  const { orientation, error } = useDeviceOrientationContext();
+  const { shape, picture, isMobile, animDuration, camDistance, orientation } =
+    props;
 
   const cameraControlsRef = useRef<CameraControls>(null!);
   const points = useRef<THREE.Points>(null!);
@@ -43,9 +43,9 @@ export const CustomGeometryParticles = (props: any) => {
     if (isMobile && orientation && cameraControlsRef.current) {
       const { alpha, beta, gamma } = orientation;
 
-      const xOffset = (gamma || 0) * 0.1;
-      const yOffset = (beta || 0) * 0.1;
-      const zOffset = (alpha || 0) * 0.1;
+      const xOffset = (gamma || 0) * 0.4;
+      const yOffset = (beta || 0) * 0.4;
+      const zOffset = (alpha || 0) * 0.4;
 
       const newPosition = new THREE.Vector3(
         cameraTarget.x + xOffset,
@@ -108,12 +108,14 @@ export const CustomGeometryParticles = (props: any) => {
           count={positions.length / 3}
           array={positions}
           itemSize={3}
+          args={[new Float32Array(vertices), 3]}
         />
         <bufferAttribute
           attach="attributes-initPosition"
           count={initPosition.length / 3}
           array={initPositions}
           itemSize={3}
+          args={[new Float32Array(initPosition), 3]}
         />
       </bufferGeometry>
       <pointsMaterial

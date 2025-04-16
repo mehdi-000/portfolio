@@ -8,8 +8,9 @@ import { gsap } from "gsap";
 export const Navbar = () => {
   const workRef = useRef<HTMLAnchorElement | null>(null);
   const experienceRef = useRef<HTMLAnchorElement | null>(null);
-  const contactRef = useRef<HTMLAnchorElement | null>(null);
+  const skillsRef = useRef<HTMLAnchorElement | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const { contextSafe } = useGSAP();
 
   useEffect(() => {
     if (window.innerWidth < 768) {
@@ -17,7 +18,7 @@ export const Navbar = () => {
     }
   }, []);
 
-  const handleHover = (element: HTMLAnchorElement | null) => {
+  const handleHover = contextSafe((element: HTMLAnchorElement | null) => {
     if (element) {
       gsap.to(element, {
         scale: 1.02,
@@ -26,9 +27,9 @@ export const Navbar = () => {
         color: isMobile ? "#c23e91" : "#33c4c0",
       });
     }
-  };
+  });
 
-  const handleHoverOut = (element: HTMLAnchorElement | null) => {
+  const handleHoverOut = contextSafe((element: HTMLAnchorElement | null) => {
     if (element) {
       gsap.to(element, {
         scale: 1,
@@ -37,7 +38,7 @@ export const Navbar = () => {
         color: "#ffffff",
       });
     }
-  };
+  });
 
   return (
     <div className="flex justify-center w-full">
@@ -64,9 +65,9 @@ export const Navbar = () => {
         <Link
           href={"/#skills"}
           className="md:ml-0 ml-3"
-          ref={contactRef}
-          onMouseEnter={() => handleHover(contactRef.current)}
-          onMouseLeave={() => handleHoverOut(contactRef.current)}
+          ref={skillsRef}
+          onMouseEnter={() => handleHover(skillsRef.current)}
+          onMouseLeave={() => handleHoverOut(skillsRef.current)}
         >
           <p>skills</p>
         </Link>

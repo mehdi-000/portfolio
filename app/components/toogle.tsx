@@ -14,19 +14,10 @@ export const Toggle = ({
 }: ToggleProps) => {
   const [isOn, setIsOn] = useState(isOnDefault);
   const [isVisible, setIsVisible] = useState(true);
-  const { requestAccess, revokeAccess } = useDeviceOrientationContext();
 
-  const onToggle = async () => {
-    const newState = !isOn;
-    setIsOn(newState);
-    onChange?.(newState);
-
-    if (newState) {
-      const granted = await requestAccess();
-      console.log("Gyro permission granted:", granted);
-    } else {
-      await revokeAccess();
-    }
+  const onToggle = () => {
+    setIsOn((prev) => !prev);
+    onChange?.(!isOn);
   };
 
   useEffect(() => {

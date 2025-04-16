@@ -2,16 +2,17 @@
 import { Canvas } from "@react-three/fiber";
 import { CustomGeometryParticles } from "@/app/components/3D/customGeometryParticles";
 import { Suspense, useEffect } from "react";
-import { useDeviceOrientation } from "@/app/components/hooks/useDeviceOrientation";
 import { Toggle } from "@/app/components/toogle";
 import { useDeviceOrientationContext } from "@/app/components/hooks/DeviceOrientationContext";
+import { useDeviceOrientation } from "@/app/components/hooks/useDeviceOrientation";
 
 export const Logoanimated = ({}) => {
-  const { orientation, requestAccess } = useDeviceOrientationContext();
+  const { orientation, requestAccess, revokeAccess, error } =
+    useDeviceOrientation();
 
-  useEffect(() => {
-    requestAccess();
-  }, [requestAccess]);
+  const onChange = (toggleState: boolean): void => {
+    const result = toggleState ? requestAccess() : revokeAccess();
+  };
 
   return (
     <>
@@ -37,7 +38,7 @@ export const Logoanimated = ({}) => {
         </Canvas>
       </div>
       <div className="h-5/6 block md:hidden">
-        <Toggle />
+        <Toggle onChange={onChange} />
         <Canvas
           fallback={<div>Sorry no WebGL supported!</div>}
           shadows

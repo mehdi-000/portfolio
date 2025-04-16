@@ -7,8 +7,16 @@ export default function Wotw() {
       <main className="flex flex-col items-center justify-between overflow-hidden p-10 font- bg-[#070707] text-white">
         <Navbar />
         <div className="w-full h-14" />
-
+        <div className="md:hidden block w-full text-center p-6 border-2 border-pink/5  shadow-md rounded-2xl">
+          <p className="text-lg md:text-xl leading-relaxed">
+            Unfortunately, Unity currently doesn&apos;t support mobile browser
+            games. Resulting in this screen, the game is only playable on
+            desktop computers for now. However, a mobile version for both the
+            App Store and Google Play is planned.
+          </p>
+        </div>
         <iframe
+          className="hidden md:block"
           src="https://i.simmer.io/@Nixx/way--of-the-warrior"
           style={{
             width: "960px",
@@ -80,6 +88,14 @@ export default function Wotw() {
             norm, like non-linear storytelling, interactive item systems and
             more gameplay focused minigames. Building our own framework in Unity
             gave us total creative control.
+          </p>
+          <h2 className="text-xl font-bold mt-6">
+            How can I turn off the music???
+          </h2>
+          <p className="leading-relaxed text-gray-200 text-base">
+            I&apos;ll be adding an options menu soon where you can toggle music.
+            Until then, you can lower or mute your browser tab manually — thanks
+            for your patience!
           </p>
           <h2 className="text-xl font-bold mt-6 font-">What’s next?</h2>
           <p className="text-gray-300 text-sm leading-relaxed my-4">
