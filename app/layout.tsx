@@ -43,9 +43,9 @@ export default function RootLayout({
       <body
         className={`${pPMonumentExtendedBlack.variable} ${ubuntu.variable} ${heebo.variable} ${iBMPlexSans.variable} antialiased bg-black`}
       >
-        <PostHogProvider>
-          <Providers>{children}</Providers>
-        </PostHogProvider>
+        <Providers>
+          <PostHogProvider>{children}</PostHogProvider>
+        </Providers>
         <SpeedInsights />
         <Analytics />
         <Footer />
