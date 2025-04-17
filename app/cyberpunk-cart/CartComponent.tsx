@@ -1,5 +1,5 @@
 "use client";
-import { Model } from "@/public/model/Cart";
+import { Model } from "@/public/model/3DCart";
 import { CameraControls, Environment, Loader } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
 import { Suspense, useRef } from "react";

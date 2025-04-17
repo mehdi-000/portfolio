@@ -22,7 +22,7 @@ export const Model = ({
   return (
     <group ref={ref} {...props} dispose={null}>
       <group
-        position={[0.739, 1.975, -0.953]}
+        position={[0.739, 1.4, -0.99]}
         rotation={[-Math.PI, 0, -Math.PI]}
         scale={0.035}
       >

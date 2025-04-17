@@ -22,7 +22,7 @@ export const Work2 = () => {
       </div>
       <div className="z-10 w-full items-center justify-around lg:flex">
         <WorkCard2
-          model="Cart"
+          model="3DCart"
           title="Cyberpunk Cart"
           description="Low-poly modeled & rigged Cyberpunk cart"
           usedTechnology={["Blender", "Cinema4D"]}
