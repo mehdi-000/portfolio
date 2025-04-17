@@ -122,7 +122,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
             shader.current.uniforms.uProgress,
             { value: 0 },
             { value: 1, duration: 3, ease: "slow(0.3,0.7,false)" }
-          );
+          )
+          .to({}, { duration: 1 });
         return () => {
           tl.kill();
         };
@@ -131,12 +132,17 @@ export function Providers({ children }: { children: React.ReactNode }) {
         if (!shader.current) return;
         const tl = gsap
           .timeline({ onComplete: next })
+          .to({}, { duration: 1 })
           .fromTo(
             shader.current.uniforms.uProgress,
             {
               value: 1,
             },
-            { value: 0, duration: 4, ease: "power4.in" }
+            {
+              value: 0,
+              duration: 4,
+              ease: "power4.in",
+            }
           )
           .fromTo(
             firstLayer.current,

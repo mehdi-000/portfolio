@@ -17,13 +17,19 @@ export default function Wotw() {
         </div>
         <iframe
           className="hidden md:block"
-          src="https://i.simmer.io/@Nixx/way--of-the-warrior"
           style={{
             width: "960px",
             height: "600px",
             borderRadius: "12px",
           }}
-        ></iframe>
+          src="https://itch.io/embed-upload/13405236?color=333333"
+          width="960"
+          height="620"
+        >
+          <a href="https://nixx-studios.itch.io/way-of-the-warrior">
+            Play Way of the Warrior on itch.io
+          </a>
+        </iframe>
         <div className="w-full h-14" />
         <div className="md:w-2/5 font-heebo">
           <div className="bg-[#070707] pb-6 pt-4 px-6 rounded-xl bg-gradient-to-br from-purple-800/5 to-cyan-400/5 border-2 border-pink/5  shadow-md ">
