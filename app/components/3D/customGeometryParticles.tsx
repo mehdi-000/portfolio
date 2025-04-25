@@ -93,7 +93,11 @@ export const CustomGeometryParticles = (props: any) => {
       <CameraControls
         distance={camDistance ?? null}
         ref={cameraControlsRef}
-        mouseButtons={{ left: 4, middle: 0, right: 0, wheel: 0 }}
+        mouseButtons={
+          isMobile
+            ? { left: 0, middle: 0, right: 0, wheel: 0 }
+            : { left: 4, middle: 0, right: 0, wheel: 0 }
+        }
       />
       <bufferGeometry>
         <bufferAttribute
