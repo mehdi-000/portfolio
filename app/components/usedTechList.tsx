@@ -7,7 +7,7 @@ import { PiFileCSharp } from "react-icons/pi";
 import { SiBlender, SiCinema4D, SiPrisma, SiAseprite } from "react-icons/si";
 import { GrMysql } from "react-icons/gr";
 
-const techIcons = {
+export const techIcons = {
   NextJs: <TbBrandNextjs />,
   React: <FaReact />,
   TypeScript: <TbBrandTypescript />,

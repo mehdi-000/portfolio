@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useDeviceOrientationContext } from "@/app/components/hooks/DeviceOrientationContext";
 
 type ToggleProps = {
   isOn?: boolean;

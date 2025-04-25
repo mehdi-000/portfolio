@@ -1,9 +1,8 @@
 "use client";
 import { Canvas } from "@react-three/fiber";
 import { CustomGeometryParticles } from "@/app/components/3D/customGeometryParticles";
-import { Suspense, useEffect } from "react";
+import { Suspense } from "react";
 import { Toggle } from "@/app/components/toogle";
-import { useDeviceOrientationContext } from "@/app/components/hooks/DeviceOrientationContext";
 import { useDeviceOrientation } from "@/app/components/hooks/useDeviceOrientation";
 
 export const Logoanimated = ({}) => {

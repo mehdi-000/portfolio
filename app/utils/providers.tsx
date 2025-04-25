@@ -1,12 +1,7 @@
 "use client";
 
 import * as THREE from "three";
-import {
-  CameraControls,
-  OrbitControls,
-  shaderMaterial,
-  useGLTF,
-} from "@react-three/drei";
+import { OrbitControls, shaderMaterial, useGLTF } from "@react-three/drei";
 import { useGSAP } from "@gsap/react";
 import { Canvas, extend, useThree } from "@react-three/fiber";
 import { fragment } from "@/app/utils/fragment";
@@ -16,7 +11,6 @@ import { gsap } from "gsap";
 import { TransitionRouter } from "next-transition-router";
 import { randFloat } from "three/src/math/MathUtils.js";
 import { MeshSurfaceSampler } from "three/examples/jsm/Addons.js";
-import { BufferAttribute, BufferGeometry, Vector3 } from "three";
 
 function useButterflyGLTF() {
   if (typeof window === "undefined") {
@@ -40,8 +34,6 @@ type sceneProps = {
 export function Providers({ children }: { children: React.ReactNode }) {
   const shader = useRef<THREE.ShaderMaterial>(null);
   const firstLayer = useRef<HTMLDivElement>(null);
-  const tl = useRef<gsap.core.Timeline>(null);
-  const { contextSafe } = useGSAP();
   const [isMobile, setIsMobile] = useState(false);
 
   const rows = isMobile ? 8 * 24 : 16 * 24;

@@ -1,6 +1,6 @@
 "use client";
 import { useGLTF } from "@react-three/drei";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 // @ts-ignore:
 import { Text } from "troika-three-text";
 
@@ -59,43 +59,6 @@ export const SkillsGame = () => {
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     container?.appendChild(renderer.domElement);
 
-    const loadingManager = new THREE.LoadingManager();
-
-    /*     // Adding Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // Soft white light
-    scene.add(ambientLight); */
-
-    /*  const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // Sunlight-like light
-    directionalLight.position.set(5, 10, 7.5);
-    scene.add(directionalLight);
-
-    const pointLight = new THREE.PointLight(0xff0000, 1, 100); // Red point light
-    pointLight.position.set(0, 5, 0);
-    scene.add(pointLight); */
-
-    // Set properties to configure:
-
-    const curve = new THREE.CatmullRomCurve3(
-      Array.from({ length: 100 }, (_, i) => {
-        const x = (i / 100) * 20 - 10; // X from -10 to 10
-        const z = Math.sin(x); // Sine wave along Z
-        return new THREE.Vector3(x, 0, z);
-      })
-    );
-
-    const curve1 = new THREE.CatmullRomCurve3(
-      Array.from({ length: 100 }, (_, i) => {
-        const theta = (i / 100) * Math.PI * 2; // Full circle
-        const radius = 10;
-        return new THREE.Vector3(
-          radius * Math.cos(theta),
-          0, // Constant Y
-          radius * Math.sin(theta)
-        );
-      })
-    );
-
-    // Curve Path
     const curvePath = [
       10.136184463414924, -1.374508746897471, 10.384881573913269,
       9.1152593889854714, -1.374508746897471, 8.5846792797570011,
@@ -143,15 +106,10 @@ export const SkillsGame = () => {
       );
     }
     const spline = new THREE.CatmullRomCurve3(points);
-
-    // Tube Geometry
     const tubeGeo = new THREE.TubeGeometry(spline, 222, 3, 16, true);
     const tubeColor = 0x00ccff;
     const edges = new THREE.EdgesGeometry(tubeGeo, 0.2);
     const lineMat = new THREE.LineBasicMaterial({ color: tubeColor });
-    const tubeLines = new THREE.LineSegments(edges, lineMat);
-    /*     scene.add(tubeLines); */
-
     const hitMat = new THREE.MeshBasicMaterial({
       color: tubeColor,
       transparent: true,
@@ -160,14 +118,9 @@ export const SkillsGame = () => {
     });
     const tubeHitArea = new THREE.Mesh(tubeGeo, hitMat);
     scene.add(tubeHitArea);
-
-    // Boxes along the tube
     const boxGroup = new THREE.Group();
     scene.add(boxGroup);
-
-    // Butterflies along the tube
     const numButterflies = 100;
-    const size = 0.075;
 
     for (let i = 0; i < numButterflies; i++) {
       const p = (i / numButterflies + Math.random() * 0.9) % 1;
@@ -214,11 +167,9 @@ export const SkillsGame = () => {
       hitBox.position.copy(pos);
       hitBox.name = "butterflybox";
 
-      // Store butterflyMeshGroup as userData on the hitbox
       hitBox.userData.butterfly = butterflyMeshGroup;
 
       butterflyMeshGroup.userData.hitbox = hitBox;
-
       boxGroup.add(hitBox);
       boxGroup.add(butterflyMeshGroup);
 
@@ -385,15 +336,12 @@ export const SkillsGame = () => {
       const laser = getLaserBolt();
       lasers.push(laser);
       scene.add(laser);
-
-      // cleanup
       let inactiveLasers = lasers.filter((l) => l.userData.active === false);
       scene.remove(...inactiveLasers);
       lasers = lasers.filter((l) => l.userData.active === true);
     }
     window.addEventListener("mousedown", () => fireLaser());
 
-    // Handle resize
     const handleResize = () => {
       const width = container.clientWidth;
       const height = container.clientHeight;
@@ -413,12 +361,9 @@ export const SkillsGame = () => {
     }
     window.addEventListener("mousemove", onMouseMove, false);
 
-    /*     window.addEventListener("keydown", handleShoot); */
-
     return () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("mousedown", () => fireLaser());
-      /*  window.removeEventListener("keydown", handleShoot); */
       container.removeChild(renderer.domElement);
       renderer.dispose();
       tubeGeo.dispose();

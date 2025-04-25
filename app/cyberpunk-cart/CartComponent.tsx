@@ -1,11 +1,11 @@
 "use client";
-import { Model } from "@/public/model/3DCart";
-import { CameraControls, Environment, Loader } from "@react-three/drei";
+import { Model } from "@/public/model/Cart_portfolio";
+import { CameraControls, Environment } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
 import { Suspense, useRef } from "react";
 import { button, buttonGroup, Leva, useControls } from "leva";
 import { DEG2RAD } from "three/src/math/MathUtils.js";
-import { Group, Object3DEventMap, Vector3 } from "three";
+import { Group, Object3DEventMap } from "three";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
@@ -62,18 +62,7 @@ export const CartComponent = ({}) => {
         true
       )
     ),
-    lookAtFrontmiddle: button(() =>
-      cameraControlsRef.current?.setLookAt(
-        -0.7132135467136171,
-        8.49572518014102,
-        -14.673315379064977,
-        0,
-        0,
-        0,
-        true
-      )
-    ),
-    lookAtTop: button(() =>
+    lookAtFrontClose: button(() =>
       cameraControlsRef.current?.setLookAt(
         -0.035388982419012616,
         3.5940952123596013,
@@ -99,7 +88,7 @@ export const CartComponent = ({}) => {
       cameraControlsRef.current?.setLookAt(
         -2.6943185646935865,
         0.8278881406833074,
-        6.004120549471846,
+        8.004120549471846,
         0,
         0,
         0,
@@ -109,7 +98,7 @@ export const CartComponent = ({}) => {
 
     lookAtRightMiddle: button(() =>
       cameraControlsRef.current?.setLookAt(
-        5.54559743461848,
+        6.54559743461848,
         3.3205228194221283,
         -1.488184186509365,
         0,
@@ -129,7 +118,7 @@ export const CartComponent = ({}) => {
           ref={cameraControlsRef}
           mouseButtons={{ left: 0, middle: 0, right: 0, wheel: 0 }}
         />
-        <Environment preset="night" background backgroundBlurriness={0.5} />
+        <Environment preset="apartment" background backgroundBlurriness={0.5} />
         <ambientLight intensity={0.5} />
         <Suspense fallback={null}>
           <Model ref={carRef} />

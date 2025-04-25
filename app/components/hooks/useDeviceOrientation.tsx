@@ -49,8 +49,6 @@ export const useDeviceOrientation = (): UseDeviceOrientationData => {
       );
       return false;
     }
-
-    // Check for requestPermission method
     if (
       typeof (DeviceOrientationEvent as any).requestPermission === "function"
     ) {

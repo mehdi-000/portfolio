@@ -2,7 +2,6 @@
 import { Navbar } from "../components/navbar";
 import { CartComponent } from "./CartComponent";
 import "../components/workCard.css";
-import { useEffect, useRef } from "react";
 import { UsedTechList } from "@/app/components/usedTechList";
 
 export default function CyberpunkCar() {
