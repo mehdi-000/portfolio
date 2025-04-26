@@ -2,7 +2,6 @@
 
 import * as THREE from "three";
 import { OrbitControls, shaderMaterial, useGLTF } from "@react-three/drei";
-import { useGSAP } from "@gsap/react";
 import { Canvas, extend, useThree } from "@react-three/fiber";
 import { fragment } from "@/app/utils/fragment";
 import { vertex } from "@/app/utils/vertex";
@@ -88,7 +87,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const tex = isMobile
       ? new THREE.TextureLoader().load("/pictures/mobileTransitionTexture.png")
-      : new THREE.TextureLoader().load("/pictures/turqouis8Backround.png");
+      : new THREE.TextureLoader().load(
+          "/pictures/desktopTransitionTexture.png"
+        );
     setTexture(tex);
   }, [isMobile]);
 

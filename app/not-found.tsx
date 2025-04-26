@@ -44,7 +44,6 @@ function Model({
 }) {
   const { nodes } = useGLTF("/404_broken_glass_separated.glb");
   const ref = useRef<THREE.Mesh>(null);
-  const mesh = useRef<THREE.Mesh | null>(null);
   const router = useRouter();
   const workRef = useRef<HTMLAnchorElement | null>(null);
   const experienceRef = useRef<HTMLAnchorElement | null>(null);

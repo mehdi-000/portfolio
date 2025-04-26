@@ -27,7 +27,7 @@ export const Logoanimated = ({}) => {
             <CustomGeometryParticles
               fitToBox
               shape="square"
-              picture="/pictures/nobackground.png"
+              picture="/pictures/desktopLogo.png"
               animDuration={5}
             />
           </Suspense>

@@ -11,7 +11,7 @@ export const Footer = () => (
       </h2>
       <div className="relative m-4">
         <UiButton
-          picture="/pictures/turqouis11Background.png"
+          picture="/pictures/desktopTransitionTexture.png"
           animDuration={0.6}
           camDistance={0.73}
           to={"mailto:mehdipopal@outlook.de"}
