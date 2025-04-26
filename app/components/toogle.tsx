@@ -21,7 +21,7 @@ export const Toggle = ({
 
   useEffect(() => {
     if (isOn) {
-      setTimeout(() => setIsVisible(false), 400);
+      setTimeout(() => setIsVisible(false), 300);
     }
   }, [isOn]);
 
