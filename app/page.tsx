@@ -126,8 +126,6 @@ export default function Home() {
         </div>
       </div>
       <div className="hidden md:block spacer w-full m-16"></div>
-      {/*     <Work /> */}
-
       <div className="flex w-full md:h-20 justify-evenly mb-6">
         <h1
           id="experience"
@@ -149,6 +147,7 @@ export default function Home() {
           Work
         </h2>
       </div>
+      <Work />
       <div className="spacer w-full m-32"></div>
       <div className="flex w-full md:h-20 justify-evenly mb-6">
         <h1
