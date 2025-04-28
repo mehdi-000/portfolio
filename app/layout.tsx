@@ -9,7 +9,7 @@ import { Footer } from "@/app/components/footer";
 import { Analytics } from "@vercel/analytics/react";
 import { Providers } from "@/app/utils/providers";
 import { PostHogProvider } from "@/app/utils/ph-providers";
-import { DeviceOrientationProvider } from "@/app/components/hooks/DeviceOrientationContext";
+import { DeviceOrientationProvider } from "@/app/hooks/DeviceOrientationContext";
 
 const heebo = Heebo({ subsets: ["latin"], variable: "--font-heebo" });
 const iBMPlexSans = IBM_Plex_Sans({

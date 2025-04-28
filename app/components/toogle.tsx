@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useDeviceOrientationContext } from "@/app/hooks/DeviceOrientationContext";
 
 type ToggleProps = {
   isOn?: boolean;
@@ -13,10 +14,13 @@ export const Toggle = ({
 }: ToggleProps) => {
   const [isOn, setIsOn] = useState(isOnDefault);
   const [isVisible, setIsVisible] = useState(true);
+  const { requestAccess } = useDeviceOrientationContext();
 
-  const onToggle = () => {
-    setIsOn((prev) => !prev);
-    onChange?.(!isOn);
+  const onToggle = async () => {
+    const granted = await requestAccess();
+    if (granted) {
+      setIsOn(true);
+    }
   };
 
   useEffect(() => {

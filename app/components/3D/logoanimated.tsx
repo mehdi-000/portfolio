@@ -3,7 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { CustomGeometryParticles } from "@/app/components/3D/customGeometryParticles";
 import { Suspense, useEffect } from "react";
 import { Toggle } from "@/app/components/toogle";
-import { useDeviceOrientationContext } from "@/app/components/hooks/DeviceOrientationContext";
+import { useDeviceOrientationContext } from "@/app/hooks/DeviceOrientationContext";
 
 export const Logoanimated = ({}) => {
   const { orientation, requestAccess } = useDeviceOrientationContext();

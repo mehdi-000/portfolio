@@ -148,7 +148,7 @@ export const WorkCard = ({
             ],
           }}
         >
-          <CameraController />
+          {isMobile ? null : <CameraController />}
           {loadModel ? (
             <DynamicModel
               // @ts-ignore
