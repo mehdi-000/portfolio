@@ -9,7 +9,6 @@ import { Footer } from "@/app/components/footer";
 import { Analytics } from "@vercel/analytics/react";
 import { Providers } from "@/app/utils/providers";
 import { PostHogProvider } from "@/app/utils/ph-providers";
-import { DeviceOrientationProvider } from "@/app/hooks/DeviceOrientationContext";
 
 const heebo = Heebo({ subsets: ["latin"], variable: "--font-heebo" });
 const iBMPlexSans = IBM_Plex_Sans({
@@ -44,9 +43,7 @@ export default function RootLayout({
         className={`${pPMonumentExtendedBlack.variable} ${ubuntu.variable} ${heebo.variable} ${iBMPlexSans.variable} antialiased bg-black`}
       >
         <Providers>
-          <DeviceOrientationProvider>
-            <PostHogProvider>{children}</PostHogProvider>
-          </DeviceOrientationProvider>
+          <PostHogProvider>{children}</PostHogProvider>
         </Providers>
         <SpeedInsights />
         <Analytics />
