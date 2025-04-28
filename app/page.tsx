@@ -149,7 +149,6 @@ export default function Home() {
           Work
         </h2>
       </div>
-      <Work />
       <div className="spacer w-full m-32"></div>
       <div className="flex w-full md:h-20 justify-evenly mb-6">
         <h1
