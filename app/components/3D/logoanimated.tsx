@@ -1,9 +1,16 @@
 "use client";
 import { Canvas } from "@react-three/fiber";
 import { CustomGeometryParticles } from "@/app/components/3D/customGeometryParticles";
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 export const Logoanimated = ({}) => {
+  const handleLogoTouch = () => {
+    window.scrollTo({
+      top: window.innerHeight,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <>
       <div className="h-[95%] hidden md:block">
@@ -27,28 +34,26 @@ export const Logoanimated = ({}) => {
           <pointLight position={[-30, 0, -30]} power={10.0} />
         </Canvas>
       </div>
-      <div className="h-5/6 block md:hidden relative">
-        <div className="absolute inset-0 pointer-events-none">
-          <Canvas
-            fallback={<div>Sorry no WebGL supported!</div>}
-            shadows
-            camera={{
-              fov: 90,
-            }}
-          >
-            <Suspense fallback={null}>
-              <CustomGeometryParticles
-                shape="square"
-                picture="/pictures/mobileLogo.png"
-                isMobile
-                fitToBox
-              />
-            </Suspense>
+      <div className="h-5/6 block md:hidden" onTouchStart={handleLogoTouch}>
+        <Canvas
+          fallback={<div>Sorry no WebGL supported!</div>}
+          shadows
+          camera={{
+            fov: 90,
+          }}
+        >
+          <Suspense fallback={null}>
+            <CustomGeometryParticles
+              shape="square"
+              picture="/pictures/mobileLogo.png"
+              isMobile
+              fitToBox
+            />
+          </Suspense>
 
-            <directionalLight />
-            <pointLight position={[-30, 0, -30]} power={10.0} />
-          </Canvas>
-        </div>
+          <directionalLight />
+          <pointLight position={[-30, 0, -30]} power={10.0} />
+        </Canvas>
       </div>
     </>
   );

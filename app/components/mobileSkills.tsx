@@ -19,17 +19,14 @@ export const MobileSkills = () => {
       ]}
       className="w-full max-w-screen-xl"
     >
-      <CarouselContent className="-ml-1">
+      <CarouselContent className="">
         {iconsArray.map(([name, Icon], index) => (
-          <CarouselItem
-            key={index}
-            className="pl-1 sm:basis-1/4 basis-1/3 md:basis-1/6"
-          >
-            <div className="p-3">
+          <CarouselItem key={index} className="sm:basis-1/6 basis-[14%]">
+            <div className="p-0.5 sm:p-3">
               <Card className="border-2 border-pink/5 bg-inherit h-full">
-                <CardContent className="flex flex-col items-center justify-center h-full py-6 px-2 gap-2">
-                  <div className="text-4xl text-white">{Icon}</div>
-                  <div className="text-sm text-white font-heebo text-center">
+                <CardContent className="flex flex-col items-center justify-center h-full py-4 sm:py-6 px-2 gap-2">
+                  <div className="text-3xl sm:text-4xl text-white">{Icon}</div>
+                  <div className="text-xs sm:text-sm text-white font-heebo text-center">
                     {name}
                   </div>
                 </CardContent>
