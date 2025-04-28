@@ -23,7 +23,7 @@ export const MobileSkills = () => {
         {iconsArray.map(([name, Icon], index) => (
           <CarouselItem
             key={index}
-            className="pl-1 sm:basis-1/4 basis-1/2 md:basis-1/6"
+            className="pl-1 sm:basis-1/4 basis-1/3 md:basis-1/6"
           >
             <div className="p-3">
               <Card className="border-2 border-pink/5 bg-inherit h-full">
