@@ -117,6 +117,7 @@ export const CartComponent = ({}) => {
         <CameraControls
           ref={cameraControlsRef}
           mouseButtons={{ left: 0, middle: 0, right: 0, wheel: 0 }}
+          touches={{ one: 0, three: 0, two: 0 }}
         />
         <Environment preset="apartment" background backgroundBlurriness={0.5} />
         <ambientLight intensity={0.5} />

@@ -100,6 +100,7 @@ const Particles = ({
           right: 0,
           wheel: 0,
         }}
+        touches={{ one: 0, three: 0, two: 0 }}
       />
 
       <bufferGeometry>
