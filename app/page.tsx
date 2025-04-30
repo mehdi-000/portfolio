@@ -16,7 +16,6 @@ const DynamicSkillGame = dynamic(
 export default function Home() {
   const ref = useRef<HTMLDivElement | null>(null);
   const [load, setLoad] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     if (!ref.current) return;
@@ -142,7 +141,6 @@ export default function Home() {
           Work
         </h2>
       </div>
-      <Work />
       <div className="spacer w-full m-32"></div>
       <div className="flex w-full md:h-20 justify-evenly mb-6">
         <h1
