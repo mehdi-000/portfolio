@@ -33,11 +33,6 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    const timeout = setTimeout(() => setIsVisible(true), 10000);
-    return () => clearTimeout(timeout);
-  }, []);
-
   return (
     <main className="flex flex-col items-center justify-between overflow-hidden p-10 bg-[#070707] text-white font-mono">
       <div className="w-screen h-screen relative">

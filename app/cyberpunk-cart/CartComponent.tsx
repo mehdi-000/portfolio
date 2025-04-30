@@ -125,17 +125,10 @@ export const CartComponent = ({}) => {
           <Model ref={carRef} />
         </Suspense>
         <gridHelper position={-0.5} args={[50, 50, 0xc977c7, "teal"]} />
-        <ViewportInfo />
       </Canvas>
       <div className="md:max-w-45 md:pt-0 md:pl-2 pt-2">
         <Leva titleBar={{ drag: false }} fill />
       </div>
     </div>
   );
-};
-const ViewportInfo = () => {
-  const { viewport } = useThree();
-  const isMobile = viewport.width < 10;
-
-  return null;
 };

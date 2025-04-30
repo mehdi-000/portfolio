@@ -56,7 +56,6 @@ export const WorkCard = ({
   const DynamicModel = dynamic(() => import(`@/public/model/${Model}`));
   const { contextSafe } = useGSAP();
   const tl = useRef<gsap.core.Timeline>(null);
-  const tl2 = useRef<gsap.core.Timeline>(null);
   const router = useTransitionRouter();
 
   useEffect(() => {
@@ -78,18 +77,11 @@ export const WorkCard = ({
   };
 
   useEffect(() => {
-    if (!ref.current) return;
+    if (!ref.current || isMobile) return;
 
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
         setLoadModel(true);
-        if (isMobile && modelRef.current) {
-          gsap.fromTo(
-            modelRef.current?.scale,
-            { x: 0, y: 0, z: 0 },
-            { x: 1, y: 1, z: 1 }
-          );
-        }
         observer.disconnect();
       }
     });
@@ -97,11 +89,9 @@ export const WorkCard = ({
     observer.observe(ref.current);
 
     return () => observer.disconnect();
-  });
+  }, [isMobile]);
 
   const hover = contextSafe(() => {
-    if (isMobile) return;
-    if (tl2.current) tl2.current.play();
     tl.current = gsap
       .timeline()
       .fromTo(
@@ -112,15 +102,13 @@ export const WorkCard = ({
   });
 
   const unhover = contextSafe(() => {
-    if (isMobile) return;
-    if (tl2.current) tl2.current.reverse(0.3);
-    tl.current?.reverse();
+    if (tl.current) tl.current.reverse(0.3);
   });
 
   return (
     <div
-      onPointerEnter={hover}
-      onPointerLeave={unhover}
+      onPointerEnter={isMobile ? undefined : hover}
+      onPointerLeave={isMobile ? undefined : unhover}
       className="relative font-ubuntu my-4 md:my-6 max-w-xl max-h-[600px] justify-center [box-shadow:0_-10px_50px_-10px_#ffffff1f_inset] [border:1px_solid_rgba(255,255,255,.1)] flex flex-col items-center bg-gradient-to-br from-purple-800/5 to-cyan-400/5 backdrop-blur-md pt-4 px-4 rounded-2xl shadow-lg border-pink/5 border-2 text-white w-full mx-auto group overflow-hidden hover:cursor-pointer"
     >
       <div className="absolute inset-0 z-50">
@@ -138,7 +126,7 @@ export const WorkCard = ({
               // @ts-ignore
               ref={modelRef}
               disableMobileScaling
-              scale={[0, 0, 0]}
+              scale={[1, 1, 1]}
             />
           ) : loadModel ? (
             <DynamicModel
