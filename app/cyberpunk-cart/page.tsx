@@ -12,15 +12,12 @@ export default function CyberpunkCar() {
       <div className="md:hidden block w-10/12 ">
         <ImageCarousel
           imagesPath={[
-            "add_family_dark.png",
-            "add_familytree_dark.png",
-            "choose_familytree_dark.png",
-            "choose_familytree_light.png",
-            "familytree_dark.png",
-            "familytree_light.png",
-            "map_light.png",
+            "cart_render_lback.png",
+            "cart_render_lfront.png",
+            "cart_render_lside.png",
+            "cart_render_rback.png",
           ]}
-          directoryPath="legacy-lines"
+          directoryPath="cart"
         />
       </div>
       <div className="h-full w-3/5 hidden md:block">
