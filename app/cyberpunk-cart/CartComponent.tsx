@@ -117,6 +117,7 @@ export const CartComponent = ({}) => {
         <CameraControls
           ref={cameraControlsRef}
           mouseButtons={{ left: 0, middle: 0, right: 0, wheel: 0 }}
+          touches={{ one: 0, three: 0, two: 0 }}
         />
         <Environment preset="apartment" background backgroundBlurriness={0.5} />
         <ambientLight intensity={0.5} />
@@ -124,7 +125,6 @@ export const CartComponent = ({}) => {
           <Model ref={carRef} />
         </Suspense>
         <gridHelper position={-0.5} args={[50, 50, 0xc977c7, "teal"]} />
-        <ViewportInfo />
       </Canvas>
       <div className="md:max-w-45 md:pt-0 md:pl-2 pt-2">
         <Leva titleBar={{ drag: false }} fill />
@@ -132,9 +132,4 @@ export const CartComponent = ({}) => {
     </div>
   );
 };
-const ViewportInfo = () => {
-  const { viewport } = useThree();
-  const isMobile = viewport.width < 10;
-
-  return null;
-};
+export default CartComponent;

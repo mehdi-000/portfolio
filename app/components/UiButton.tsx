@@ -69,7 +69,6 @@ const Particles = ({
   vertices,
   initPosition,
   tl,
-  children,
 }: any) => {
   const cameraControlsRef = useRef<CameraControls>(null!);
   const points = useRef<THREE.Points>(null!);
@@ -100,6 +99,7 @@ const Particles = ({
           right: 0,
           wheel: 0,
         }}
+        touches={{ one: 0, three: 0, two: 0 }}
       />
 
       <bufferGeometry>
@@ -158,11 +158,7 @@ export const UiButton = ({
   const vertices: number[] = [];
   const initPosition: number[] = [];
   const tl = useRef<gsap.core.Timeline>(null);
-  const [container, setContainer] = useState<HTMLElement | null>(null);
   const router = useTransitionRouter();
-  useEffect(() => {
-    setContainer(document.body);
-  }, []);
 
   const generateParticlePositions = () => {
     const buttonWidth = 3;
@@ -193,18 +189,16 @@ export const UiButton = ({
 
   const handlePointerEnter = () => {
     if (tl.current) tl.current.play();
-    if (container) container.style.cursor = "pointer";
   };
 
   const handlePointerLeave = () => {
     if (tl.current) tl.current.reverse(0.3);
-    if (container) container.style.cursor = "auto";
   };
 
   return (
     <div
       className={cn(
-        "relative w-[9.5rem] h-16  overflow-hidden rounded-2xl",
+        "relative w-[9.5rem] h-16  overflow-hidden rounded-2xl hover:cursor-pointer",
         className
       )}
     >

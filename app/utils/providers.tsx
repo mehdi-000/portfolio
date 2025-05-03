@@ -65,7 +65,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       .multiply(new THREE.Matrix4().makeScale(6, 6, 6));
     geometry.applyMatrix4(transform);
     const sampler = new MeshSurfaceSampler(new THREE.Mesh(geometry)).build();
-    const count = 10000;
+    const count = 6500;
 
     const verts = new Float32Array(count * 3);
     const init = new Float32Array(count * 3);
@@ -195,6 +195,8 @@ const Scene = ({
           distance={cameraDistance}
           autoRotate
           autoRotateSpeed={3}
+          mouseButtons={{ LEFT: "", MIDDLE: "", RIGHT: "" }}
+          touches={{ ONE: "", TWO: "" }}
         />
         <bufferGeometry>
           <bufferAttribute

@@ -4,7 +4,13 @@ import { FaVuejs } from "react-icons/fa6";
 import { FaUnity } from "react-icons/fa";
 import { RiTailwindCssFill } from "react-icons/ri";
 import { PiFileCSharp } from "react-icons/pi";
-import { SiBlender, SiCinema4D, SiPrisma, SiAseprite } from "react-icons/si";
+import {
+  SiBlender,
+  SiCinema4D,
+  SiPrisma,
+  SiAseprite,
+  SiAdobeillustrator,
+} from "react-icons/si";
 import { GrMysql } from "react-icons/gr";
 
 export const techIcons = {
@@ -22,6 +28,29 @@ export const techIcons = {
   Aseprite: <SiAseprite />,
   MySQL: <GrMysql />,
 } as const;
+
+export const groupedTechIcons = {
+  Frontend: {
+    NextJs: <TbBrandNextjs />,
+    React: <FaReact />,
+    TypeScript: <TbBrandTypescript />,
+    VueJs: <FaVuejs />,
+    TailwindCSS: <RiTailwindCssFill />,
+  },
+  Backend: {
+    NodeJs: <FaNodeJs />,
+    Prisma: <SiPrisma />,
+    MySQL: <GrMysql />,
+    CSharp: <PiFileCSharp />,
+  },
+  Tools: {
+    Unity: <FaUnity />,
+    Blender: <SiBlender />,
+    Cinema4D: <SiCinema4D />,
+    Aseprite: <SiAseprite />,
+    Illustrator: <SiAdobeillustrator />,
+  },
+};
 
 export type TechName = keyof typeof techIcons;
 

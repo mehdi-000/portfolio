@@ -75,6 +75,7 @@ export const CustomGeometryParticles = (props: any) => {
             ? { left: 0, middle: 0, right: 0, wheel: 0 }
             : { left: 4, middle: 0, right: 0, wheel: 0 }
         }
+        touches={{ one: 0, three: 0, two: 0 }}
       />
       <bufferGeometry>
         <bufferAttribute

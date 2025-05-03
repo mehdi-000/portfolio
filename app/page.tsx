@@ -7,6 +7,7 @@ import { Experience } from "@/app/components/experience";
 import Image from "next/image";
 import { Work } from "@/app/components/work";
 import { MobileSkills } from "@/app/components/mobileSkills";
+import { MobileWork } from "@/app/components/workMobile";
 
 const DynamicSkillGame = dynamic(
   () => import("@/app/components/3D/skillsGame"),
@@ -16,7 +17,7 @@ const DynamicSkillGame = dynamic(
 export default function Home() {
   const ref = useRef<HTMLDivElement | null>(null);
   const [load, setLoad] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     if (!ref.current) return;
@@ -34,8 +35,9 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const timeout = setTimeout(() => setIsVisible(true), 10000);
-    return () => clearTimeout(timeout);
+    if (window.innerWidth < 768) {
+      setIsMobile(true);
+    }
   }, []);
 
   return (
@@ -126,8 +128,6 @@ export default function Home() {
         </div>
       </div>
       <div className="hidden md:block spacer w-full m-16"></div>
-      {/*     <Work /> */}
-
       <div className="flex w-full md:h-20 justify-evenly mb-6">
         <h1
           id="experience"
@@ -149,7 +149,8 @@ export default function Home() {
           Work
         </h2>
       </div>
-      <Work />
+      {isMobile ? <MobileWork /> : <Work />}
+
       <div className="spacer w-full m-32"></div>
       <div className="flex w-full md:h-20 justify-evenly mb-6">
         <h1
@@ -159,18 +160,21 @@ export default function Home() {
           Skills
         </h1>
       </div>
-      <div className="pt-10 block md:hidden">
-        <MobileSkills />
-      </div>
-      <div className="z-10 md:w-[96%] items-center md:flex">
-        <div className=" hidden bg-gradient-to-br from-purple-800/5 to-cyan-400/5 w-full border-2 border-pink/5 rounded-2xl md:py-6 md:px-10 py-4 px-4 shadow-black/80 md:flex flex-col items-center justify-center gap-6 cursor-none">
-          <div className="w-full bg-gradient-to-br from-purple-800/5 to-cyan-400/5 border-2 border-pink/5 rounded-2xl md:p-6 shadow-lg flex flex-col md:flex-row items-center justify-center gap-8">
-            <div className="w-full md:h-[65vh]" ref={ref}>
-              {load ? <DynamicSkillGame /> : null}
+      {isMobile ? (
+        <div className="pt-10">
+          <MobileSkills />
+        </div>
+      ) : (
+        <div className="z-10 md:w-[96%] items-center md:flex">
+          <div className=" hidden bg-gradient-to-br from-purple-800/5 to-cyan-400/5 w-full border-2 border-pink/5 rounded-2xl md:py-6 md:px-10 py-4 px-4 shadow-black/80 md:flex flex-col items-center justify-center gap-6 cursor-none">
+            <div className="w-full bg-gradient-to-br from-purple-800/5 to-cyan-400/5 border-2 border-pink/5 rounded-2xl md:p-6 shadow-lg flex flex-col md:flex-row items-center justify-center gap-8">
+              <div className="w-full md:h-[65vh]" ref={ref}>
+                {load ? <DynamicSkillGame /> : null}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </main>
   );
 }

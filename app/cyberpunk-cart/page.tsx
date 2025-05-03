@@ -1,15 +1,17 @@
 "use client";
 import { Navbar } from "../components/navbar";
 import { CartComponent } from "./CartComponent";
-import "../components/workCard.css";
 import { UsedTechList } from "@/app/components/usedTechList";
+import { ImageCarousel } from "@/app/components/imageCarousel";
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 
 export default function CyberpunkCar() {
   return (
     <main className="flex flex-col items-center justify-between overflow-hidden p-10 font- bg-[#070707] text-white">
       <Navbar />
       <div className="w-full h-14" />
-      <div className="h-full w-3/5">
+      <div className="h-full w-3/5 hidden md:block">
         <CartComponent />
       </div>
       <div className="w-full h-14" />
