@@ -3,26 +3,36 @@ import { Navbar } from "../components/navbar";
 import { CartComponent } from "./CartComponent";
 import { UsedTechList } from "@/app/components/usedTechList";
 import { ImageCarousel } from "@/app/components/imageCarousel";
+import { useEffect, useState } from "react";
 
 export default function CyberpunkCar() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (window.innerWidth < 768) setIsMobile(true);
+  }, []);
+
   return (
     <main className="flex flex-col items-center justify-between overflow-hidden p-10 font- bg-[#070707] text-white">
       <Navbar />
       <div className="w-full h-14" />
-      <div className="md:hidden block w-10/12 ">
-        <ImageCarousel
-          imagesPath={[
-            "cart_render_lback.png",
-            "cart_render_lfront.png",
-            "cart_render_lside.png",
-            "cart_render_rback.png",
-          ]}
-          directoryPath="cart"
-        />
-      </div>
-      <div className="h-full w-3/5 hidden md:block">
-        <CartComponent />
-      </div>
+      {isMobile ? (
+        <div className="w-10/12 ">
+          <ImageCarousel
+            imagesPath={[
+              "cart_render_lback.png",
+              "cart_render_lfront.png",
+              "cart_render_lside.png",
+              "cart_render_rback.png",
+            ]}
+            directoryPath="cart"
+          />
+        </div>
+      ) : (
+        <div className="h-full w-3/5 hidden md:block">
+          <CartComponent />
+        </div>
+      )}
       <div className="w-full h-14" />
       <div className="md:w-2/5 font-heebo">
         <div className="bg-[#070707] pb-6 pt-4 px-6 rounded-xl bg-gradient-to-br from-purple-800/5 to-cyan-400/5 border-2 border-pink/5  shadow-md ">
