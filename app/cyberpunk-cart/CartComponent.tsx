@@ -132,3 +132,4 @@ export const CartComponent = ({}) => {
     </div>
   );
 };
+export default CartComponent;

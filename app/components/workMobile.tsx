@@ -25,7 +25,7 @@ export const MobileWork = () => {
           title="Cyberpunk Cart"
           description="Low-poly modeled & rigged Cyberpunk cart"
           usedTechnology={["Blender", "Cinema4D"]}
-          to={"/cyberpunk-cart"}
+          to={"/cyberpunk-cart-mobile"}
         />
         <WorkCard
           src="/pictures/legacy-lines/familytree_dark.png"
