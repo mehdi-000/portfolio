@@ -3,7 +3,7 @@ import { Canvas, useThree } from "@react-three/fiber";
 import { Text3D, useGLTF, Text, Center } from "@react-three/drei";
 import { Float } from "@react-three/drei";
 import { MeshTransmissionMaterial } from "@react-three/drei";
-import { useRef, useState } from "react";
+import { Suspense, useRef, useState } from "react";
 import * as THREE from "three";
 import { useRouter } from "next/navigation";
 import gsap from "gsap";
@@ -20,28 +20,24 @@ function useBreakpoints() {
 }
 
 export default function NotFound() {
-  const [cursorStyle, setCursorStyle] = useState<React.CSSProperties>({
-    cursor: "default",
-  });
-
   return (
     <div className="w-screen h-screen">
       <Canvas
-        style={cursorStyle}
+        dpr={[1, 1.5]}
+        shadows={false}
+        gl={{ antialias: false, powerPreference: "high-performance" }}
         fallback={<div>Sorry no WebGL supported!</div>}
       >
         <color attach="background" args={["#000000"]} />
-        <Model setCursorStyle={setCursorStyle} />
+        <Suspense>
+          <Model />
+        </Suspense>
       </Canvas>
     </div>
   );
 }
 
-function Model({
-  setCursorStyle,
-}: {
-  setCursorStyle: React.Dispatch<React.SetStateAction<React.CSSProperties>>;
-}) {
+function Model({}) {
   const { nodes } = useGLTF("/404_broken_glass_separated.glb");
   const ref = useRef<THREE.Mesh>(null);
   const router = useRouter();
@@ -69,7 +65,7 @@ function Model({
   ].filter((curve): curve is string => curve !== null);
 
   const handleHover = contextSafe((element: HTMLAnchorElement | null) => {
-    setCursorStyle({ cursor: "pointer" });
+    document.body.style.cursor = "pointer";
     if (element) {
       gsap.to(element, {
         fontSize: isMobile ? 0.28 : 0.37,
@@ -81,7 +77,7 @@ function Model({
   });
 
   const handleHoverOut = contextSafe((element: HTMLAnchorElement | null) => {
-    setCursorStyle({ cursor: "default" });
+    document.body.style.cursor = "default";
     if (element) {
       gsap.to(element, {
         fontSize: isMobile ? 0.27 : 0.36,
@@ -167,8 +163,8 @@ function Model({
                     ? new THREE.Color("#f22e8d")
                     : new THREE.Color("#ab2668")
                 }
-                samples={32}
-                resolution={1024}
+                samples={4}
+                resolution={160}
                 thickness={1.8}
                 ior={1.45}
                 chromaticAberration={0.1}
@@ -203,4 +199,4 @@ function Model({
   );
 }
 
-useGLTF.preload("/404_broken_glass_separated.glb");
+useGLTF.preload("/404_broken_glass_separated-transformed.glb");

@@ -1,5 +1,6 @@
 import { Navbar } from "@/app/components/navbar";
 import { UsedTechList } from "@/app/components/usedTechList";
+import { ImageCarousel } from "@/app/components/imageCarousel";
 
 export default function Wotw() {
   return (
@@ -7,13 +8,19 @@ export default function Wotw() {
       <main className="flex flex-col items-center justify-between overflow-hidden p-10 font- bg-[#070707] text-white">
         <Navbar />
         <div className="w-full h-14" />
-        <div className="md:hidden block w-full text-center p-6 border-2 border-pink/5  shadow-md rounded-2xl">
-          <p className="text-lg md:text-xl leading-relaxed">
-            Unfortunately, Unity currently doesn&apos;t support mobile browser
-            games. Resulting in this screen, the game is only playable on
-            desktop computers for now. However, a mobile version for both the
-            App Store and Google Play is planned.
-          </p>
+        <div className="md:hidden block w-10/12 ">
+          <ImageCarousel
+            imagesPath={[
+              "ancient_egypt_t.png",
+              "cyberpunk_v.png",
+              "game_tutorial.png",
+              "intro.png",
+              "middle_ages_intro.png",
+              "portal_menu.png",
+              "titlescreen.png",
+            ]}
+            directoryPath="wotw"
+          />
         </div>
         <iframe
           className="hidden md:block"
