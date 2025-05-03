@@ -1,15 +1,26 @@
 "use client";
 import { Navbar } from "../components/navbar";
 import { CartComponent } from "./CartComponent";
-import "../components/workCard.css";
 import { UsedTechList } from "@/app/components/usedTechList";
+import { ImageCarousel } from "@/app/components/imageCarousel";
 
 export default function CyberpunkCar() {
   return (
     <main className="flex flex-col items-center justify-between overflow-hidden p-10 font- bg-[#070707] text-white">
       <Navbar />
       <div className="w-full h-14" />
-      <div className="h-full w-3/5">
+      <div className="md:hidden block w-10/12 ">
+        <ImageCarousel
+          imagesPath={[
+            "cart_render_lback.png",
+            "cart_render_lfront.png",
+            "cart_render_lside.png",
+            "cart_render_rback.png",
+          ]}
+          directoryPath="legacy-lines"
+        />
+      </div>
+      <div className="h-full w-3/5 hidden md:block">
         <CartComponent />
       </div>
       <div className="w-full h-14" />
