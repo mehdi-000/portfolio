@@ -33,26 +33,22 @@ export const CustomGeometryParticles = (props: any) => {
     }
   }, []);
 
-  const targetRef = useRef(new THREE.Vector3());
-
   useEffect(() => {
     if (isMobile && orientation && cameraControlsRef.current) {
       const { beta, gamma } = orientation;
 
-      const xOffset = -(gamma || 0) * 0.3;
-      const yOffset = -(beta || 0) * 0.3;
+      const xOffset = -(gamma || 0) * 0.13;
+      const yOffset = -(beta || 0) * 0.13;
 
-      const desiredTarget = new THREE.Vector3(
+      const newPosition = new THREE.Vector3(
         cameraTarget.x + xOffset,
-        cameraTarget.y + yOffset,
-        cameraTarget.z
+        cameraTarget.y + yOffset
       );
-      targetRef.current.lerp(desiredTarget, 0.1);
 
       cameraControlsRef.current.setTarget(
-        targetRef.current.x,
-        targetRef.current.y,
-        targetRef.current.z,
+        newPosition.x,
+        newPosition.y,
+        newPosition.z,
         true
       );
     }
