@@ -37,9 +37,9 @@ export const CustomGeometryParticles = (props: any) => {
     if (isMobile && orientation && cameraControlsRef.current) {
       const { alpha, beta, gamma } = orientation;
 
-      const xOffset = (gamma || 0) * 0.1;
-      const yOffset = (beta || 0) * 0.1;
-      const zOffset = (alpha || 0) * 0.1;
+      const xOffset = -(gamma || 0) * 0.3;
+      const yOffset = -(beta || 0) * 0.3;
+      const zOffset = -(alpha || 0) * 0.3;
 
       const newPosition = new THREE.Vector3(
         cameraTarget.x + xOffset,
