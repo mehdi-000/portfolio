@@ -4,6 +4,7 @@ import { Text3D, useGLTF, Text, Center } from "@react-three/drei";
 import { Float } from "@react-three/drei";
 import { MeshTransmissionMaterial } from "@react-three/drei";
 import { Suspense, useRef, useState } from "react";
+import { Suspense, useRef, useState } from "react";
 import * as THREE from "three";
 import { useRouter } from "next/navigation";
 import gsap from "gsap";
@@ -26,9 +27,15 @@ export default function NotFound() {
         dpr={[1, 1.5]}
         shadows={false}
         gl={{ antialias: false, powerPreference: "high-performance" }}
+        dpr={[1, 1.5]}
+        shadows={false}
+        gl={{ antialias: false, powerPreference: "high-performance" }}
         fallback={<div>Sorry no WebGL supported!</div>}
       >
         <color attach="background" args={["#000000"]} />
+        <Suspense>
+          <Model />
+        </Suspense>
         <Suspense>
           <Model />
         </Suspense>
@@ -37,6 +44,7 @@ export default function NotFound() {
   );
 }
 
+function Model({}) {
 function Model({}) {
   const { nodes } = useGLTF("/404_broken_glass_separated.glb");
   const ref = useRef<THREE.Mesh>(null);
@@ -66,6 +74,7 @@ function Model({}) {
 
   const handleHover = contextSafe((element: HTMLAnchorElement | null) => {
     document.body.style.cursor = "pointer";
+    document.body.style.cursor = "pointer";
     if (element) {
       gsap.to(element, {
         fontSize: isMobile ? 0.28 : 0.37,
@@ -77,6 +86,7 @@ function Model({}) {
   });
 
   const handleHoverOut = contextSafe((element: HTMLAnchorElement | null) => {
+    document.body.style.cursor = "default";
     document.body.style.cursor = "default";
     if (element) {
       gsap.to(element, {
@@ -199,4 +209,5 @@ function Model({}) {
   );
 }
 
+useGLTF.preload("/404_broken_glass_separated-transformed.glb");
 useGLTF.preload("/404_broken_glass_separated-transformed.glb");
