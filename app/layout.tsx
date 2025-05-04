@@ -11,11 +11,7 @@ import { Providers } from "@/app/utils/providers";
 import { PostHogProvider } from "@/app/utils/ph-providers";
 
 const heebo = Heebo({ subsets: ["latin"], variable: "--font-heebo" });
-const iBMPlexSans = IBM_Plex_Sans({
-  weight: "600",
-  subsets: ["latin"],
-  variable: "--font-iBMPlexSans",
-});
+
 const ubuntu = Ubuntu({
   subsets: ["latin"],
   weight: "500",
@@ -40,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${pPMonumentExtendedBlack.variable} ${ubuntu.variable} ${heebo.variable} ${iBMPlexSans.variable} antialiased bg-black`}
+        className={`${pPMonumentExtendedBlack.variable} ${ubuntu.variable} ${heebo.variable} antialiased bg-black`}
       >
         <Providers>
           <PostHogProvider>{children}</PostHogProvider>
