@@ -178,7 +178,7 @@ export const UiButton = ({
 
         if (!isWithinRoundedCorner) {
           vertices.push(x, y, 0);
-          const initPositionpoints = [x, y, randFloat(0, 200)];
+          const initPositionpoints = [x, y, randFloat(0, 50)];
           initPosition.push(...initPositionpoints);
         }
       }

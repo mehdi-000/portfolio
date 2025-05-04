@@ -120,7 +120,7 @@ export const SkillsGame = () => {
     scene.add(tubeHitArea);
     const boxGroup = new THREE.Group();
     scene.add(boxGroup);
-    const numButterflies = 100;
+    const numButterflies = 50;
 
     for (let i = 0; i < numButterflies; i++) {
       const p = (i / numButterflies + Math.random() * 0.9) % 1;

@@ -164,7 +164,7 @@ function Model({}) {
                     : new THREE.Color("#ab2668")
                 }
                 samples={4}
-                resolution={160}
+                resolution={100}
                 thickness={1.8}
                 ior={1.45}
                 chromaticAberration={0.1}
@@ -175,7 +175,7 @@ function Model({}) {
                 clearcoat={1}
                 attenuationDistance={1}
                 attenuationColor={new THREE.Color("#00ffff")}
-                color={isMobile ? "#f22e8d" : "#26abab"}
+                color={"#26abab"}
                 roughness={0.1}
               />
             </mesh>
