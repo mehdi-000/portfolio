@@ -39,12 +39,10 @@ export const CustomGeometryParticles = (props: any) => {
 
       const xOffset = -(gamma || 0) * 0.3;
       const yOffset = -(beta || 0) * 0.3;
-      const zOffset = -(alpha || 0) * 0.3;
 
       const newPosition = new THREE.Vector3(
         cameraTarget.x + xOffset,
-        cameraTarget.y + yOffset,
-        cameraTarget.z + zOffset
+        cameraTarget.y + yOffset
       );
 
       cameraControlsRef.current.setTarget(
