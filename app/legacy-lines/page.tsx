@@ -87,7 +87,11 @@ export default function LegacyLines() {
           </p>
         </div>
         <div className="w-full h-4" />
-
+        <h2 className="text-xl font-bold">Where can I access the page?</h2>
+        <p className="text-gray-300 text-sm leading-relaxed my-4">
+          I used to have it linked here, but I&apos;m currently working on
+          improvements. I&apos;ll put it back up once it&apos;s finished.
+        </p>
         <h2 className="text-xl font-bold">
           Why can&apos;t I see any family trees?
         </h2>

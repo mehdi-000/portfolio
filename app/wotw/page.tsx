@@ -88,10 +88,10 @@ export default function Wotw() {
               <strong>Ink</strong>
             </a>
             , complex item logic, and narrative mini-game. Think{" "}
-            <em>Zelda: Breath of the Wild&apos;s</em> &quot;one goal, infinite
-            ways to get there&quot; vibe mixed with a dating sim parody.
+            <em>Zelda: Breath of the Wild&apos;s</em> &quot; game design: one
+            goal, infinite ways to get there&quot;mixed with a dating sim
+            parody.
           </p>
-
           <h2 className="text-xl font-bold mt-6">
             Why not just use Ren&apos;Py?
           </h2>
@@ -119,7 +119,7 @@ export default function Wotw() {
           </p>
           <p className="leading-relaxed text-gray-200 text-base">
             Time travel. Date across dimensions. Break history to fix the future
-            and maybe fall in love — one bad decision at a time.
+            and maybe fall in love...
           </p>
         </div>
       </main>

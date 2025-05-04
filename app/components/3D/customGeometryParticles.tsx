@@ -10,7 +10,8 @@ import { fragment } from "@/app/utils/fragment";
 import { vertex } from "@/app/utils/vertex";
 
 export const CustomGeometryParticles = (props: any) => {
-  const { shape, picture, isMobile, animDuration, camDistance } = props;
+  const { shape, picture, isMobile, animDuration, camDistance, orientation } =
+    props;
 
   const cameraControlsRef = useRef<CameraControls>(null!);
   const points = useRef<THREE.Points>(null!);
@@ -31,6 +32,27 @@ export const CustomGeometryParticles = (props: any) => {
       setCameraTarget(position);
     }
   }, []);
+
+  useEffect(() => {
+    if (isMobile && orientation && cameraControlsRef.current) {
+      const { beta, gamma } = orientation;
+
+      const xOffset = -(gamma || 0) * 0.13;
+      const yOffset = -(beta || 0) * 0.13;
+
+      const newPosition = new THREE.Vector3(
+        cameraTarget.x + xOffset,
+        cameraTarget.y + yOffset
+      );
+
+      cameraControlsRef.current.setTarget(
+        newPosition.x,
+        newPosition.y,
+        newPosition.z,
+        true
+      );
+    }
+  }, [orientation, isMobile, cameraTarget]);
 
   const texture = useTexture(picture ?? "/pictures/2.png");
   const rows = isMobile ? 8 * 24 : 16 * 24;

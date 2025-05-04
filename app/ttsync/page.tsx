@@ -49,9 +49,9 @@ export default function Ttsync() {
             <p className="text-gray-400 text-sm mt-9 mb-2">
               <em>Time Travel Sync</em> initially developed while working on a
               minigame in <em>Way of the Warrior</em> The minigame expanded in
-              complexity and depth. is procedurally generated endless runner
-              emphasizing on fluid gameplay which has a stronger learning curve
-              then expected.
+              complexity and depth. It is a procedurally generated endless
+              runner emphasizing on fluid gameplay which has a stronger learning
+              curve then expected.
             </p>
           </div>
           <div className="w-full h-4" />
