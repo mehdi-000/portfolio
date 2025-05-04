@@ -1,7 +1,15 @@
 "use client";
 import { Navbar } from "@/app/components/navbar";
 import { UsedTechList } from "@/app/components/usedTechList";
-import { ImageCarousel } from "@/app/components/imageCarousel";
+import Image from "next/image";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function CyberpunkCar() {
   return (
@@ -9,15 +17,40 @@ export default function CyberpunkCar() {
       <Navbar />
       <div className="w-full h-14" />
       <div className="w-10/12 ">
-        <ImageCarousel
-          imagesPath={[
-            "cart_render_lback.png",
-            "cart_render_lfront.png",
-            "cart_render_lside.png",
-            "cart_render_rback.png",
-          ]}
-          directoryPath="cart"
-        />
+        <Carousel
+          opts={{ loop: true }}
+          className="w-full max-w-(--breakpoint-xl)"
+        >
+          <CarouselContent className="-ml-1">
+            {[
+              "cart_render_lback.png",
+              "cart_render_lfront.png",
+              "cart_render_lside.png",
+              "cart_render_rback.png",
+            ].map((filename, index) => (
+              <CarouselItem
+                key={index}
+                className="pl-1 basis-full sm:basis-1/2 md:basis-1/2"
+              >
+                <div className="p-3">
+                  <Card className="border-2 border-pink/5 bg-inherit h-full">
+                    <CardContent className="relative h-56 sm:h-64 md:h-80 w-full">
+                      <Image
+                        src={`/pictures/cart/${filename}`}
+                        alt={filename}
+                        fill
+                        className="rounded-2xl"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+                    </CardContent>
+                  </Card>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="bg-inherit border-2 border-pink/5 hover:bg-[#38B9D6]" />
+          <CarouselNext className="bg-inherit border-2 border-pink/5 hover:bg-[#38B9D6]" />
+        </Carousel>
       </div>
       <div className="w-full h-14" />
       <div className="md:w-2/5 font-heebo">
