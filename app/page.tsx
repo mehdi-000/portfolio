@@ -8,14 +8,6 @@ import Image from "next/image";
 import { Work } from "@/app/components/work";
 import { MobileSkills } from "@/app/components/mobileSkills";
 import { MobileWork } from "@/app/components/workMobile";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel";
-import { Card, CardContent } from "@/components/ui/card";
-import Autoscroll from "embla-carousel-auto-scroll";
-import { techIcons } from "@/app/components/usedTechList";
 
 const DynamicSkillGame = dynamic(
   () => import("@/app/components/3D/skillsGame"),
@@ -173,48 +165,15 @@ export default function Home() {
           <MobileSkills />
         </div>
       ) : (
-        <>
-          <div className="z-10 md:w-[96%] items-center md:flex">
-            <div className=" hidden bg-gradient-to-br from-purple-800/5 to-cyan-400/5 w-full border-2 border-pink/5 rounded-2xl md:py-6 md:px-10 py-4 px-4 shadow-black/80 md:flex flex-col items-center justify-center gap-6 cursor-none">
-              <div className="w-full bg-gradient-to-br from-purple-800/5 to-cyan-400/5 border-2 border-pink/5 rounded-2xl md:p-6 shadow-lg flex flex-col md:flex-row items-center justify-center gap-8">
-                <div className="w-full md:h-[65vh]" ref={ref}>
-                  {load ? <DynamicSkillGame /> : null}
-                </div>
+        <div className="z-10 md:w-[96%] items-center md:flex">
+          <div className=" hidden bg-gradient-to-br from-purple-800/5 to-cyan-400/5 w-full border-2 border-pink/5 rounded-2xl md:py-6 md:px-10 py-4 px-4 shadow-black/80 md:flex flex-col items-center justify-center gap-6 cursor-none">
+            <div className="w-full bg-gradient-to-br from-purple-800/5 to-cyan-400/5 border-2 border-pink/5 rounded-2xl md:p-6 shadow-lg flex flex-col md:flex-row items-center justify-center gap-8">
+              <div className="w-full md:h-[65vh]" ref={ref}>
+                {load ? <DynamicSkillGame /> : null}
               </div>
             </div>
           </div>
-          <Carousel
-            opts={{ loop: true }}
-            plugins={[
-              Autoscroll({
-                stopOnMouseEnter: true,
-                stopOnInteraction: false,
-                speed: 0.8,
-              }),
-            ]}
-            className="w-full max-w-(--breakpoint-xl)"
-          >
-            <CarouselContent className="-ml-1">
-              {Object.entries(techIcons).map(([name, Icon], index) => (
-                <CarouselItem
-                  key={index}
-                  className="pl-1 basis-1/2 sm:basis-1/4 md:basis-1/6"
-                >
-                  <div className="p-3">
-                    <Card className="border-2 border-pink/5 bg-inherit h-full">
-                      <CardContent className="flex flex-col items-center justify-center h-full py-6 px-2 gap-2">
-                        <div className="text-4xl text-white">{Icon}</div>
-                        <div className="text-sm text-white font-heebo text-center">
-                          {name}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
-        </>
+        </div>
       )}
     </main>
   );
