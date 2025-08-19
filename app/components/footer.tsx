@@ -6,7 +6,7 @@ export const Footer = () => (
   <footer className="h-screen w-full bg-[#070707] flex flex-col overflow-hidden justify-center">
     <div className="h-14 w-full" />
     <div className="flex flex-col justify-center items-center w-full h-full overflow-hidden">
-      <h2 className="text-5xl font-extrabold tracking-wide bg-gradient-to-br from-purple-800 to-cyan-400 bg-clip-text text-transparent font-heebo text-center mb-4">
+      <h2 className="text-5xl font-extrabold tracking-wide bg-gradient-to-br from-purple-800 to-cyan-400 bg-clip-text text-transparent font-heebo text-center leading-relaxed">
         Let&apos;s work together.
       </h2>
       <div className="relative m-4">
