@@ -65,7 +65,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       .multiply(new THREE.Matrix4().makeScale(6, 6, 6));
     geometry.applyMatrix4(transform);
     const sampler = new MeshSurfaceSampler(new THREE.Mesh(geometry)).build();
-    const count = 6500;
+    const count = 3300;
 
     const verts = new Float32Array(count * 3);
     const init = new Float32Array(count * 3);
@@ -114,9 +114,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
           .fromTo(
             shader.current.uniforms.uProgress,
             { value: 0 },
-            { value: 1, duration: 3, ease: "slow(0.3,0.7,false)" }
+            { value: 1, duration: 2, ease: "slow(0.01,0.3,false)" }
           )
-          .to({}, { duration: 1 });
+          .to({}, { duration: 0.5 });
         return () => {
           tl.kill();
         };
@@ -222,7 +222,7 @@ const Scene = ({
         />
         <transitionMaterial
           ref={shaderRef}
-          uPointSize={3}
+          uPointSize={4}
           uTexture={texture ?? undefined}
           uNbLines={rows}
           uNbColumns={columns}
@@ -238,7 +238,7 @@ const Scene = ({
 
 const TransitionMaterial = shaderMaterial(
   {
-    uPointSize: 3,
+    uPointSize: 4,
     uTexture: new THREE.Texture(),
     uNbLines: 384,
     uNbColumns: 216,
